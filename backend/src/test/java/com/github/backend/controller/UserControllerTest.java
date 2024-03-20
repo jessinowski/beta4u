@@ -34,7 +34,7 @@ class UserControllerTest {
     }
 
     @Test
-    void getAllUsers_returnOneBoulder_whenCalled() throws Exception {
+    void getAllUsers_returnOne_whenCalled() throws Exception {
         //GIVEN
         User user= new User(
                 "22",
@@ -71,4 +71,6 @@ class UserControllerTest {
                 """))
                 .andReturn();
     }
+
+
 }
