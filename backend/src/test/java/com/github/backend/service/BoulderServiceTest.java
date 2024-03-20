@@ -29,6 +29,29 @@ class BoulderServiceTest {
     }
 
     @Test
+    void getAllBoulders_returnListOfOne_whenCalledWithOneBoulder(){
+        //GIVEN
+        List<Boulder> expected =List.of(new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE)));
+        when(repo.findAll()).thenReturn(expected);
+        //WHEN
+        List<Boulder> actual = service.getAllBoulders();
+        //THEN
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void getBoulderById_returnBoulderWithId1_whenCalledWithId1() {
         //GIVEN
         Boulder expected = new Boulder("1",
