@@ -33,8 +33,7 @@ class CommentControllerTest {
     @Test
     void getAllComments_returnOne_whenCalled() throws Exception {
         //GIVEN
-        Comment comment= new Comment("1", "Nice Slab", null,
-            null);
+        Comment comment= new Comment("1", "Nice Slab", null, null);
         repo.save(comment);
         //WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.get("/api/comments"))
