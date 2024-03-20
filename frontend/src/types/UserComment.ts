@@ -1,6 +1,8 @@
+import {User} from "./User.ts";
+
 export type UserComment={
     id: string;
     content: string;
-    userId: string;
+    user: User;
     date: string;
 }

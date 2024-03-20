@@ -1,3 +1,5 @@
+import {Boulder} from "./Boulder.ts";
+
 export type User={
     id: string;
     username: string;
@@ -6,8 +8,8 @@ export type User={
     homeGym: string;
     favoriteHolds: string[];
     favoriteStyles: string[];
-    myFavorites: string[];
-    myTops: string[];
-    myFlashes: string[];
-    myProjects: string[];
+    myFavorites: Boulder[];
+    myTops: Boulder[];
+    myFlashes: Boulder[];
+    myProjects: Boulder[];
 }

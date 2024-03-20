@@ -3,16 +3,16 @@ import axios from "axios";
 import {Boulder} from "./types/Boulder.ts";
 
 export default function App() {
-    const [boulderList, setBoulderList] = useState<Boulder[]>([]);
+    const [boulders, setBoulders] = useState<Boulder[]>([]);
 
     useEffect(fetchData,[]);
-    if (!boulderList) {
+    if (!boulders) {
         return "Loading..."
     }
 
     function fetchData() {
         axios.get("/api/boulder")
-            .then(response => {setBoulderList(response.data);  console.log(boulderList)})
+            .then(response => {setBoulders(response.data);  console.log(boulders)})
             .catch(error => {
                 console.error("Error fetching boulder", error)
             })
@@ -21,7 +21,7 @@ export default function App() {
     return (
         <>
             <h1>beta4u</h1>
-            <>{boulderList.map(boulder => boulder.id)}</>
+            <>{boulders.map(boulder => boulder.id)}</>
         </>
     )
 }
