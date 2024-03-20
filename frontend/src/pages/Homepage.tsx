@@ -18,5 +18,8 @@ export default function Homepage(){
                 console.error("Error fetching boulder", error)
             })
     }
-    return(<div><>{boulders.map(boulder => boulder.id)}</></div>)
+    return(
+        <div>
+            {boulders.map(boulder => boulder.id)}
+        </div>)
 }
