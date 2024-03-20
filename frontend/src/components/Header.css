@@ -1,0 +1,6 @@
+.navigationBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 25px 10px 25px;
+}
