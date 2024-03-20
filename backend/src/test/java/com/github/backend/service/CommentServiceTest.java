@@ -49,6 +49,7 @@ class CommentServiceTest {
                                 Gym.UA_HH_OST,
                                 null,
                                 List.of(),
+                                List.of(),
                                 Routesetter.ALEX,
                                 Color.BLUE,
                                 List.of(Hold.CRIMP),
