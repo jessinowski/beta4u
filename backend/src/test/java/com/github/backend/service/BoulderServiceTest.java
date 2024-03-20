@@ -1,6 +1,8 @@
 package com.github.backend.service;
 
 import com.github.backend.models.Boulder;
+import com.github.backend.models.Comment;
+import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
 import com.github.backend.repo.BoulderRepo;
 import org.junit.jupiter.api.Test;
@@ -31,14 +33,30 @@ class BoulderServiceTest {
     @Test
     void getAllBoulders_returnListOfOne_whenCalledWithOneBoulder(){
         //GIVEN
-        List<Boulder> expected =List.of(new Boulder("1",
+        List<Boulder> expected =List.of(new Boulder(
+                "1",
                 "image",
                 "video",
                 Level.EIGHT,
                 Sector.FIVE,
                 Gym.UA_HH_OST,
                 null,
-                List.of(),
+                List.of(new Comment(
+                        "11",
+                        "nice slab!",
+                        new User(
+                                "22",
+                                "jurassica",
+                                "Jessica",
+                                "image",
+                                Gym.UA_HH_OST,
+                                List.of(Hold.CRIMP),
+                                List.of(Style.MANTLE),
+                                List.of(),
+                                List.of(),
+                                List.of(),
+                                List.of()),
+                        null)),
                 List.of(),
                 Routesetter.ALEX,
                 Color.BLUE,
