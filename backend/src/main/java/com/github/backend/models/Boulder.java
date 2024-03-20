@@ -29,6 +29,7 @@ public class Boulder {
     @DBRef(lazy = true)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
+    private List<Rating> ratings;
     private Routesetter routesetter;
     private Color color;
     private List<Hold> holds = new ArrayList<>();
