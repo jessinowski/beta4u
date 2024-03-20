@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/boulder")
+@RequestMapping("/api/boulders")
 @RequiredArgsConstructor
 public class BoulderController {
     private final BoulderService boulderService;
 
     @GetMapping
-    public List<Boulder> getAllBoulder(){
-        return boulderService.getAllBoulder();
+    public List<Boulder> getAllBoulders(){
+        return boulderService.getAllBoulders();
     }
     @GetMapping("/{id}")
     public Boulder getBoulderById(@PathVariable String id){

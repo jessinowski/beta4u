@@ -12,7 +12,7 @@ import java.util.List;
 public class BoulderService {
     private final BoulderRepo boulderRepo;
 
-    public List<Boulder> getAllBoulder(){
+    public List<Boulder> getAllBoulders(){
         return boulderRepo.findAll();
     }
     public Boulder getBoulderById(String id) {

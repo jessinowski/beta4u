@@ -5,14 +5,15 @@ import {Boulder} from "./types/Boulder.ts";
 export default function App() {
     const [boulders, setBoulders] = useState<Boulder[]>([]);
 
-    useEffect(fetchData,[]);
+    useEffect(fetchData, []);
+
     if (!boulders) {
         return "Loading..."
     }
 
     function fetchData() {
-        axios.get("/api/boulder")
-            .then(response => {setBoulders(response.data);  console.log(boulders)})
+        axios.get("/api/boulders")
+            .then(response => setBoulders(response.data))
             .catch(error => {
                 console.error("Error fetching boulder", error)
             })
