@@ -64,6 +64,18 @@ class BoulderServiceTest {
         when(repo.findAll()).thenReturn(expected);
         //WHEN
         List<Boulder> actual = service.getAllBoulders();
+
+        expected.get(0).id();
+        expected.get(0).color();
+        expected.get(0).gym();
+        expected.get(0).date();
+        expected.get(0).comments();
+        expected.get(0).holds();
+        expected.get(0).imagePath();
+        expected.get(0).routesetter();
+        expected.get(0).videoPath();
+        expected.get(0).styles();
+        expected.get(0).sector();
         //THEN
         assertEquals(expected, actual);
         verify(repo).findAll();
