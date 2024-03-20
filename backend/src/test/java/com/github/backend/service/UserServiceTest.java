@@ -4,9 +4,7 @@ import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -47,7 +45,6 @@ class UserServiceTest {
                         Sector.FIVE,
                         Gym.UA_HH_OST,
                         null,
-                        List.of(),
                         List.of(),
                         Routesetter.ALEX,
                         Color.BLUE,

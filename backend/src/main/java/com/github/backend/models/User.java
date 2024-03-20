@@ -2,9 +2,7 @@ package com.github.backend.models;
 
 import com.github.backend.models.enums.Gym;
 import com.github.backend.models.enums.Hold;
-
 import com.github.backend.models.enums.Style;
-
 import lombok.With;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;

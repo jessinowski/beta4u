@@ -22,7 +22,6 @@ public record Boulder (
     @DBRef
     @JsonIgnore
     List<Comment> comments,
-    List<Rating> ratings,
     Routesetter routesetter,
     Color color,
     List<Hold> holds,
