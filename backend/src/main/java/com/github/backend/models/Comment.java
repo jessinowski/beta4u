@@ -1,17 +1,22 @@
 package com.github.backend.models;
-import lombok.With;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-@With
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "comments")
-public record Comment (
+public class Comment {
     @Id
-    String id,
-    String content,
+    private String id;
+    private String content;
     @DBRef
-    User user,
-    LocalDateTime date
-){}
+    private User user;
+    private LocalDateTime date;
+}

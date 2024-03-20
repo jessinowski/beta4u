@@ -2,30 +2,35 @@ package com.github.backend.models;
 
 import com.github.backend.models.enums.Gym;
 import com.github.backend.models.enums.Hold;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import com.github.backend.models.enums.Style;
-import lombok.With;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
 
-@With
+import java.util.ArrayList;
+import java.util.List;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "users")
-public record User (
+public class User {
     @Id
-    String id,
-    String username,
-    String fullName,
-    String imagePath,
-    Gym homeGym,
-    List<Hold> favoriteHolds,
-    List<Style> favoriteStyles,
+    private String id;
+    private String username;
+    private String fullName;
+    private String imagePath;
+    private Gym homeGym;
+    private List<Hold> favoriteHolds = new ArrayList<>();
+    private List<Style> favoriteStyles = new ArrayList<>();
     @DBRef
-    List<Boulder> myFavorites,
+    private List<Boulder> myFavorites = new ArrayList<>();
     @DBRef
-    List<Boulder> myTops,
+    private List<Boulder> myTops = new ArrayList<>();
     @DBRef
-    List<Boulder> myFlashes,
+    private List<Boulder> myFlashes = new ArrayList<>();
     @DBRef
-    List<Boulder> myProjects
-){}
+    private List<Boulder> myProjects = new ArrayList<>();
+}
