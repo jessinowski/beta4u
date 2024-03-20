@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BoulderServiceTest {
     private final BoulderRepo repo = mock(BoulderRepo.class);
@@ -26,6 +25,7 @@ class BoulderServiceTest {
         List<Boulder> actual =service.getAllBoulders();
         //THEN
         assertEquals(expected, actual);
+        verify(repo).findAll();
     }
 
     @Test
@@ -49,6 +49,7 @@ class BoulderServiceTest {
         List<Boulder> actual = service.getAllBoulders();
         //THEN
         assertEquals(expected, actual);
+        verify(repo).findAll();
     }
 
     @Test
@@ -72,5 +73,6 @@ class BoulderServiceTest {
         Boulder actual=service.getBoulderById("1");
         //THEN
         assertEquals(expected,actual);
+        verify(repo).findById("1");
     }
 }

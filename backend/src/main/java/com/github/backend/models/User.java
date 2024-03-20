@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -22,14 +23,14 @@ public class User {
     private String fullName;
     private String imagePath;
     private Gym homeGym;
-    private List<Hold> favoriteHolds;
-    private List<Style> favoriteStyles;
+    private List<Hold> favoriteHolds = new ArrayList<>();
+    private List<Style> favoriteStyles = new ArrayList<>();
     @DBRef
-    private List<Boulder> myFavorites;
+    private List<Boulder> myFavorites = new ArrayList<>();
     @DBRef
-    private List<Boulder> myTops;
+    private List<Boulder> myTops = new ArrayList<>();
     @DBRef
-    private List<Boulder> myFlashes;
+    private List<Boulder> myFlashes = new ArrayList<>();
     @DBRef
-    private List<Boulder> myProjects;
+    private List<Boulder> myProjects = new ArrayList<>();
 }
