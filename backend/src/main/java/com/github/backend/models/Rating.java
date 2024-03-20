@@ -1,18 +1,14 @@
 package com.github.backend.models;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.With;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Rating {
+
+@With
+public record Rating (
     @Id
-    private String id;
-    private double ratingPoints;
+    String id,
+    double ratingPoints,
     @DBRef
-    private User user;
-}
+    User user
+){}
