@@ -61,11 +61,7 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"],
-                            "myFavorites": [],
-                            "myTops": [],
-                            "myFlashes": [],
-                            "myProjects": []
+                            "favoriteStyles": ["MANTLE"]
                         }
                         ]
                 """))
