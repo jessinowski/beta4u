@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoulderService {
     private final BoulderRepo boulderRepo;
+    private final UserService userService;
 
     public List<Boulder> getAllBoulders(){
         return boulderRepo.findAll();
@@ -20,7 +21,8 @@ public class BoulderService {
         return boulderRepo.findById(id).orElseThrow();
     }
 
-    public Boulder changeRating(String id, Rating newRating){
+    public Boulder changeRating(String id, double ratingPoints){
+        Rating newRating = new Rating(ratingPoints, userService.getUserById("65f9b9a907ac0162a0072bdc").orElseThrow());
         Boulder temp = boulderRepo.findById(id).orElseThrow();
         temp.getRatings().add(newRating);
         return boulderRepo.save(temp);

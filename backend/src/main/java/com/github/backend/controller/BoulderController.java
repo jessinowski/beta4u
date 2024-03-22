@@ -1,6 +1,4 @@
 package com.github.backend.controller;
-
-import com.github.backend.models.Rating;
 import com.github.backend.service.BoulderService;
 import lombok.RequiredArgsConstructor;
 import com.github.backend.models.Boulder;
@@ -24,7 +22,7 @@ public class BoulderController {
     }
 
     @PutMapping("/changeRating/{id}")
-    public Boulder changeRating(@PathVariable String id, @RequestBody Rating newRating){
-        return boulderService.changeRating(id, newRating);
+    public Boulder changeRating(@PathVariable String id, @RequestBody double ratingPoints){
+        return boulderService.changeRating(id, ratingPoints);
     }
 }
