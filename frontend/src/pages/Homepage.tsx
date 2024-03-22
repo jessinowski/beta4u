@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
-
+import BoulderCard from "../components/BoulderCard.tsx";
+import "./Homepage.css";
 export default function Homepage(){
     const [boulders, setBoulders] = useState<Boulder[]>([]);
 
@@ -20,6 +21,6 @@ export default function Homepage(){
     }
     return(
         <div>
-            {boulders.map(boulder => boulder.id)}
+            {boulders.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchData}/>)}
         </div>)
 }

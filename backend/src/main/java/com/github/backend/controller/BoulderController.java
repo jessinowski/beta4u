@@ -1,12 +1,10 @@
 package com.github.backend.controller;
 
+import com.github.backend.models.Rating;
 import com.github.backend.service.BoulderService;
 import lombok.RequiredArgsConstructor;
 import com.github.backend.models.Boulder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,10 @@ public class BoulderController {
     @GetMapping("/{id}")
     public Boulder getBoulderById(@PathVariable String id){
         return boulderService.getBoulderById(id);
+    }
+
+    @PutMapping("/changeRating/{id}")
+    public Boulder changeRating(@PathVariable String id, @RequestBody Rating newRating){
+        return boulderService.changeRating(id, newRating);
     }
 }
