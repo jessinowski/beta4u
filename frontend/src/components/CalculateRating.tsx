@@ -20,7 +20,7 @@ export default function CalculateRating(props: Readonly<CalculateRatingProps>){
     function handleSelectStars(_: SyntheticEvent<Element, Event>,value: number | null) {
         if(value !== null){
             setCurrentRating(value);
-            axios.put("/api/boulders/changeRating/"+ props.boulder.id, {newRating: currentRating})
+            axios.put("/api/boulders/changeRating/"+ props.boulder.id, {ratingPoints: currentRating})
                 .then(props.fetchData);
         }
     }
