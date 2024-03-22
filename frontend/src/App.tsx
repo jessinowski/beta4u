@@ -33,19 +33,19 @@ export default function App() {
 
     return (
         <>
+            <Header/>
             <h1>beta4u</h1>
             <ul>
-                {user === null && <li>
-                    <button onClick={login}>Login Github</button>
-                </li>}
+                {user === null && <li><button onClick={login}>Login Github</button></li>}
                 {user !== null && <li><p>Hallo {user}</p></li>}
                 {user !== null && <li>
                     <button onClick={logout}>Logout</button>
                 </li>}
             </ul>
             <Routes>
-                <Route element={<ProtectedRoutes user={user}/>}>
-                    <Header/>
+            <Route path={"/"}/>
+            <Route element={<ProtectedRoutes user={user}/>}>
+
                     <Route path={"/home"} element={<Homepage/>}/>
                 </Route>
             </Routes>
