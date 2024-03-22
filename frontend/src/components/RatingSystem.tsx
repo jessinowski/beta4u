@@ -3,12 +3,13 @@ import {Rating} from "@mui/material";
 import {SyntheticEvent, useState} from "react";
 import axios from "axios";
 import StarIcon from '@mui/icons-material/Star';
+import "./RatingSystem.css";
 
 type CalculateRatingProps = {
     boulder: Boulder;
     fetchData: () => void;
 }
-export default function CalculateRating(props: Readonly<CalculateRatingProps>) {
+export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
     const [myRating, setMyRating] = useState<number>(0);
 
     function calculateAverageRating(): number {
@@ -27,9 +28,9 @@ export default function CalculateRating(props: Readonly<CalculateRatingProps>) {
     }
 
     return (
-        <div>
-            <div>
-                {calculateAverageRating().toFixed(1)} <StarIcon/>
+        <div className={"ratingSystem"}>
+            <div className={"averageRating"}>
+                {calculateAverageRating().toFixed(1)} <StarIcon className={"starIcon"}/>
             </div>
             <Rating name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
         </div>
