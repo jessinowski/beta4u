@@ -21,7 +21,7 @@ export default function CalculateRating(props: Readonly<CalculateRatingProps>) {
     function handleSelectStars(_: SyntheticEvent<Element, Event>, value: number | null) {
         if (value !== 0 && value !== null) {
             setMyRating(value);
-            axios.put("/api/boulders/changeRating/" + props.boulder.id, value)
+            axios.put("/api/boulders/changeRating/" + props.boulder.id, value, {headers:{'Content-Type': 'application/json'}})
                 .then(props.fetchData);
         }
     }
@@ -29,7 +29,7 @@ export default function CalculateRating(props: Readonly<CalculateRatingProps>) {
     return (
         <div>
             <div>
-                {calculateAverageRating()} <StarIcon/>
+                {calculateAverageRating().toFixed(1)} <StarIcon/>
             </div>
             <Rating name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
         </div>

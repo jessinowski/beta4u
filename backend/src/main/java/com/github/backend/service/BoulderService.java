@@ -5,8 +5,9 @@ import com.github.backend.repo.BoulderRepo;
 import lombok.RequiredArgsConstructor;
 import com.github.backend.models.Boulder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,13 @@ public class BoulderService {
 
     public Boulder changeRating(String id, double ratingPoints){
         Rating newRating = new Rating(ratingPoints, userService.getUserById("65f9b9a907ac0162a0072bdc").orElseThrow());
-        Boulder temp = boulderRepo.findById(id).orElseThrow();
-        temp.getRatings().add(newRating);
-        return boulderRepo.save(temp);
+        Boulder boulder = boulderRepo.findById(id).orElseThrow();
+        String userIdOfNewRating = newRating.getUser().getId();
+        List<Rating> newRatings = boulder.getRatings().stream()
+                .filter(rating-> !rating.getUser().getId().equals(userIdOfNewRating))
+                .collect(toList());
+        boulder.setRatings(newRatings);
+        boulder.getRatings().add(newRating);
+        return boulderRepo.save(boulder);
     }
 }
