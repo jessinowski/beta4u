@@ -19,4 +19,9 @@ public class AuthController {
     public boolean getMe(@AuthenticationPrincipal OAuth2User user) {
         return userService.getUserById(user.getAttributes().get("id").toString()).isPresent();
     }
+
+    @GetMapping("/myAvatar")
+    public String getMyAvatar(@AuthenticationPrincipal OAuth2User user){
+        return user.getAttributes().get("avatar_url").toString();
+    }
 }

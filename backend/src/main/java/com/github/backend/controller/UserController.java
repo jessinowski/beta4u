@@ -5,9 +5,7 @@ import com.github.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,5 +18,10 @@ public class UserController {
     @GetMapping
     public Optional<User> getUserById(@AuthenticationPrincipal OAuth2User user){
         return userService.getUserById(user.getAttributes().get("id").toString());
+    }
+
+    @PostMapping("/create")
+    public User createUser(@AuthenticationPrincipal OAuth2User user, @RequestBody User newUser){
+        return userService.createUser(user, newUser);
     }
 }
