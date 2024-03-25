@@ -10,8 +10,12 @@ import {useState} from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import {useNavigate} from "react-router-dom";
 import "./Header.css";
+import {User} from "../types/User.ts";
 
-export default function Header() {
+type HeaderProps={
+    user: User;
+}
+export default function Header(props: Readonly<HeaderProps>) {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
 
@@ -39,7 +43,7 @@ export default function Header() {
                     <div>beta4u</div>
                     <div>
                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                            <Avatar alt="userPicture"/>
+                            <Avatar alt={"my_picture"} src={props.user.imagePath}/>
                         </IconButton>
                         <Menu
                             sx={{mt: '45px'}}
