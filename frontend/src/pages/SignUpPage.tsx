@@ -13,7 +13,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
     const [homeGym, setHomeGym]=useState<string>("");
     const [holds, setHolds]=useState<string[]>([]);
     const [styles, setStyles]=useState<string[]>([]);
-    const [avatarURL, setAvatarURl]=useState<string>("");
+    const [avatarUrl, setAvatarUrl]=useState<string>("");
     const navigate =useNavigate();
     const optionalGyms=Object.values(Gym);
     const optionalHolds=Object.values(Hold);
@@ -22,7 +22,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
     useEffect(showAvatar, []);
     function showAvatar(){
         axios.get("/api/auth/myAvatar")
-            .then(response => setAvatarURl(response.data));
+            .then(response => setAvatarUrl(response.data));
     }
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>){
@@ -81,15 +81,13 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         <div>
             <p>Hi!</p>
             <p>Create your new profile</p>
-            <Avatar alt="Remy Sharp" src={avatarURL} />
+            <Avatar alt="Remy Sharp" src={avatarUrl} />
             <form onSubmit={handleOnSubmit}>
-                <label> Username:
-                    <input type={"text"} id={"username"} name={"username"} value={formData.username}
+                <label> Username: <input type={"text"} id={"username"} name={"username"} value={formData.username}
                            onChange={handleChangeUsername} required/>
                 </label>
                 <br/>
-                <label> Full name:
-                    <input type={"text"} id={"fullName"} name={"fullName"} value={formData.fullName}
+                <label> Full name: <input type={"text"} id={"fullName"} name={"fullName"} value={formData.fullName}
                            onChange={handleChangeFullName}/>
                 </label>
                 <br/>
