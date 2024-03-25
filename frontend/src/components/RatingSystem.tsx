@@ -4,10 +4,12 @@ import {SyntheticEvent, useState} from "react";
 import axios from "axios";
 import StarIcon from '@mui/icons-material/Star';
 import "./RatingSystem.css";
+import {User} from "../types/User.ts";
 
 type CalculateRatingProps = {
     boulder: Boulder;
     fetchData: () => void;
+    user: User | null | undefined;
 }
 export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
     const [myRating, setMyRating] = useState<number>(0);

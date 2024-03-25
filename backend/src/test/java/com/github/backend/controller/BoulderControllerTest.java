@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -143,7 +144,7 @@ class BoulderControllerTest {
         boulderRepo.save(boulder);
 
         User user= new User(
-                "65f9b9a907ac0162a0072bdc",
+                "22",
                 "jurassica",
                 "Jessica",
                 "image",
@@ -157,6 +158,7 @@ class BoulderControllerTest {
         userRepo.save(user);
         //WHEN
         mvc.perform(put("/api/boulders/changeRating/"+boulder.getId())
+                        .with(oidcLogin().userInfoToken(token->token.claim("id","22")))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(String.valueOf(3.5)))
                         .andExpect(status().isOk())
@@ -171,7 +173,7 @@ class BoulderControllerTest {
                                 "date": null,
                                 "ratings": [{"ratingPoints": 3.5,
                                              "user":                         {
-                            "id": "65f9b9a907ac0162a0072bdc",
+                            "id": "22",
                             "username": "jurassica",
                             "fullName": "Jessica",
                             "imagePath": "image",

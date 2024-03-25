@@ -2,7 +2,12 @@ import {useEffect, useState} from "react";
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
 import BoulderCard from "../components/BoulderCard.tsx";
-export default function Homepage(){
+import {User} from "../types/User.ts";
+
+type HomepageProps={
+    user: User | null | undefined;
+}
+export default function Homepage(props: Readonly<HomepageProps>){
     const [boulders, setBoulders] = useState<Boulder[]>([]);
 
     useEffect(fetchData, []);
@@ -20,6 +25,6 @@ export default function Homepage(){
     }
     return(
         <div>
-            {boulders.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchData}/>)}
+            {boulders.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchData} user={props.user}/>)}
         </div>)
 }

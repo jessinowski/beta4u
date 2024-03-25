@@ -2,10 +2,12 @@ import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 import {Boulder} from "../types/Boulder.ts";
 import "./BoulderCard.css"
 import RatingSystem from "./RatingSystem.tsx";
+import {User} from "../types/User.ts";
 
 type BoulderCardProps={
     boulder: Boulder;
     fetchData: ()=>void;
+    user: User | null | undefined;
 }
 export default function BoulderCard(props: Readonly<BoulderCardProps>){
 
@@ -20,7 +22,7 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                         alt="boulder-image"
                     />
                     <CardContent>
-                        <p>{<RatingSystem boulder={props.boulder} fetchData={props.fetchData}/>}</p>
+                        <p>{<RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>}</p>
                         <p>{props.boulder.level}</p>
                         <p>{props.boulder.gym}</p>
                     </CardContent>

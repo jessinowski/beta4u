@@ -4,6 +4,7 @@ import com.github.backend.models.Rating;
 import com.github.backend.repo.BoulderRepo;
 import lombok.RequiredArgsConstructor;
 import com.github.backend.models.Boulder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class BoulderService {
         return boulderRepo.findById(id).orElseThrow();
     }
 
-    public Boulder changeRating(String id, double ratingPoints){
-        Rating newRating = new Rating(ratingPoints, userService.getUserById("65f9b9a907ac0162a0072bdc").orElseThrow());
+    public Boulder changeRating(OAuth2User oAuth2User, String id, double ratingPoints){
+        Rating newRating = new Rating(ratingPoints, userService.getUserById(oAuth2User.getAttributes().get("id").toString()).orElseThrow());
         Boulder boulder = boulderRepo.findById(id).orElseThrow();
         String userIdOfNewRating = newRating.getUser().getId();
         List<Rating> newRatings = boulder.getRatings().stream()

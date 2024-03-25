@@ -64,7 +64,7 @@ export default function App() {
                 <Route path={"/"}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
-                    <Route path={"/home"} element={<Homepage/>}/>
+                    <Route path={"/home"} element={<Homepage user={user}/>}/>
                 </Route>
             </Routes>
         </>
