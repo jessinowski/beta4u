@@ -19,9 +19,9 @@ export default function Header() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = (page: string): never => {
+    const handleCloseUserMenu = (page: string) => {
         setAnchorElUser(null);
-        return navigate(page);
+        navigate(page);
     };
 
     function logout() {
@@ -58,19 +58,19 @@ export default function Header() {
                             onClose={handleCloseUserMenu}
                         >
 
-                            <MenuItem onClick={handleCloseUserMenu("/profile")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile")}>
                                 Profile
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu("/profile/favorites")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/favorites")}>
                                 Favorites
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu("/profile/tops")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/tops")}>
                                 Tops
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu("/profile/flashes")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/flashes")}>
                                 Flashes
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu("/profile/projects")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/projects")}>
                                 Projects
                             </MenuItem>
                             <Divider/>

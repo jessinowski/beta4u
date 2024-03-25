@@ -51,10 +51,6 @@ export default function App() {
                 {user === null && <li>
                     <button onClick={login}>Login Github</button>
                 </li>}
-
-                {user !== null && <li>
-                    <button onClick={logout}>Logout</button>
-                </li>}
             </ul>
             <Routes>
                 <Route path={"/"}/>
