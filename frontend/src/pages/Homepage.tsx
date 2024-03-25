@@ -5,7 +5,7 @@ import BoulderCard from "../components/BoulderCard.tsx";
 import {User} from "../types/User.ts";
 
 type HomepageProps={
-    user: User | null | undefined;
+    user: User;
 }
 export default function Homepage(props: Readonly<HomepageProps>){
     const [boulders, setBoulders] = useState<Boulder[]>([]);

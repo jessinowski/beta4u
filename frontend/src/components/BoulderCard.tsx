@@ -7,7 +7,7 @@ import {User} from "../types/User.ts";
 type BoulderCardProps={
     boulder: Boulder;
     fetchData: ()=>void;
-    user: User | null | undefined;
+    user: User;
 }
 export default function BoulderCard(props: Readonly<BoulderCardProps>){
 
