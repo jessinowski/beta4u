@@ -29,7 +29,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         e.preventDefault();
         axios.post("/api/user/create", formData)
             .then(props.fetchUser);
-        navigate("/");
+        navigate("/home");
     }
 
     const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +53,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         setHomeGym(value);
         setFormData((prevData) => ({
             ...prevData,
-            homeGym: homeGym,
+            homeGym: value,
         }));
     }
     function changeFavoriteHolds(event: SelectChangeEvent<typeof holds>) {
