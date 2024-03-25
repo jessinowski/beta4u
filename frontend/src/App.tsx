@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import {User} from "./types/User.ts";
+import BoulderDetails from "./pages/BoulderDetails.tsx";
 
 export default function App() {
     const [user, setUser] = useState<User | null | undefined>(undefined);
@@ -65,6 +66,7 @@ export default function App() {
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/home"} element={user && <Homepage user={user}/>}/>
+                    <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
                 </Route>
             </Routes>
         </>
