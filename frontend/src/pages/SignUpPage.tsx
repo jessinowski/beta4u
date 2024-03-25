@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../types/User.ts";
 import {Avatar} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 type SignUpPageProps={
     fetchUser: ()=>void;
@@ -12,6 +13,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
     const [holds, setHolds]=useState<string[]>([]);
     const [styles, setStyles]=useState<string[]>([]);
     const [avatarURL, setAvatarURl]=useState<string>("");
+    const navigate =useNavigate();
 
     useEffect(showAvatar, []);
     function showAvatar(){
@@ -23,6 +25,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         e.preventDefault();
         axios.post("/api/user/create", formData)
             .then(props.fetchUser);
+        navigate("/");
     }
 
     const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +61,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
                 <p>homeGym, selectField</p>
                 <p>holds, selectField</p>
                 <p>styles, selectField</p>
+                <button type={"submit"}>Sign up</button>
             </form>
         </div>
     )
