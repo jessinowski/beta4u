@@ -15,9 +15,9 @@ export default function LoginPage(props: Readonly<LoginPageProps>){
     return(
         <div className={"login"}>
             <div className={"loginGreeting"}>
-                <>Hi!</>
+                Hi!
                 <br/>
-                <>Welcome</>
+                Welcome
             </div>
             {props.user === null &&
                 <Button className={"loginButton"} variant={"outlined"} onClick={login} startIcon={<Avatar alt="Remy Sharp" src={github_catLogo} />}> Login with Github</Button>}
