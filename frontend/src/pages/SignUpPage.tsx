@@ -72,7 +72,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         setStyles(updatedStyles);
         setFormData((prevData) => ({
             ...prevData,
-            favoriteStyes: updatedStyles,
+            favoriteStyles: updatedStyles,
         }));
     }
 
