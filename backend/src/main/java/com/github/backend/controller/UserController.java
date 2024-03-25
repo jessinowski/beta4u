@@ -1,6 +1,7 @@
 package com.github.backend.controller;
 
 import com.github.backend.models.User;
+import com.github.backend.models.UserDto;
 import com.github.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@AuthenticationPrincipal OAuth2User user, @RequestBody User newUser){
-        return userService.createUser(user, newUser);
+    public User createUser(@AuthenticationPrincipal OAuth2User user, @RequestBody UserDto newUserDto){
+        return userService.createUser(user, newUserDto);
     }
 }

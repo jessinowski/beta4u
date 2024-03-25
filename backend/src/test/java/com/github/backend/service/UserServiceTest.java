@@ -1,6 +1,7 @@
 package com.github.backend.service;
 import com.github.backend.models.Boulder;
 import com.github.backend.models.User;
+import com.github.backend.models.UserDto;
 import com.github.backend.models.enums.*;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
@@ -64,18 +65,12 @@ class UserServiceTest {
         attributes.put("avatar_url", "sdcsdc");
         when(oAuth2User.getAttributes()).thenReturn(attributes);
         //GIVEN
-        User user = new User(
-                "22",
+        UserDto user = new UserDto(
                 "jurassica",
                 "Jessica",
-                "image",
                 Gym.UA_HH_OST,
                 List.of(Hold.CRIMP),
-                List.of(Style.MANTLE),
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of());
+                List.of(Style.MANTLE));
         when(repo.save(any(User.class)))
                 .thenReturn(new User(
                         "123456",
