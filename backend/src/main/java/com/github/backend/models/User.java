@@ -33,4 +33,5 @@ public class User {
     private List<Boulder> myFlashes = new ArrayList<>();
     @DBRef
     private List<Boulder> myProjects = new ArrayList<>();
+
 }

@@ -22,7 +22,16 @@ class AuthControllerTest {
     void getMe() throws Exception {
         mockMvc.perform(get("/api/auth/me")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("login", "user"))))
+                                .claim("id", "user"))))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"));
+    }
+
+    @Test
+    void getMyAvatar() throws Exception {
+        mockMvc.perform(get("/api/auth/myAvatar")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("avatar_url", "user"))))
                 .andExpect(status().isOk())
                 .andExpect(content().string("user"));
     }
