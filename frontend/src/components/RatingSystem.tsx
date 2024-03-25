@@ -13,7 +13,7 @@ type CalculateRatingProps = {
 }
 export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
     const initialState= props.boulder.ratings.find(rating=> rating.user.id === props.user.id)?.ratingPoints;
-    const [myRating, setMyRating] = useState<number>(initialState || 0);
+    const [myRating, setMyRating] = useState<number>(initialState ?? 0);
 
     function calculateAverageRating(): number {
         const sumUpRating = props.boulder.ratings
