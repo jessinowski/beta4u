@@ -11,6 +11,8 @@ import MyFavorites from "./pages/MyFavorites.tsx";
 import MyProjects from "./pages/MyProjects.tsx";
 import MyFlashes from "./pages/MyFlashes.tsx";
 import MyTops from "./pages/MyTops.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
+import MyLocations from "./pages/MyLocations.tsx";
 
 export default function App() {
     const [user, setUser] = useState<User | null | undefined>(undefined);
@@ -67,7 +69,9 @@ export default function App() {
                         <Route path={"tops"} element={<MyTops/>}/>
                         <Route path={"flashes"} element={<MyFlashes/>}/>
                         <Route path={"projects"} element={<MyProjects/>}/>
+                        <Route path={"locations"} element={<MyLocations/>}/>
                     </Route>
+                    <Route path={"/editProfile"} element={<EditProfile/>}/>
                 </Route>
             </Routes>
         </>
