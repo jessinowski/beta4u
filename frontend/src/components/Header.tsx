@@ -19,9 +19,16 @@ export default function Header() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (page: string): never => {
         setAnchorElUser(null);
+        return navigate(page);
     };
+
+    function logout() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+
+        window.open(host + '/logout', '_self')
+    }
 
     return (
         <AppBar position={"static"}>
@@ -51,23 +58,23 @@ export default function Header() {
                             onClose={handleCloseUserMenu}
                         >
 
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu("/profile")}>
                                 Profile
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu("/profile/favorites")}>
                                 Favorites
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu("/profile/tops")}>
                                 Tops
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu("/profile/flashes")}>
                                 Flashes
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu("/profile/projects")}>
                                 Projects
                             </MenuItem>
                             <Divider/>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={logout}>
                                 Logout
                             </MenuItem>
                         </Menu>
