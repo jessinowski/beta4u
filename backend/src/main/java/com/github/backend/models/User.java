@@ -38,4 +38,5 @@ public class User {
     @DBRef
     @JsonIgnore
     private List<Boulder> myProjects = new ArrayList<>();
+
 }
