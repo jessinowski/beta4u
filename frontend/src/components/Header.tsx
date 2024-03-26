@@ -10,8 +10,12 @@ import {useState} from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import {useNavigate} from "react-router-dom";
 import "./Header.css";
+import {User} from "../types/User.ts";
 
-export default function Header() {
+type HeaderProps={
+    user: User;
+}
+export default function Header(props: Readonly<HeaderProps>) {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const navigate = useNavigate();
 
@@ -19,9 +23,16 @@ export default function Header() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (page: string) => {
         setAnchorElUser(null);
+        navigate(page);
     };
+
+    function logout() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+
+        window.open(host + '/logout', '_self')
+    }
 
     return (
         <AppBar position={"static"}>
@@ -32,7 +43,7 @@ export default function Header() {
                     <div>beta4u</div>
                     <div>
                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                            <Avatar alt="userPicture"/>
+                            <Avatar alt={"my_picture"} src={props.user.imagePath}/>
                         </IconButton>
                         <Menu
                             sx={{mt: '45px'}}
@@ -51,23 +62,23 @@ export default function Header() {
                             onClose={handleCloseUserMenu}
                         >
 
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile")}>
                                 Profile
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/favorites")}>
                                 Favorites
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/tops")}>
                                 Tops
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/flashes")}>
                                 Flashes
                             </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/projects")}>
                                 Projects
                             </MenuItem>
                             <Divider/>
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={logout}>
                                 Logout
                             </MenuItem>
                         </Menu>

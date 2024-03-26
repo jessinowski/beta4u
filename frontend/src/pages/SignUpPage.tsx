@@ -28,8 +28,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
     function handleOnSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
         axios.post("/api/user/create", formData)
-            .then(props.fetchUser);
-        navigate("/home");
+            .then(()=>{props.fetchUser(); navigate("/home");});
     }
 
     const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {

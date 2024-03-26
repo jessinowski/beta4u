@@ -1,0 +1,17 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.loginButton{
+    width: 250px;
+}
+
+.loginGreeting{
+    display: flex;
+    flex-direction: column;
+    font-family: Comic Sans MS, serif;
+    font-size: 40px;
+    text-align: start;
+}
