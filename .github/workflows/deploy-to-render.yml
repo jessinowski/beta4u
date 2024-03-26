@@ -86,4 +86,4 @@ jobs:
     steps:
       - name: Trigger Render.com Deployment
         run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY }} #muss mit der url des Render Deployments übereinstimmen
+          curl -X POST ${{ secrets.RENDER_DEPLOY }} # muss mit der url des Render Deployments übereinstimmen
