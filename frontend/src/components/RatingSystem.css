@@ -1,0 +1,15 @@
+.averageRating{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.starIcon{
+    color: orange;
+}
+
+.ratingSystem{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

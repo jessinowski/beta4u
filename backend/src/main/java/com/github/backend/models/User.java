@@ -1,5 +1,6 @@
 package com.github.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.backend.models.enums.Gym;
 import com.github.backend.models.enums.Hold;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,16 @@ public class User {
     private List<Hold> favoriteHolds = new ArrayList<>();
     private List<Style> favoriteStyles = new ArrayList<>();
     @DBRef
+    @JsonIgnore
     private List<Boulder> myFavorites = new ArrayList<>();
     @DBRef
+    @JsonIgnore
     private List<Boulder> myTops = new ArrayList<>();
     @DBRef
+    @JsonIgnore
     private List<Boulder> myFlashes = new ArrayList<>();
     @DBRef
+    @JsonIgnore
     private List<Boulder> myProjects = new ArrayList<>();
 
 }

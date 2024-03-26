@@ -5,6 +5,7 @@ import com.github.backend.models.Comment;
 import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
 import com.github.backend.repo.BoulderRepo;
+import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,20 +15,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class BoulderServiceTest {
-    private final BoulderRepo repo = mock(BoulderRepo.class);
+    private final BoulderRepo boulderRepo = mock(BoulderRepo.class);
+    private final UserRepo userRepo = mock(UserRepo.class);
+    UserService userService = new UserService(userRepo);
+    BoulderService boulderService = new BoulderService(boulderRepo, userService);
 
-    BoulderService service = new BoulderService(repo);
 
     @Test
     void getAllBoulders_returnEmptyList_whenCalledInitially() {
         //GIVEN
         List<Boulder> expected = List.of();
-        when(repo.findAll()).thenReturn(expected);
+        when(boulderRepo.findAll()).thenReturn(expected);
         //WHEN
-        List<Boulder> actual =service.getAllBoulders();
+        List<Boulder> actual = boulderService.getAllBoulders();
         //THEN
         assertEquals(expected, actual);
-        verify(repo).findAll();
+        verify(boulderRepo).findAll();
     }
 
     @Test
@@ -62,12 +65,12 @@ class BoulderServiceTest {
                 Color.BLUE,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE)));
-        when(repo.findAll()).thenReturn(expected);
+        when(boulderRepo.findAll()).thenReturn(expected);
         //WHEN
-        List<Boulder> actual = service.getAllBoulders();
+        List<Boulder> actual = boulderService.getAllBoulders();
         //THEN
         assertEquals(expected, actual);
-        verify(repo).findAll();
+        verify(boulderRepo).findAll();
     }
 
     @Test
@@ -86,11 +89,13 @@ class BoulderServiceTest {
                 Color.BLUE,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE));
-        when(repo.findById("1")).thenReturn(Optional.of(expected));
+        when(boulderRepo.findById("1")).thenReturn(Optional.of(expected));
         //WHEN
-        Boulder actual=service.getBoulderById("1");
+        Boulder actual= boulderService.getBoulderById("1");
         //THEN
         assertEquals(expected,actual);
-        verify(repo).findById("1");
+        verify(boulderRepo).findById("1");
     }
+
+
 }

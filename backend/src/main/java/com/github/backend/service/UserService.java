@@ -31,5 +31,4 @@ public class UserService {
                 null);
         return userRepo.save(createdUser);
     }
-
 }

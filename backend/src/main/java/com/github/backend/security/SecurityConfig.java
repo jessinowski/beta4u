@@ -26,6 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/me").authenticated()
                         .requestMatchers("/api/secured").authenticated()
                         .requestMatchers("/home").authenticated()
+                        .requestMatchers("/api/boulders/changeRating/").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
