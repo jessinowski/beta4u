@@ -50,7 +50,7 @@ export default function App() {
             <h1>beta4u</h1>
 
             <Routes>
-                <Route path={"/"} element={<LoginPage user={user}/>}/>
+                <Route path={"/"} element={user === null && <LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/home"} element={user && <Homepage user={user}/>}/>
