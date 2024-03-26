@@ -1,5 +1,7 @@
 package com.github.backend.service;
 
+import com.github.backend.models.Boulder;
+import com.github.backend.models.BoulderDto;
 import com.github.backend.models.User;
 import com.github.backend.models.UserDto;
 import com.github.backend.repo.UserRepo;
@@ -13,11 +15,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepo userRepo;
 
-    public Optional<User> getUserById(String id){
+    public Optional<User> getUserById(String id) {
         return userRepo.findById(id);
     }
 
-    public User createUser(OAuth2User user, UserDto newUserDto){
+    public User createUser(OAuth2User user, UserDto newUserDto) {
         User createdUser = new User(user.getAttributes().get("id").toString(),
                 newUserDto.getUsername(),
                 newUserDto.getFullName(),
@@ -30,5 +32,25 @@ public class UserService {
                 null,
                 null);
         return userRepo.save(createdUser);
+    }
+
+    public User addBoulderToFavorites(String boulderId, OAuth2User user, BoulderDto boulderDto) {
+        User currentUser = userRepo.findById(user.getAttributes().get("id").toString()).orElseThrow();
+        Boulder likedBoulder = new Boulder(
+                boulderId,
+                boulderDto.getImagePath(),
+                boulderDto.getVideoPath(),
+                boulderDto.getLevel(),
+                boulderDto.getSector(),
+                boulderDto.getGym(),
+                boulderDto.getDate(),
+                boulderDto.getComments(),
+                boulderDto.getRatings(),
+                boulderDto.getRoutesetter(),
+                boulderDto.getColor(),
+                boulderDto.getHolds(),
+                boulderDto.getStyles());
+        currentUser.getMyFavorites().add(likedBoulder);
+        return userRepo.save(currentUser);
     }
 }

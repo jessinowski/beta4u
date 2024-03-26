@@ -6,12 +6,12 @@ import StarIcon from '@mui/icons-material/Star';
 import "./RatingSystem.css";
 import {User} from "../types/User.ts";
 
-type CalculateRatingProps = {
+type RatingSystemProps = {
     boulder: Boulder;
     fetchData: () => void;
     user: User;
 }
-export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
+export default function RatingSystem(props: Readonly<RatingSystemProps>) {
     const initialState= props.boulder.ratings.find(rating=> rating.user.id === props.user.id)?.ratingPoints;
     const [myRating, setMyRating] = useState<number>(initialState ?? 0);
 
