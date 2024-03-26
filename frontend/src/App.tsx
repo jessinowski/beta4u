@@ -6,23 +6,19 @@ import {useEffect, useState} from "react";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import {User} from "./types/User.ts";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import MyFavorites from "./pages/MyFavorites.tsx";
+import MyProjects from "./pages/MyProjects.tsx";
+import MyFlashes from "./pages/MyFlashes.tsx";
+import MyTops from "./pages/MyTops.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
+import MyLocations from "./pages/MyLocations.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
 import BoulderDetails from "./pages/BoulderDetails.tsx";
 
 export default function App() {
     const [user, setUser] = useState<User | null | undefined>(undefined);
-
     const navigate = useNavigate();
-
-    function login() {
-        const host = window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin
-        window.open(host + "/oauth2/authorization/github", "_self")
-    }
-
-    function logout() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-
-        window.open(host + '/logout', '_self')
-    }
 
     useEffect(loadUser, [navigate]);
 
@@ -48,28 +44,28 @@ export default function App() {
     }
 
     return (
-        <>
-            {user && <Header/>}
+        <div>
+            {user && <Header user={user}/>}
             {user && <p>Hallo {user?.username}</p>}
             <h1>beta4u</h1>
-            <ul>
-                {user === null && <li>
-                    <button onClick={login}>Login Github</button>
-                </li>}
 
-                {user !== null && <li>
-                    <button onClick={logout}>Logout</button>
-                </li>}
-            </ul>
             <Routes>
-                <Route path={"/"}/>
+                <Route path={"/"} element={<LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/home"} element={user && <Homepage user={user}/>}/>
                     <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
+                    <Route path={"/profile"} element={<ProfilePage/>}>
+                        <Route path={"favorites"} element={<MyFavorites/>}/>
+                        <Route path={"tops"} element={<MyTops/>}/>
+                        <Route path={"flashes"} element={<MyFlashes/>}/>
+                        <Route path={"projects"} element={<MyProjects/>}/>
+                        <Route path={"locations"} element={<MyLocations/>}/>
+                    </Route>
+                    <Route path={"/editProfile"} element={<EditProfile/>}/>
                 </Route>
             </Routes>
-        </>
+        </div>
     )
 }
 
