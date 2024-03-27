@@ -3,7 +3,7 @@ import axios from "axios";
 import {User} from "../types/User.ts";
 import {Avatar, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {Gym, Hold, Style} from "../types/enums/gym.ts";
+import {Gym, Hold, Style} from "../types/enums.ts";
 
 type SignUpPageProps={
     fetchUser: ()=>void;
