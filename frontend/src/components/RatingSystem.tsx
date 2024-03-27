@@ -19,7 +19,10 @@ export default function RatingSystem(props: Readonly<RatingSystemProps>) {
         const sumUpRating = props.boulder.ratings
             .map(rating => rating.ratingPoints)
             .reduce((a, b) => a + b, 0);
-        return sumUpRating / props.boulder.ratings.length
+        if(sumUpRating !== 0) {
+            return sumUpRating / props.boulder.ratings.length
+        }
+        return 0;
     }
 
     function handleSelectStars(_: SyntheticEvent<Element, Event>, value: number | null) {
@@ -30,11 +33,15 @@ export default function RatingSystem(props: Readonly<RatingSystemProps>) {
         }
     }
 
+    const averageRating = calculateAverageRating();
+
     return (
         <div className={"ratingSystem"}>
-            <div className={"averageRating"}>
-                {calculateAverageRating().toFixed(1)} <StarIcon className={"starIcon"}/>
-            </div>
+            { averageRating !== 0 &&
+                <div className={"averageRating"}>
+                    {averageRating.toFixed(1)} <StarIcon className={"starIcon"}/>
+                </div>
+            }
             <Rating name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
         </div>
     )

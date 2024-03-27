@@ -1,7 +1,6 @@
 package com.github.backend.service;
 
 import com.github.backend.models.Boulder;
-import com.github.backend.models.BoulderDto;
 import com.github.backend.models.User;
 import com.github.backend.models.UserDto;
 import com.github.backend.repo.UserRepo;
@@ -36,22 +35,8 @@ public class UserService {
         return userRepo.save(createdUser);
     }
 
-    public User changeFavorites(String boulderId, OAuth2User user, BoulderDto boulderDto) {
+    public User changeFavorites(Boulder boulder, OAuth2User user) {
         User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
-        Boulder boulder = new Boulder(
-                boulderId,
-                boulderDto.getImagePath(),
-                boulderDto.getVideoPath(),
-                boulderDto.getLevel(),
-                boulderDto.getSector(),
-                boulderDto.getGym(),
-                boulderDto.getDate(),
-                boulderDto.getComments(),
-                boulderDto.getRatings(),
-                boulderDto.getRoutesetter(),
-                boulderDto.getColor(),
-                boulderDto.getHolds(),
-                boulderDto.getStyles());
         if(!currentUser.getMyFavorites().contains(boulder)){
             currentUser.getMyFavorites().add(boulder);
         } else {

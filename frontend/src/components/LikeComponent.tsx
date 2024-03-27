@@ -11,25 +11,22 @@ type LikeComponentProps={
     boulder: Boulder;
     fetchData: () => void;
     user: User;
-    fetchUser: () => void;
 }
 export default function LikeComponent(props: Readonly<LikeComponentProps>){
-    const [favorites, setFavorites]=useState<Boulder[]>([]);
-    const initialState = favorites.includes(props.boulder);
-    console.log(initialState);
-    console.log(favorites);
-    const [checked, setChecked]=useState<boolean>(initialState || false);
+    const [checked, setChecked]=useState<boolean>(false);
 
-    useEffect(getFavorites, [checked]);
+    useEffect(getFavorites, [props.boulder]);
     function getFavorites(){
-        axios.get("/api/user/myFavorites")
-            .then(response=>setFavorites(response.data));
+        axios.get<Boulder[]>("/api/user/myFavorites")
+            .then(response => {
+                const favoriteBoulder = response.data.find(b => b.id === props.boulder.id);
+                setChecked(favoriteBoulder !== undefined);
+            });
     }
 
     function handleChange() {
-        axios.put("/api/user/changeFavorites/"+props.boulder.id, props.boulder)
-            .then(props.fetchUser);
-        setChecked(!checked);
+        axios.put("/api/user/changeFavorites/"+props.boulder.id)
+            .then(getFavorites);
     }
 
     return(
