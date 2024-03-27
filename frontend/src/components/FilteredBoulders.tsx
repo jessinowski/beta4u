@@ -27,20 +27,22 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
     const optStyles = Object.values(Style);
     const optRoutesetters = Object.values(Routesetter);
 
-    const filteredBoulders=props.boulders.filter(
-        boulder =>
-            boulder.level.includes(searchLevel) &&
-            boulder.gym.includes(searchGym) &&
-            boulder.sector.includes(searchSector) &&
-            boulder.color.includes(searchColor) &&
-            boulder.holds.includes(searchHold) &&
-            boulder.style.includes(searchStyle) &&
-            boulder.routesetter.includes(searchRoutesetter)
+    const newestBoulders = props.boulders.sort((a,b)=> {return new Date(b.date).getTime() - new Date(a.date).getTime()});
+
+    const filteredBoulders= newestBoulders.filter(
+        (boulder) =>
+            boulder.level.toString().includes(searchLevel) &&
+            boulder.gym.toString().includes(searchGym) &&
+            boulder.sector.toString().includes(searchSector) &&
+            boulder.color.toString().includes(searchColor) &&
+            boulder.holds.toString().includes(searchHold) &&
+            boulder.styles.toString().includes(searchStyle) &&
+            boulder.routesetter.toString().includes(searchRoutesetter)
     );
 
     return (
         <div>
-            <div className={"searchForm"}>
+            <div>
                 <Autocomplete
                     disablePortal
                     options={optLevels}
@@ -84,13 +86,13 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
                     sx={{m: 1, width: 300}}
                     renderInput={(params) => <TextField {...params} label="Choose routesetter"/>}/>
             </div>
-            <ul>
+            <div>
                 {filteredBoulders.map(boulder => <BoulderCard
                     key={boulder.id}
                     boulder={boulder}
                     fetchData={props.fetchData}
                     user={props.user}/>)}
-            </ul>
+            </div>
         </div>
-)
+    )
 }
