@@ -8,6 +8,8 @@ import com.github.backend.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,9 +36,9 @@ public class UserService {
         return userRepo.save(createdUser);
     }
 
-    public User addBoulderToFavorites(String boulderId, OAuth2User user, BoulderDto boulderDto) {
-        User currentUser = userRepo.findById(user.getAttributes().get("id").toString()).orElseThrow();
-        Boulder likedBoulder = new Boulder(
+    public User changeFavorites(String boulderId, OAuth2User user, BoulderDto boulderDto) {
+        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+        Boulder boulder = new Boulder(
                 boulderId,
                 boulderDto.getImagePath(),
                 boulderDto.getVideoPath(),
@@ -50,7 +52,15 @@ public class UserService {
                 boulderDto.getColor(),
                 boulderDto.getHolds(),
                 boulderDto.getStyles());
-        currentUser.getMyFavorites().add(likedBoulder);
+        if(!currentUser.getMyFavorites().contains(boulder)){
+            currentUser.getMyFavorites().add(boulder);
+        } else {
+            currentUser.getMyFavorites().remove(boulder);
+        }
         return userRepo.save(currentUser);
+    }
+
+    public List<Boulder> getMyFavorites(OAuth2User user) {
+        return userRepo.findById(user.getAttributes().get("id").toString()).orElseThrow().getMyFavorites();
     }
 }

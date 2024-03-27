@@ -10,6 +10,7 @@ type BoulderDetailsProps={
     boulders: Boulder[];
     fetchData: ()=>void;
     user: User;
+    fetchUser: ()=>void;
 }
 export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
     const params= useParams();
@@ -20,7 +21,7 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
             {boulder ?
                 <Card className={"card"}>
                         <CardActionArea>
-                            <p>{<LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>}</p>
+                            <p>{<LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user} fetchUser={props.fetchUser}/>}</p>
                             <p>{<RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>}</p>
                             <CardMedia
                                 component="img"
