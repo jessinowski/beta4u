@@ -47,7 +47,7 @@ export default function App() {
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/home"} element={user && <Homepage user={user}/>}/>
                     <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
-                    <Route path={"/profile/:tabName?"} element={<ProfilePage/>}/>
+                    <Route path={"/profile/:tabName?"} element={user && <ProfilePage user={user}/>}/>
                     <Route path={"/editProfile"} element={<EditProfile/>}/>
                 </Route>
             </Routes>

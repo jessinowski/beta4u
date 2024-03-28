@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {AppBar, IconButton, Tab, Tabs} from "@mui/material";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import MapIcon from '@mui/icons-material/Map';
+import {User} from "../types/User.ts";
 import "./ProfilePage.css";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -15,7 +16,11 @@ import MyProjects from "./MyProjects.tsx";
 import MyLocations from "./MyLocations.tsx";
 
 
-export default function ProfilePage() {
+type ProfilePageProps={
+    user: User;
+}
+
+export default function ProfilePage(props: Readonly <ProfilePageProps>){
     const navigate = useNavigate();
     const {tabName} =useParams();
     const [value, setValue] = useState<string>(tabName || "projects");
