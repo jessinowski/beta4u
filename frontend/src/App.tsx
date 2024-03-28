@@ -46,16 +46,13 @@ export default function App() {
     return (
         <div>
             {user && <Header user={user}/>}
-            {user && <p>Hallo {user?.username}</p>}
-            <h1>beta4u</h1>
-
             <Routes>
                 <Route path={"/"} element={user === null && <LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/home"} element={user && <Homepage user={user}/>}/>
                     <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
-                    <Route path={"/profile"} element={<ProfilePage/>}>
+                    <Route path={"/profile"} element={<ProfilePage user={user}/>}>
                         <Route path={"favorites"} element={<MyFavorites/>}/>
                         <Route path={"tops"} element={<MyTops/>}/>
                         <Route path={"flashes"} element={<MyFlashes/>}/>
