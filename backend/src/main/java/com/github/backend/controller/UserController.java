@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @PutMapping("/changeFavorites/{id}")
-    public User changeFavorites(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
+    public void changeFavorites(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
         Boulder boulder = boulderService.getBoulderById(id);
-        return userService.changeFavorites(boulder, user);
+        userService.changeFavorites(boulder, user);
     }
 }

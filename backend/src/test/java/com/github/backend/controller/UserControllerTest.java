@@ -1,6 +1,8 @@
 package com.github.backend.controller;
+import com.github.backend.models.Boulder;
 import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
+import com.github.backend.repo.BoulderRepo;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -28,6 +31,9 @@ class UserControllerTest {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private BoulderRepo boulderRepo;
 
     @Test
     void getUserById() throws Exception {
@@ -101,4 +107,122 @@ class UserControllerTest {
                         
                 """));
     }
+
+    @Test
+    void getMyFavorites() throws Exception {
+        //GIVEN
+        Boulder boulder =new Boulder(
+                "1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(boulder),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/myFavorites")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+    }
+
+    @Test
+    void changeFavorites() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/changeFavorites/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/myFavorites")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+    }
+
+
 }

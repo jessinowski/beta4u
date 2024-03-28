@@ -35,14 +35,14 @@ public class UserService {
         return userRepo.save(createdUser);
     }
 
-    public User changeFavorites(Boulder boulder, OAuth2User user) {
+    public void changeFavorites(Boulder boulder, OAuth2User user) {
         User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
         if(!currentUser.getMyFavorites().contains(boulder)){
             currentUser.getMyFavorites().add(boulder);
         } else {
             currentUser.getMyFavorites().remove(boulder);
         }
-        return userRepo.save(currentUser);
+        userRepo.save(currentUser);
     }
 
     public List<Boulder> getMyFavorites(OAuth2User user) {
