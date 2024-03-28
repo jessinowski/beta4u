@@ -6,12 +6,12 @@ import StarIcon from '@mui/icons-material/Star';
 import "./RatingSystem.css";
 import {User} from "../types/User.ts";
 
-type CalculateRatingProps = {
+type RatingSystemProps = {
     boulder: Boulder;
     fetchData: () => void;
     user: User;
 }
-export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
+export default function RatingSystem(props: Readonly<RatingSystemProps>) {
     const initialState= props.boulder.ratings.find(rating=> rating.user.id === props.user.id)?.ratingPoints;
     const [myRating, setMyRating] = useState<number>(initialState ?? 0);
 
@@ -19,7 +19,10 @@ export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
         const sumUpRating = props.boulder.ratings
             .map(rating => rating.ratingPoints)
             .reduce((a, b) => a + b, 0);
-        return sumUpRating / props.boulder.ratings.length
+        if(sumUpRating !== 0) {
+            return sumUpRating / props.boulder.ratings.length
+        }
+        return 0;
     }
 
     function handleSelectStars(_: SyntheticEvent<Element, Event>, value: number | null) {
@@ -30,11 +33,15 @@ export default function RatingSystem(props: Readonly<CalculateRatingProps>) {
         }
     }
 
+    const averageRating = calculateAverageRating();
+
     return (
         <div className={"ratingSystem"}>
-            <div className={"averageRating"}>
-                {calculateAverageRating().toFixed(1)} <StarIcon className={"starIcon"}/>
-            </div>
+            { averageRating !== 0 &&
+                <div className={"averageRating"}>
+                    {averageRating.toFixed(1)} <StarIcon className={"starIcon"}/>
+                </div>
+            }
             <Rating name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
         </div>
     )

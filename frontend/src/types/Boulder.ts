@@ -14,5 +14,5 @@ export type Boulder={
     routesetter: string;
     color: string;
     holds: string[];
-    style: string[];
+    styles: string[];
 }
