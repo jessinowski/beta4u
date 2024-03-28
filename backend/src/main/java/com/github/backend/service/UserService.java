@@ -37,10 +37,11 @@ public class UserService {
 
     public void changeFavorites(Boulder boulder, OAuth2User user) {
         User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
-        if(!currentUser.getMyFavorites().contains(boulder)){
+        Optional<Boulder> favoriteBoulder= currentUser.getMyFavorites().stream().filter(favorite -> favorite.getId().equals(boulder.getId())).findFirst();
+        if(favoriteBoulder.isEmpty()){
             currentUser.getMyFavorites().add(boulder);
         } else {
-            currentUser.getMyFavorites().remove(boulder);
+            currentUser.getMyFavorites().remove(favoriteBoulder.get());
         }
         userRepo.save(currentUser);
     }
