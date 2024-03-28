@@ -14,6 +14,7 @@ export default function LoginPage(props: Readonly<LoginPageProps>){
     }
     return(
         <div className={"login"}>
+            <h1>beta4u</h1>
             <div className={"loginGreeting"}>
                 Hi!
                 <br/>

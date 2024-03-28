@@ -46,9 +46,6 @@ export default function App() {
     return (
         <div>
             {user && <Header user={user}/>}
-            {user && <p>Hallo {user?.username}</p>}
-            <h1>beta4u</h1>
-
             <Routes>
                 <Route path={"/"} element={user === null && <LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
