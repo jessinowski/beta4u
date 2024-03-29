@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class Boulder {
     private Level level;
     private String sector;
     private Gym gym;
-    private LocalDateTime date;
+    private LocalDate date;
     @DBRef(lazy = true)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
