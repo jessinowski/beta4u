@@ -223,6 +223,4 @@ class UserControllerTest {
                 """))
                 .andReturn();
     }
-
-
 }
