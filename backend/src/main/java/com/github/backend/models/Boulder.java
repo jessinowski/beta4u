@@ -23,14 +23,14 @@ public class Boulder {
     private String imagePath;
     private String videoPath;
     private Level level;
-    private Sector sector;
+    private String sector;
     private Gym gym;
     private LocalDateTime date;
     @DBRef(lazy = true)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
     private List<Rating> ratings = new ArrayList<>();
-    private Routesetter routesetter;
+    private String routesetter;
     private Color color;
     private List<Hold> holds = new ArrayList<>();
     private List<Style> styles = new ArrayList<>();

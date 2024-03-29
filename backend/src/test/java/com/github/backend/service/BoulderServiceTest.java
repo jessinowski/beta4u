@@ -41,7 +41,7 @@ class BoulderServiceTest {
                 "image",
                 "video",
                 Level.EIGHT,
-                Sector.FIVE,
+                "5",
                 Gym.UA_HH_OST,
                 null,
                 List.of(new Comment(
@@ -61,7 +61,7 @@ class BoulderServiceTest {
                                 List.of()),
                         null)),
                 List.of(),
-                Routesetter.ALEX,
+                "Alex",
                 Color.BLUE,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE)));
@@ -80,12 +80,12 @@ class BoulderServiceTest {
                 "image",
                 "video",
                 Level.EIGHT,
-                Sector.FIVE,
+                "5",
                 Gym.UA_HH_OST,
                 null,
                 List.of(),
                 List.of(),
-                Routesetter.ALEX,
+                "Alex",
                 Color.BLUE,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE));

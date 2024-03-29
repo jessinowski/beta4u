@@ -3,7 +3,7 @@ import {User} from "../types/User.ts";
 import BoulderCard from "./BoulderCard.tsx";
 import {Accordion, AccordionDetails, AccordionSummary, Autocomplete, TextField} from "@mui/material";
 import {useState} from "react";
-import {Color, Gym, Hold, Level, Routesetter, Sector, Style} from "../types/enums.ts";
+import {Color, Gym, Hold, Level, Style} from "../types/enums.ts";
 import "./FilteredBoulders.css";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -24,11 +24,11 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
 
     const optLevels = Object.values(Level);
     const optGyms = Object.values(Gym);
-    const optSectors = Object.values(Sector);
+    const optSectors = props.boulders.map(boulder => boulder.sector);
     const optColors = Object.values(Color);
     const optHolds = Object.values(Hold);
     const optStyles = Object.values(Style);
-    const optRoutesetters = Object.values(Routesetter);
+    const optRoutesetters = props.boulders.map(boulder => boulder.routesetter);
 
     const newestBoulders = props.boulders.sort((a,b)=> {return new Date(b.date).getTime() - new Date(a.date).getTime()});
 

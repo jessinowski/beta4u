@@ -10,14 +10,6 @@ export enum Level{
     UNKNOWN="UNKNOWN"
 }
 
-export enum Sector{
-    ONE="ONE",
-    TWO="TWO",
-    THREE="THREE",
-    FOUR="FOUR",
-    FIVE="FIVE",
-    SIX="SIX"
-}
 export enum Gym{
     UA_HH_WEST="UA_HH_WEST",
     UA_HH_OST="UA_HH_OST",
@@ -59,10 +51,4 @@ export enum Style{
     STATIC="STATIC",
     BAT_HANG="BAT_HANG",
     CORNER="CORNER"
-}
-
-export enum Routesetter{
-    DAVID="DAVID",
-    ALEX="ALEX",
-    CLAUDI="CLAUDI"
 }
