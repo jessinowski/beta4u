@@ -17,7 +17,7 @@ export default function LikeComponent(props: Readonly<LikeComponentProps>){
 
     useEffect(getFavorites, [props.boulder]);
     function getFavorites(){
-        axios.get<Boulder[]>("/api/user/myFavorites")
+        axios.get<Boulder[]>("/api/user/favorites")
             .then(response => {
                 const favoriteBoulder = response.data.find(b => b.id === props.boulder.id);
                 setChecked(favoriteBoulder !== undefined);
@@ -25,7 +25,7 @@ export default function LikeComponent(props: Readonly<LikeComponentProps>){
     }
 
     function handleChange() {
-        axios.put("/api/user/changeFavorites/"+props.boulder.id)
+        axios.put("/api/user/favorites/"+props.boulder.id)
             .then(getFavorites);
     }
 

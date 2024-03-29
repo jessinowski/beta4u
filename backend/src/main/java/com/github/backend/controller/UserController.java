@@ -22,7 +22,7 @@ public class UserController {
     public Optional<User> getUserById(@AuthenticationPrincipal OAuth2User user){
         return userService.getUserById(user.getAttributes().get("id").toString());
     }
-    @GetMapping("/myFavorites")
+    @GetMapping("/favorites")
     public List<Boulder> getMyFavorites(@AuthenticationPrincipal OAuth2User user){
         return userService.getMyFavorites(user);
     }
@@ -32,7 +32,7 @@ public class UserController {
         return userService.createUser(user, newUserDto);
     }
 
-    @PutMapping("/changeFavorites/{id}")
+    @PutMapping("/favorites/{id}")
     public void changeFavorites(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
         Boulder boulder = boulderService.getBoulderById(id);
         userService.changeFavorites(boulder, user);

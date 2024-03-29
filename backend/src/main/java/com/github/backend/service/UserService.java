@@ -47,6 +47,6 @@ public class UserService {
     }
 
     public List<Boulder> getMyFavorites(OAuth2User user) {
-        return userRepo.findById(user.getAttributes().get("id").toString()).orElseThrow().getMyFavorites();
+        return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyFavorites();
     }
 }
