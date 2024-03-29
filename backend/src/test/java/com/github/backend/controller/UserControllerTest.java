@@ -140,7 +140,7 @@ class UserControllerTest {
                 List.of());
         userRepo.save(user);
         //WHEN & THEN
-        mvc.perform(get("/api/user/myFavorites")
+        mvc.perform(get("/api/user/favorites")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
@@ -195,12 +195,12 @@ class UserControllerTest {
                 List.of(Style.MANTLE));
         boulderRepo.save(boulder);
         //WHEN
-        mvc.perform(put("/api/user/changeFavorites/1")
+        mvc.perform(put("/api/user/favorites/1")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 //THEN
                 .andExpect(status().isOk());
-        mvc.perform(get("/api/user/myFavorites")
+        mvc.perform(get("/api/user/favorites")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
