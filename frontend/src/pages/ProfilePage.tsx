@@ -37,23 +37,23 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
     let activeComponent;
     switch(value){
         case "favorites": {
-            activeComponent = <MyFavorites/>;
+            activeComponent = <MyFavorites user={props.user}/>;
             break;
         }
         case "flashes": {
-            activeComponent = <MyFlashes/>;
+            activeComponent = <MyFlashes user={props.user}/>;
             break;
         }
         case "tops": {
-            activeComponent = <MyTops/>;
+            activeComponent = <MyTops user={props.user}/>;
             break;
         }
         case "projects": {
-            activeComponent = <MyProjects/>;
+            activeComponent = <MyProjects user={props.user}/>;
             break;
         }
         case "locations": {
-            activeComponent = <MyLocations />;
+            activeComponent = <MyLocations user={props.user}/>;
             break;
         }
     }
