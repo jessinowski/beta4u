@@ -1,6 +1,8 @@
 package com.github.backend.controller;
+import com.github.backend.models.Boulder;
 import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
+import com.github.backend.repo.BoulderRepo;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
@@ -25,7 +28,10 @@ class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserRepo repo;
+    private UserRepo userRepo;
+
+    @Autowired
+    private BoulderRepo boulderRepo;
 
     @Test
     void getUserById() throws Exception {
@@ -65,7 +71,59 @@ class UserControllerTest {
 
 
     @Test
-    void getFlashes() {
+    void getFlashes() throws Exception {
+        //GIVEN
+        Boulder boulder =new Boulder(
+                "1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(boulder),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/flashes")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 
     @Test
@@ -73,7 +131,59 @@ class UserControllerTest {
     }
 
     @Test
-    void getTops() {
+    void getTops() throws Exception {
+        //GIVEN
+        Boulder boulder =new Boulder(
+                "1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(boulder),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/tops")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 
     @Test
@@ -81,7 +191,59 @@ class UserControllerTest {
     }
 
     @Test
-    void getProjects() {
+    void getProjects() throws Exception {
+        //GIVEN
+        Boulder boulder =new Boulder(
+                "1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(boulder),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/projects")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 
     @Test
