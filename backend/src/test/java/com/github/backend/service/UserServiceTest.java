@@ -85,30 +85,5 @@ class UserServiceTest {
         User createdUser = service.createUser(oAuth2User, user);
         //THEN
         assertEquals("123456", createdUser.getId());
-
-    }
-
-    @Test
-    void getFlashes() {
-    }
-
-    @Test
-    void changeFlashes() {
-    }
-
-    @Test
-    void getTops() {
-    }
-
-    @Test
-    void changeTops() {
-    }
-
-    @Test
-    void getProjects() {
-    }
-
-    @Test
-    void changeProjects() {
     }
 }
