@@ -28,7 +28,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
         if (tabName) setValue(tabName);
     }, [tabName]);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
         navigate("/profile/"+newValue);
     };
@@ -36,7 +36,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
     let activeComponent;
     switch(value){
         case "favorites": {
-            activeComponent = <MyFavorites user={props.user}/>;
+            activeComponent = <MyFavorites/>;
             break;
         }
         case "flashes": {
@@ -52,7 +52,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
             break;
         }
         case "locations": {
-            activeComponent = <MyLocations user={props.user}/>;
+            activeComponent = <MyLocations/>;
             break;
         }
     }
