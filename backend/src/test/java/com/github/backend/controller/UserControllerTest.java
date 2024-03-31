@@ -134,8 +134,8 @@ class UserControllerTest {
                 Gym.UA_HH_OST,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE),
-                List.of(boulder),
                 List.of(),
+                List.of(boulder),
                 List.of(),
                 List.of());
         userRepo.save(user);
@@ -250,9 +250,9 @@ class UserControllerTest {
                 Gym.UA_HH_OST,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
                 List.of(boulder),
-                List.of(),
-                List.of(),
                 List.of());
         userRepo.save(user);
         //WHEN & THEN
@@ -366,10 +366,10 @@ class UserControllerTest {
                 Gym.UA_HH_OST,
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE),
-                List.of(boulder),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                List.of(boulder));
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/projects")
