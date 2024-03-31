@@ -77,7 +77,7 @@ class BoulderControllerTest {
                             "sector": "5",
                             "gym": "UA_HH_OST",
                             "date": null,
-                            "routesetter": "ALEX",
+                            "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
                             "styles": ["MANTLE"]
@@ -116,7 +116,7 @@ class BoulderControllerTest {
                             "sector": "5",
                             "gym": "UA_HH_OST",
                             "date": null,
-                            "routesetter": "ALEX",
+                            "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
                             "styles": ["MANTLE"]
@@ -182,7 +182,7 @@ class BoulderControllerTest {
                             "favoriteStyles": ["MANTLE"]
                         }
                                  }],
-                                "routesetter": "ALEX",
+                                "routesetter": "Alex",
                                 "color": "BLUE",
                                 "holds": ["CRIMP"],
                                 "styles": ["MANTLE"]
