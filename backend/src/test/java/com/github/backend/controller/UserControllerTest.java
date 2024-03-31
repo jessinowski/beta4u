@@ -64,4 +64,27 @@ class UserControllerTest {
     }
 
 
+    @Test
+    void getFlashes() {
+    }
+
+    @Test
+    void changeFlashes() {
+    }
+
+    @Test
+    void getTops() {
+    }
+
+    @Test
+    void changeTops() {
+    }
+
+    @Test
+    void getProjects() {
+    }
+
+    @Test
+    void changeProjects() {
+    }
 }
