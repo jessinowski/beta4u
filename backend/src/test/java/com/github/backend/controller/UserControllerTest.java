@@ -6,6 +6,8 @@ import com.github.backend.models.enums.*;
 import com.github.backend.repo.BoulderRepo;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -164,8 +166,9 @@ class UserControllerTest {
                 .andReturn();
     }
 
-    @Test
-    void changeFlashes() throws Exception {
+    @ParameterizedTest
+    @ValueSource(strings = {"flashes" , "tops", "projects"})
+    void changeBoulderListsOnProfilePage(String listType) throws Exception {
         //GIVEN
         User existingUser = new User(
                 "22",
@@ -195,12 +198,12 @@ class UserControllerTest {
                 List.of(Style.MANTLE));
         boulderRepo.save(boulder);
         //WHEN
-        mvc.perform(put("/api/user/flashes/1")
+        mvc.perform(put("/api/user/" + listType +"/1")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 //THEN
                 .andExpect(status().isOk());
-        mvc.perform(get("/api/user/flashes")
+        mvc.perform(get("/api/user/" + listType)
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
@@ -281,66 +284,6 @@ class UserControllerTest {
     }
 
     @Test
-    void changeTops() throws Exception {
-        //GIVEN
-        User existingUser = new User(
-                "22",
-                "jurassica",
-                "Jessica",
-                "image",
-                Gym.UA_HH_OST,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE),
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of());
-        userRepo.save(existingUser);
-        Boulder boulder = new Boulder("1",
-                "image",
-                "video",
-                Level.EIGHT,
-                Sector.FIVE,
-                Gym.UA_HH_OST,
-                null,
-                List.of(),
-                List.of(),
-                Routesetter.ALEX,
-                Color.BLUE,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE));
-        boulderRepo.save(boulder);
-        //WHEN
-        mvc.perform(put("/api/user/tops/1")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                //THEN
-                .andExpect(status().isOk());
-        mvc.perform(get("/api/user/tops")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                    [
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "FIVE",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "ALEX",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                    ]
-                """))
-                .andReturn();
-    }
-
-    @Test
     void getProjects() throws Exception {
         //GIVEN
         Boulder boulder =new Boulder(
@@ -372,66 +315,6 @@ class UserControllerTest {
                 List.of(boulder));
         userRepo.save(user);
         //WHEN & THEN
-        mvc.perform(get("/api/user/projects")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                    [
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "FIVE",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "ALEX",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                    ]
-                """))
-                .andReturn();
-    }
-
-    @Test
-    void changeProjects() throws Exception {
-        //GIVEN
-        User existingUser = new User(
-                "22",
-                "jurassica",
-                "Jessica",
-                "image",
-                Gym.UA_HH_OST,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE),
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of());
-        userRepo.save(existingUser);
-        Boulder boulder = new Boulder("1",
-                "image",
-                "video",
-                Level.EIGHT,
-                Sector.FIVE,
-                Gym.UA_HH_OST,
-                null,
-                List.of(),
-                List.of(),
-                Routesetter.ALEX,
-                Color.BLUE,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE));
-        boulderRepo.save(boulder);
-        //WHEN
-        mvc.perform(put("/api/user/projects/1")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                //THEN
-                .andExpect(status().isOk());
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))

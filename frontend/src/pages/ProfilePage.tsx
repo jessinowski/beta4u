@@ -9,10 +9,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import {useEffect, useState} from "react";
-import MyFavorites from "../components/MyFavorites.tsx";
 import MyBoulderList from "../components/MyBoulderList.tsx";
-import MyTops from "../components/MyTops.tsx";
-import MyProjects from "../components/MyProjects.tsx";
 import MyLocations from "../components/MyLocations.tsx";
 
 type ProfilePageProps={
