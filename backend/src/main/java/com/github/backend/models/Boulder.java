@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +23,14 @@ public class Boulder {
     private String imagePath;
     private String videoPath;
     private Level level;
-    private Sector sector;
+    private String sector;
     private Gym gym;
-    private LocalDateTime date;
+    private LocalDate date;
     @DBRef(lazy = true)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
     private List<Rating> ratings = new ArrayList<>();
-    private Routesetter routesetter;
+    private String routesetter;
     private Color color;
     private List<Hold> holds = new ArrayList<>();
     private List<Style> styles = new ArrayList<>();

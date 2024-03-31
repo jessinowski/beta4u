@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
-import BoulderCard from "../components/BoulderCard.tsx";
 import {User} from "../types/User.ts";
+import FilteredBoulders from "../components/FilteredBoulders.tsx";
 
 type HomepageProps={
     user: User;
@@ -25,6 +25,7 @@ export default function Homepage(props: Readonly<HomepageProps>){
     }
     return(
         <div>
-            {boulders.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchData} user={props.user}/>)}
-        </div>)
+            <FilteredBoulders boulders={boulders} fetchData={fetchData} user={props.user}/>
+        </div>
+    )
 }

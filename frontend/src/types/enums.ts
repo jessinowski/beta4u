@@ -1,3 +1,15 @@
+export enum Level{
+    ONE="ONE",
+    TWO="TWO",
+    THREE="THREE",
+    FOUR="FOUR",
+    FIVE="FIVE",
+    SIX="SIX",
+    SEVEN="SEVEN",
+    EIGHT="EIGHT",
+    UNKNOWN="UNKNOWN"
+}
+
 export enum Gym{
     UA_HH_WEST="UA_HH_WEST",
     UA_HH_OST="UA_HH_OST",
@@ -5,6 +17,18 @@ export enum Gym{
     UA_ST_PAULI="UA_ST_PAULI"
 }
 
+export enum Color{
+    BLACK="BLACK",
+    WHITE="WHITE",
+    YELLOW="YELLOW",
+    ORANGE="ORANGE",
+    RED="RED",
+    PINK="PINK",
+    PURPLE="PURPLE",
+    BLUE="BLUE",
+    GREEN="GREEN",
+    MINT="MINT"
+}
 export enum Hold{
     CRIMP="CRIMP",
     JUG="JUG",
@@ -15,6 +39,7 @@ export enum Hold{
     MACRO="MACRO",
     DUAL_TEX="DUAL_TEX"
 }
+
 
 export enum Style{
     DYNO="DYNO",
