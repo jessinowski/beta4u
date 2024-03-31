@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -166,7 +165,63 @@ class UserControllerTest {
     }
 
     @Test
-    void changeFlashes() {
+    void changeFlashes() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/flashes/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/flashes")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 
     @Test
@@ -226,7 +281,63 @@ class UserControllerTest {
     }
 
     @Test
-    void changeTops() {
+    void changeTops() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/tops/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/tops")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 
     @Test
@@ -286,6 +397,62 @@ class UserControllerTest {
     }
 
     @Test
-    void changeProjects() {
+    void changeProjects() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                Sector.FIVE,
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                Routesetter.ALEX,
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/projects/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/projects")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "FIVE",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "ALEX",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
     }
 }
