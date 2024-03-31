@@ -10,7 +10,7 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import {useEffect, useState} from "react";
 import MyFavorites from "../components/MyFavorites.tsx";
-import MyFlashes from "../components/MyFlashes.tsx";
+import MyBoulderList from "../components/MyBoulderList.tsx";
 import MyTops from "../components/MyTops.tsx";
 import MyProjects from "../components/MyProjects.tsx";
 import MyLocations from "../components/MyLocations.tsx";
@@ -36,19 +36,19 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
     let activeComponent;
     switch(value){
         case "favorites": {
-            activeComponent = <MyFavorites/>;
+            activeComponent = <MyBoulderList user={props.user} listType={"favorites"}/>;
             break;
         }
         case "flashes": {
-            activeComponent = <MyFlashes user={props.user}/>;
+            activeComponent = <MyBoulderList user={props.user} listType={"flashes"}/>;
             break;
         }
         case "tops": {
-            activeComponent = <MyTops user={props.user}/>;
+            activeComponent = <MyBoulderList user={props.user} listType={"tops"} />;
             break;
         }
         case "projects": {
-            activeComponent = <MyProjects user={props.user}/>;
+            activeComponent = <MyBoulderList user={props.user} listType={"projects"}/>;
             break;
         }
         case "locations": {
