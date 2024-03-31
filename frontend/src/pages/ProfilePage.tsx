@@ -58,7 +58,6 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
         }
     }
 
-
     return (
         <div>
             <div className={"profileHeader"}>
