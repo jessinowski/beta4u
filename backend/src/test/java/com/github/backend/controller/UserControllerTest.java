@@ -1,4 +1,5 @@
 package com.github.backend.controller;
+
 import com.github.backend.models.Boulder;
 import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
@@ -8,16 +9,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,7 +51,7 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of());
-        repo.save(user);
+        userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user")
                         .with(oidcLogin().userInfoToken(token -> token
@@ -69,6 +72,42 @@ class UserControllerTest {
                 """));
     }
 
+    @Test
+    void createUser() throws Exception {
+        // GIVEN
+        String requestBody = """
+                {
+                    "username": "jurassica",
+                        "fullName": "Jessica",
+                        "imagePath": "image",
+                        "homeGym": "UA_HH_OST",
+                        "favoriteHolds": ["CRIMP"],
+                    "favoriteStyles": ["MANTLE"]
+                }
+                """;
+
+        // WHEN & THEN
+        mvc.perform(post("/api/user/create")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")
+                                .claim("avatar_url", "image")))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+
+                {
+                    "id": "22",
+                        "username": "jurassica",
+                        "fullName": "Jessica",
+                        "imagePath": "image",
+                        "homeGym": "UA_HH_OST",
+                        "favoriteHolds": ["CRIMP"],
+                    "favoriteStyles": ["MANTLE"]
+                }
+
+                """));
+    }
 
     @Test
     void getFlashes() throws Exception {
@@ -106,7 +145,7 @@ class UserControllerTest {
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
+                .andExpect(content().json("""
                     [
                         {
                             "id": "1",
@@ -166,7 +205,7 @@ class UserControllerTest {
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
+                .andExpect(content().json("""
                     [
                         {
                             "id": "1",
@@ -226,7 +265,7 @@ class UserControllerTest {
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
+                .andExpect(content().json("""
                     [
                         {
                             "id": "1",
