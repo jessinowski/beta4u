@@ -20,7 +20,10 @@ export default function MyProjects(props: Readonly<MyProjectsProps>){
     }
     return(
         <div>
-            {projects.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchProjects} user={props.user}/>)}
+            {projects.length !== 0 ?
+                projects.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchProjects} user={props.user}/>)
+                :
+                <p>No projects found</p>}
         </div>
     )
 }

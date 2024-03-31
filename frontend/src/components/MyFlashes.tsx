@@ -12,7 +12,7 @@ export default function MyFlashes(props: Readonly<MyFlashesProps>){
 
     useEffect(fetchFlashes, []);
     function fetchFlashes(){
-        axios.get("api/user/flashes")
+        axios.get("/api/user/flashes")
             .then(response => setFlashes(response.data))
             .catch(error => {
                 console.error("Error fetching flashes", error)
@@ -20,7 +20,10 @@ export default function MyFlashes(props: Readonly<MyFlashesProps>){
     }
     return(
         <div>
-            {flashes.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchFlashes} user={props.user}/>)}
+            {flashes.length !== 0 ?
+                flashes.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchFlashes} user={props.user}/>)
+                :
+                <p>No flashes found</p>}
         </div>
     )
 }

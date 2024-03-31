@@ -20,7 +20,11 @@ export default function MyTops(props: Readonly<MyTopsProps>){
     }
     return(
         <div>
-            {tops.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchTops} user={props.user}/>)}
+            {tops.length !== 0 ?
+                tops.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchTops} user={props.user}/>)
+                :
+                <p>No tops found</p>}
+            {}
         </div>
     )
 }
