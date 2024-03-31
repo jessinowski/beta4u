@@ -135,8 +135,8 @@ class UserControllerTest {
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE),
                 List.of(),
-                List.of(boulder),
                 List.of(),
+                List.of(boulder),
                 List.of());
         userRepo.save(user);
         //WHEN & THEN
@@ -251,8 +251,8 @@ class UserControllerTest {
                 List.of(Hold.CRIMP),
                 List.of(Style.MANTLE),
                 List.of(),
-                List.of(),
                 List.of(boulder),
+                List.of(),
                 List.of());
         userRepo.save(user);
         //WHEN & THEN
