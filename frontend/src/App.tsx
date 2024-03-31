@@ -61,8 +61,8 @@ export default function App() {
                 <Route path={"/"} element={user === null && <LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
-                    <Route path={"/home"} element={user && <Homepage user={user}/>}/>
-                    <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
+                    <Route path={"/home"} element={user && <Homepage user={user} boulders={boulders} fetchData={fetchData}/>}/>
+                    <Route path={"/boulder/:id"} element={user && <BoulderDetails boulders={boulders} fetchData={fetchData} user={user} fetchUser={fetchUser}/>}/>
                     <Route path={"/profile/:tabName?"} element={user && <ProfilePage user={user}/>}/>
                     <Route path={"/editProfile"} element={<EditProfile/>}/>
                 </Route>
