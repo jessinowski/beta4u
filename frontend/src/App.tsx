@@ -10,9 +10,11 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import EditProfile from "./pages/EditProfile.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import BoulderDetails from "./pages/BoulderDetails.tsx";
+import {Boulder} from "./types/Boulder.ts";
 
 export default function App() {
     const [user, setUser] = useState<User | null | undefined>(undefined);
+    const [boulders, setBoulders] = useState<Boulder[]>([]);
     const navigate = useNavigate();
 
     useEffect(loadUser, [navigate]);
@@ -38,6 +40,20 @@ export default function App() {
             })
     }
 
+    useEffect(fetchData, []);
+
+    if (!boulders) {
+        return "Loading..."
+    }
+
+    function fetchData() {
+        axios.get("/api/boulders")
+            .then(response => setBoulders(response.data))
+            .catch(error => {
+                console.error("Error fetching boulder", error)
+            })
+    }
+
     return (
         <div>
             {user && <Header user={user}/>}
@@ -45,8 +61,8 @@ export default function App() {
                 <Route path={"/"} element={user === null && <LoginPage user={user}/>}/>
                 <Route path={"/sign_up"} element={<SignUpPage fetchUser={fetchUser}/>}></Route>
                 <Route element={<ProtectedRoutes user={user}/>}>
-                    <Route path={"/home"} element={user && <Homepage user={user}/>}/>
-                    <Route path={"/boulder/:id"} element={<BoulderDetails/>}/>
+                    <Route path={"/home"} element={user && <Homepage user={user} boulders={boulders} fetchData={fetchData}/>}/>
+                    <Route path={"/boulder/:id"} element={user && <BoulderDetails boulders={boulders} fetchData={fetchData} user={user} fetchUser={fetchUser}/>}/>
                     <Route path={"/profile/:tabName?"} element={user && <ProfilePage user={user}/>}/>
                     <Route path={"/editProfile"} element={<EditProfile/>}/>
                 </Route>

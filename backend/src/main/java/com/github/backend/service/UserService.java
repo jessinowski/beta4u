@@ -35,6 +35,21 @@ public class UserService {
         return userRepo.save(createdUser);
     }
 
+    public void changeFavorites(Boulder boulder, OAuth2User user) {
+        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+        Optional<Boulder> favoriteBoulder= currentUser.getMyFavorites().stream().filter(favorite -> favorite.getId().equals(boulder.getId())).findFirst();
+        if(favoriteBoulder.isEmpty()){
+            currentUser.getMyFavorites().add(boulder);
+        } else {
+            currentUser.getMyFavorites().remove(favoriteBoulder.get());
+        }
+        userRepo.save(currentUser);
+    }
+
+    public List<Boulder> getMyFavorites(OAuth2User user) {
+        return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyFavorites();
+    }
+
     public List<Boulder> getFlashes(OAuth2User user){
         return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyFlashes();
     }

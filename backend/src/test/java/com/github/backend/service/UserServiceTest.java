@@ -18,7 +18,6 @@ import static org.mockito.Mockito.*;
 class UserServiceTest {
 
     private final UserRepo repo = mock(UserRepo.class);
-
     UserService service = new UserService(repo);
 
     @Test
@@ -86,4 +85,5 @@ class UserServiceTest {
         //THEN
         assertEquals("123456", createdUser.getId());
     }
+
 }
