@@ -49,11 +49,11 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
             break;
         }
         case "projects": {
-            activeComponent = <MyProjects/>;
+            activeComponent = <MyProjects />;
             break;
         }
         case "locations": {
-            activeComponent = <MyLocations/>;
+            activeComponent = <MyLocations />;
             break;
         }
     }
