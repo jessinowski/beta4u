@@ -8,7 +8,7 @@ export default function MyLocations(){
     };
 
     return(
-        <Wrapper apiKey={"AIzaSyDg8rz5pjhK5qblkqpKvrADltAAuYrQCnk"} render={render}>
+        <Wrapper apiKey={import.meta.env.VITE_GOOGLE_API_KEY} render={render}>
             <LocationMap/>
         </Wrapper>
     )
