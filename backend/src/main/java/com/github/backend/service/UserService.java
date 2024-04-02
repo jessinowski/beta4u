@@ -34,6 +34,15 @@ public class UserService {
                 null);
         return userRepo.save(createdUser);
     }
+    public User editUser(OAuth2User user, UserDto userDto) {
+        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+        currentUser.setUsername(userDto.getUsername());
+        currentUser.setFullName(userDto.getFullName());
+        currentUser.setHomeGym(userDto.getHomeGym());
+        currentUser.setFavoriteHolds(userDto.getFavoriteHolds());
+        currentUser.setFavoriteStyles(userDto.getFavoriteStyles());
+        return userRepo.save(currentUser);
+    }
 
     public void changeFavorites(Boulder boulder, OAuth2User user) {
         User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();

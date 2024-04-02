@@ -22,14 +22,19 @@ public class UserController {
     public Optional<User> getUserById(@AuthenticationPrincipal OAuth2User user){
         return userService.getUserById(user.getAttributes().get("id").toString());
     }
-    @GetMapping("/favorites")
-    public List<Boulder> getMyFavorites(@AuthenticationPrincipal OAuth2User user){
-        return userService.getMyFavorites(user);
+
+    @PostMapping("/edit")
+    public User editUser(@AuthenticationPrincipal OAuth2User user, @RequestBody UserDto userDto){
+        return userService.editUser(user, userDto);
     }
 
     @PostMapping("/create")
     public User createUser(@AuthenticationPrincipal OAuth2User user, @RequestBody UserDto newUserDto){
         return userService.createUser(user, newUserDto);
+    }
+    @GetMapping("/favorites")
+    public List<Boulder> getMyFavorites(@AuthenticationPrincipal OAuth2User user){
+        return userService.getMyFavorites(user);
     }
 
     @PutMapping("/favorites/{id}")
