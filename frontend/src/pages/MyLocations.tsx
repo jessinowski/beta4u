@@ -1,5 +1,5 @@
 import {Status, Wrapper} from "@googlemaps/react-wrapper";
-import LocationMap from "../components/LocationMap.tsx";
+import LocationMap from "../components/location/LocationMap.tsx";
 
 
 export default function MyLocations(){

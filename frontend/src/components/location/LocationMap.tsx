@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import LocationMarker from "./LocationMarker.tsx";
 
 
 
@@ -15,6 +16,9 @@ export default function LocationMap(){
 
 
     return(
-        <div id="map" ref={ref}></div>
+        <>
+            <div id="map" ref={ref}></div>
+            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"678"} />
+        </>
     )
 }
