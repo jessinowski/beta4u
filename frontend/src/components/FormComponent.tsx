@@ -27,9 +27,9 @@ type FormComponentProps = {
 export default function FormComponent(props: Readonly<FormComponentProps>) {
     const [avatarUrl, setAvatarUrl] = useState<string>("");
     const [formData, setFormData] = useState<User>({username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles});
-    const [homeGym, setHomeGym] = useState<string>(props.user.homeGym || "");
-    const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds || []);
-    const [styles, setStyles] = useState<string[]>(props.user.favoriteStyles || []);
+    const [homeGym, setHomeGym] = useState<string>(props.user.homeGym ?? "");
+    const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds ?? []);
+    const [styles, setStyles] = useState<string[]>(props.user.favoriteStyles ?? []);
     const navigate = useNavigate();
     const optionalGyms = Object.values(Gym);
     const optionalHolds = Object.values(Hold);
