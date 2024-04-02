@@ -4,6 +4,7 @@ import {Card, CardActionArea, CardContent, CardMedia, Chip} from "@mui/material"
 import RatingSystem from "../components/RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import LikeComponent from "../components/LikeComponent.tsx";
+import "./BoulderDetails.css";
 
 
 type BoulderDetailsProps={
@@ -20,7 +21,7 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
         <div>{boulder ?
                 <Card className={"card"}>
                         <CardActionArea>
-                            <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
+                            <LikeComponent boulder={boulder}/>
                             <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                             <CardMedia
                                 component="img"

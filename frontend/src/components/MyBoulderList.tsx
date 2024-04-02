@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
 import {User} from "../types/User.ts";
-import BoulderCard from "./BoulderCard.tsx";
+import FilteredBoulders from "./FilteredBoulders.tsx";
 
 type MyBoulderListProps ={
     listType: "favorites" | "flashes" | "tops" | "projects"
@@ -22,7 +22,7 @@ export default function MyBoulderList(props: Readonly<MyBoulderListProps>){
     return(
         <div>
             {boulders.length !== 0 ?
-                boulders.map(boulder => <BoulderCard key={boulder.id} boulder={boulder} fetchData={fetchBoulders} user={props.user}/>)
+                <FilteredBoulders boulders={boulders} fetchData={fetchBoulders} user={props.user}/>
                 :
                 <p>No {props.listType} found</p>}
         </div>
