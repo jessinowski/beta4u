@@ -109,6 +109,57 @@ class UserControllerTest {
     }
 
     @Test
+    void editUser() throws Exception {
+        // GIVEN
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(user);
+        String requestBody = """
+                        {
+                            "username": "jess",
+                            "fullName": "Jessica",
+                            "imagePath": "image",
+                            "homeGym": "UA_HH_WEST",
+                            "favoriteHolds": ["JUG"],
+                            "favoriteStyles": ["MANTLE", "ROOF"]
+                        }
+                """;
+
+        // WHEN & THEN
+        mvc.perform(MockMvcRequestBuilders.post("/api/user/edit")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")
+                                .claim("avatar_url", "image")))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().json("""
+                        
+                        {
+                            "id": "22",
+                            "username": "jess",
+                            "fullName": "Jessica",
+                            "imagePath": "image",
+                            "homeGym": "UA_HH_WEST",
+                            "favoriteHolds": ["JUG"],
+                            "favoriteStyles": ["MANTLE", "ROOF"]
+                        }
+                        
+                """));
+    }
+
+
+    @Test
     void getMyFavorites() throws Exception {
         //GIVEN
         Boulder boulder =new Boulder(
