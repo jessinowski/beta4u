@@ -48,10 +48,10 @@ public class UserController {
         return userService.getFlashes(user);
     }
 
-    @PutMapping("/flashes/{id}")
-    public void changeFlashes(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
+    @PutMapping("/change-lists/{id}")
+    public void changeLists(@PathVariable String id, @AuthenticationPrincipal OAuth2User user, String list){
         Boulder boulder = boulderService.getBoulderById(id);
-        userService.changeFlashes(boulder, user);
+        userService.changeLists(boulder, user, list);
     }
 
     @GetMapping("/tops")
@@ -59,21 +59,21 @@ public class UserController {
         return userService.getTops(user);
     }
 
-    @PutMapping("/tops/{id}")
-    public void changeTops(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
-        Boulder boulder = boulderService.getBoulderById(id);
-        userService.changeTops(boulder, user);
-    }
+//    @PutMapping("/tops/{id}")
+//    public void changeTops(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
+//        Boulder boulder = boulderService.getBoulderById(id);
+//        userService.changeTops(boulder, user);
+//    }
 
     @GetMapping("/projects")
     public List<Boulder> getProjects(@AuthenticationPrincipal OAuth2User user){
         return userService.getProjects(user);
     }
 
-    @PutMapping("/projects/{id}")
-    public void changeProjects(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
-        Boulder boulder = boulderService.getBoulderById(id);
-        userService.changeProjects(boulder, user);
-    }
+//    @PutMapping("/projects/{id}")
+//    public void changeProjects(@PathVariable String id, @AuthenticationPrincipal OAuth2User user){
+//        Boulder boulder = boulderService.getBoulderById(id);
+//        userService.changeProjects(boulder, user);
+//    }
 
 }

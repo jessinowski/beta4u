@@ -1,6 +1,11 @@
-import {IconButton, Menu, MenuItem, NativeSelect} from "@mui/material";
-import {PostAdd} from "@mui/icons-material";
-import {FormEventHandler, MouseEventHandler, useState} from "react"
+import {
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent
+} from "@mui/material";
+import {useEffect, useState} from "react"
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
 
@@ -8,56 +13,54 @@ type AddToMyListProps={
     boulder: Boulder;
 }
 export default function AddToMyList(props: Readonly<AddToMyListProps>){
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const [isFlash, setIsFlash]=useState<boolean>(false);
-    const [isTop, setIsTop]=useState<boolean>(false);
-    const [isProject, setIsProject]=useState<boolean>(false);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
+    const [open, setOpen] = useState(false);
+    const [list, setList]=useState<string>("");
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleChange = (event: SelectChangeEvent<string>) => {
+        axios.put("/api/user/change-lists/" + props.boulder.id, event.target.value)
+            .then(() => getBoulderLists(event.target.value));
+        setList(event.target.value);
     };
 
     function getBoulderLists(value: string){
         axios.get<Boulder[]>("/api/user/" + value)
             .then(response => {
-                const addedBoulder = response.data.find(b => b.id === props.boulder.id);
-                switch(value){
-                    case "flashes":{
-                        setIsFlash(addedBoulder !== undefined);
-                        break;
-                    }
-                    case "tops":{
-                        setIsTop(addedBoulder !== undefined);
-                        break;
-                    }
-                    case "projects":{
-                        setIsProject(addedBoulder !== undefined);
-                        break;
-                    }
-                }
-            })
-    }
-    function handleChange(value: string){
-        return axios.put("/api/user/" + value + "/" + props.boulder.id)
-            .then(getBoulderLists(value));
+                const addedBoulder = response.data.find(b => b.id === props.boulder.id)
+            if(addedBoulder !== undefined){
+                setList(value);
+            } else {
+                setList("");
+            }}
+            );
     }
 
     return(
         <div>
-            <IconButton onClick={handleClick}>
-                <PostAdd />
-            </IconButton>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <NativeSelect>
-                    <option value={"flashes"} >Flash</option>
-                    <option value={"tops"}>Top</option>
-                    <option value={"projects"}>Project</option>
-                </NativeSelect>
-            </Menu>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel>Add to</InputLabel>
+                <Select
+                    open={open}
+                    onOpen={handleOpen}
+                    onClose={handleClose}
+                    value={list}
+                    label="Add to"
+                    onChange={handleChange}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"flashes"}>Flash</MenuItem>
+                    <MenuItem value={"tops"}>Top</MenuItem>
+                    <MenuItem value={"projects"}>Project</MenuItem>
+                </Select>
+            </FormControl>
         </div>
     )
 }

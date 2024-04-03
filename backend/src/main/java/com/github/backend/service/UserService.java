@@ -44,6 +44,33 @@ public class UserService {
         return userRepo.save(currentUser);
     }
 
+    public void changeLists(Boulder boulder, OAuth2User user, String list){
+        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+        switch(list){
+            case "flashes":
+                currentUser.getMyFlashes().add(boulder);
+                currentUser.getMyTops().remove(boulder);
+                currentUser.getMyProjects().remove(boulder);
+                break;
+            case "tops":
+                currentUser.getMyTops().add(boulder);
+                currentUser.getMyFlashes().remove(boulder);
+                currentUser.getMyProjects().remove(boulder);
+                break;
+            case "projects":
+                currentUser.getMyProjects().add(boulder);
+                currentUser.getMyTops().remove(boulder);
+                currentUser.getMyFlashes().remove(boulder);
+                break;
+            case "":
+                currentUser.getMyFlashes().remove(boulder);
+                currentUser.getMyTops().remove(boulder);
+                currentUser.getMyProjects().remove(boulder);
+                break;
+                }
+        userRepo.save(currentUser);
+        }
+
     public void changeFavorites(Boulder boulder, OAuth2User user) {
         User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
         Optional<Boulder> favoriteBoulder= currentUser.getMyFavorites().stream().filter(favorite -> favorite.getId().equals(boulder.getId())).findFirst();
@@ -63,44 +90,44 @@ public class UserService {
         return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyFlashes();
     }
 
-    public void changeFlashes(Boulder boulder, OAuth2User user){
-        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
-        Optional<Boulder> flashedBoulder = currentUser.getMyFlashes().stream().filter(flash -> flash.getId().equals(boulder.getId())).findFirst();
-        if(flashedBoulder.isEmpty()){
-            currentUser.getMyFlashes().add(boulder);
-        } else {
-            currentUser.getMyFlashes().remove(flashedBoulder.get());
-        }
-        userRepo.save(currentUser);
-    }
+//    public void changeFlashes(Boulder boulder, OAuth2User user){
+//        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+//        Optional<Boulder> flashedBoulder = currentUser.getMyFlashes().stream().filter(flash -> flash.getId().equals(boulder.getId())).findFirst();
+//        if(flashedBoulder.isEmpty()){
+//            currentUser.getMyFlashes().add(boulder);
+//        } else {
+//            currentUser.getMyFlashes().remove(flashedBoulder.get());
+//        }
+//        userRepo.save(currentUser);
+//    }
 
     public List<Boulder> getTops(OAuth2User user){
         return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyTops();
     }
 
-    public void changeTops(Boulder boulder, OAuth2User user){
-        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
-        Optional<Boulder> toppedBoulder = currentUser.getMyTops().stream().filter(top -> top.getId().equals(boulder.getId())).findFirst();
-        if(toppedBoulder.isEmpty()){
-            currentUser.getMyTops().add(boulder);
-        } else {
-            currentUser.getMyTops().remove(toppedBoulder.get());
-        }
-        userRepo.save(currentUser);
-    }
+//    public void changeTops(Boulder boulder, OAuth2User user){
+//        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+//        Optional<Boulder> toppedBoulder = currentUser.getMyTops().stream().filter(top -> top.getId().equals(boulder.getId())).findFirst();
+//        if(toppedBoulder.isEmpty()){
+//            currentUser.getMyTops().add(boulder);
+//        } else {
+//            currentUser.getMyTops().remove(toppedBoulder.get());
+//        }
+//        userRepo.save(currentUser);
+//    }
 
     public List<Boulder> getProjects(OAuth2User user){
         return getUserById(user.getAttributes().get("id").toString()).orElseThrow().getMyProjects();
     }
 
-    public void changeProjects(Boulder boulder, OAuth2User user){
-        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
-        Optional<Boulder> projectedBoulder = currentUser.getMyProjects().stream().filter(project -> project.getId().equals(boulder.getId())).findFirst();
-        if(projectedBoulder.isEmpty()){
-            currentUser.getMyProjects().add(boulder);
-        } else {
-            currentUser.getMyProjects().remove(projectedBoulder.get());
-        }
-        userRepo.save(currentUser);
-    }
+//    public void changeProjects(Boulder boulder, OAuth2User user){
+//        User currentUser = getUserById(user.getAttributes().get("id").toString()).orElseThrow();
+//        Optional<Boulder> projectedBoulder = currentUser.getMyProjects().stream().filter(project -> project.getId().equals(boulder.getId())).findFirst();
+//        if(projectedBoulder.isEmpty()){
+//            currentUser.getMyProjects().add(boulder);
+//        } else {
+//            currentUser.getMyProjects().remove(projectedBoulder.get());
+//        }
+//        userRepo.save(currentUser);
+//    }
 }

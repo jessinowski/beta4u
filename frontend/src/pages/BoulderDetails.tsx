@@ -5,6 +5,7 @@ import RatingSystem from "../components/RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import LikeComponent from "../components/LikeComponent.tsx";
 import "./BoulderDetails.css";
+import AddToMyList from "../components/AddToMyLists.tsx";
 
 
 type BoulderDetailsProps={
@@ -20,7 +21,6 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
     return(
         <div>{boulder ?
                 <Card className={"card"}>
-                        <CardActionArea>
                             <LikeComponent boulder={boulder}/>
                             <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                             <CardMedia
@@ -39,7 +39,7 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                                 <p>Routesetter: {boulder.routesetter}</p>
                                 <p>Color: {boulder.color}</p>
                             </CardContent>
-                        </CardActionArea>
+                            <AddToMyList boulder={boulder}/>
                 </Card> :
                 <>No boulder found</>
             }
