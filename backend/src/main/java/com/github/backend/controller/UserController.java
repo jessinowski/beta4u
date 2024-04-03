@@ -5,6 +5,7 @@ import com.github.backend.models.UserDto;
 import com.github.backend.service.BoulderService;
 import com.github.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -42,4 +43,32 @@ public class UserController {
         Boulder boulder = boulderService.getBoulderById(id);
         userService.changeFavorites(boulder, user);
     }
+
+    @PutMapping(value="/change-lists/{id}", consumes= MediaType.TEXT_PLAIN_VALUE)
+    public void changeLists(@PathVariable String id, @AuthenticationPrincipal OAuth2User user, @RequestBody(required = false) String list){
+        Boulder boulder = boulderService.getBoulderById(id);
+        userService.changeLists(boulder, user, list == null ? "" : list);
+    }
+    @GetMapping("/check-lists/{id}")
+    public String checkMyLists(@AuthenticationPrincipal OAuth2User user, @PathVariable String id){
+        Boulder boulder = boulderService.getBoulderById(id);
+        return userService.checkMyLists(user, boulder);
+    }
+
+    @GetMapping("/flashes")
+    public List<Boulder> getFlashes(@AuthenticationPrincipal OAuth2User user){
+        return userService.getFlashes(user);
+    }
+
+    @GetMapping("/tops")
+    public List<Boulder> getTops(@AuthenticationPrincipal OAuth2User user){
+        return userService.getTops(user);
+    }
+
+    @GetMapping("/projects")
+    public List<Boulder> getProjects(@AuthenticationPrincipal OAuth2User user){
+        return userService.getProjects(user);
+    }
+
+
 }

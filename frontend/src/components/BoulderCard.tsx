@@ -4,6 +4,7 @@ import "./BoulderCard.css"
 import RatingSystem from "./RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import {Link} from "react-router-dom";
+import LikeComponent from "./LikeComponent.tsx";
 
 type BoulderCardProps={
     boulder: Boulder;
@@ -24,7 +25,8 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                             alt="boulder-image"
                         />
                         <CardContent>
-                            <p>{<RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>}</p>
+                            <LikeComponent boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
+                            <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
                             <p>{props.boulder.level}</p>
                             <p>{props.boulder.gym}</p>
                         </CardContent>
