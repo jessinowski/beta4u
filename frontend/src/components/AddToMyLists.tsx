@@ -24,21 +24,15 @@ export default function AddToMyList(props: Readonly<AddToMyListProps>){
     };
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        axios.put("/api/user/change-lists/" + props.boulder.id, event.target.value)
-            .then(() => getBoulderLists(event.target.value));
+        axios.put("/api/user/change-lists/" + props.boulder.id, event.target.value, {headers:{'Content-Type': 'text/plain'}});
         setList(event.target.value);
     };
 
-    function getBoulderLists(value: string){
-        axios.get<Boulder[]>("/api/user/" + value)
-            .then(response => {
-                const addedBoulder = response.data.find(b => b.id === props.boulder.id)
-            if(addedBoulder !== undefined){
-                setList(value);
-            } else {
-                setList("");
-            }}
-            );
+    useEffect(checkMyLists, [props.boulder.id]);
+
+    function checkMyLists(){
+        axios.get("/api/user/check-lists/" + props.boulder.id)
+            .then(response => setList(response.data));
     }
 
     return(

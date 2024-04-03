@@ -28,7 +28,10 @@ public class Boulder {
     @DBRef(lazy = true)
     @JsonIgnore
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Comment> comments = new ArrayList<>();
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Rating> ratings = new ArrayList<>();
     private String routesetter;
     private Color color;

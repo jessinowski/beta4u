@@ -5,8 +5,6 @@ import com.github.backend.models.enums.*;
 import com.github.backend.repo.BoulderRepo;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 
@@ -164,7 +161,6 @@ class UserControllerTest {
                 """));
     }
 
-
     @Test
     void getMyFavorites() throws Exception {
         //GIVEN
@@ -202,123 +198,6 @@ class UserControllerTest {
                                 .claim("id", "22"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                    [
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "5",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "Alex",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                    ]
-                """))
-                .andReturn();
-    }
-
-    @Test
-    void getFlashes() throws Exception {
-        //GIVEN
-        Boulder boulder =new Boulder(
-                "1",
-                "image",
-                "video",
-                Level.EIGHT,
-                "5",
-                Gym.UA_HH_OST,
-                null,
-                List.of(),
-                List.of(),
-                "Alex",
-                Color.BLUE,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE));
-        boulderRepo.save(boulder);
-        User user= new User(
-                "22",
-                "jurassica",
-                "Jessica",
-                "image",
-                Gym.UA_HH_OST,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE),
-                List.of(),
-                List.of(),
-                List.of(boulder),
-                List.of());
-        userRepo.save(user);
-        //WHEN & THEN
-        mvc.perform(get("/api/user/flashes")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                    [
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "5",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "Alex",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                    ]
-                """))
-                .andReturn();
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"flashes" , "tops", "projects"})
-    void changeBoulderListsOnProfilePage(String listType) throws Exception {
-        //GIVEN
-        User existingUser = new User(
-                "22",
-                "jurassica",
-                "Jessica",
-                "image",
-                Gym.UA_HH_OST,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE),
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of());
-        userRepo.save(existingUser);
-        Boulder boulder = new Boulder("1",
-                "image",
-                "video",
-                Level.EIGHT,
-                "5",
-                Gym.UA_HH_OST,
-                null,
-                List.of(),
-                List.of(),
-                "Alex",
-                Color.BLUE,
-                List.of(Hold.CRIMP),
-                List.of(Style.MANTLE));
-        boulderRepo.save(boulder);
-        //WHEN
-        mvc.perform(put("/api/user/" + listType +"/1")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                //THEN
-                .andExpect(status().isOk());
-        mvc.perform(get("/api/user/" + listType)
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
                     [
                         {
                             "id": "1",
@@ -397,6 +276,292 @@ class UserControllerTest {
                 """))
                 .andReturn();
     }
+
+    @Test
+    void changeLists_Flash() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/change-lists/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")))
+                        .content("flashes").contentType(MediaType.TEXT_PLAIN_VALUE))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/flashes")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "5",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "Alex",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+    }
+
+    @Test
+    void changeLists_Top() throws Exception {
+        //GIVEN
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(boulder));
+        userRepo.save(existingUser);
+        //WHEN
+        mvc.perform(put("/api/user/change-lists/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")))
+                        .content("tops").contentType(MediaType.TEXT_PLAIN_VALUE))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/tops")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "5",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "Alex",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+        mvc.perform(get("/api/user/projects")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("[]"))
+                .andReturn();
+    }
+
+    @Test
+    void changeLists_Project() throws Exception {
+        //GIVEN
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(put("/api/user/change-lists/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")))
+                        .content("projects").contentType(MediaType.TEXT_PLAIN_VALUE))
+                //THEN
+                .andExpect(status().isOk());
+        mvc.perform(get("/api/user/projects")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "5",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "Alex",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+    }
+
+    @Test
+    void checkMyLists() throws Exception {
+        //GIVEN
+        Boulder boulder = new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User existingUser = new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(boulder),
+                List.of(),
+                List.of());
+        userRepo.save(existingUser);
+        //WHEN
+        mvc.perform(get("/api/user/check-lists/1")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().string("tops"))
+                .andReturn();
+    }
+
+    @Test
+    void getFlashes() throws Exception {
+        //GIVEN
+        Boulder boulder =new Boulder(
+                "1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(boulder),
+                List.of());
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/flashes")
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22"))))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                        {
+                            "id": "1",
+                            "imagePath": "image",
+                            "videoPath": "video",
+                            "level": "EIGHT",
+                            "sector": "5",
+                            "gym": "UA_HH_OST",
+                            "date": null,
+                            "routesetter": "Alex",
+                            "color": "BLUE",
+                            "holds": ["CRIMP"],
+                            "styles": ["MANTLE"]
+                        }
+                    ]
+                """))
+                .andReturn();
+    }
+
     @Test
     void getTops() throws Exception {
         //GIVEN
