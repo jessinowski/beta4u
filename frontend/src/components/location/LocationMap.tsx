@@ -1,9 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import LocationMarker from "./LocationMarker.tsx";
+import {Counters} from "../../pages/MyLocations.tsx";
 
+type LocationMapProps={
+    counters: Counters;
+}
 
-
-export default function LocationMap(){
+export default function LocationMap(props: Readonly<LocationMapProps>){
     const ref = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map>();
 
@@ -14,11 +17,10 @@ export default function LocationMap(){
     }, [ref, map]);
 
 
-
     return(
         <>
             <div id="map" ref={ref}></div>
-            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"678"} />
+            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"678"} counters={props.counters}/>
         </>
     )
 }

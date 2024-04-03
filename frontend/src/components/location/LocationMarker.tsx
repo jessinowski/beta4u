@@ -1,6 +1,10 @@
 import {useEffect, useState} from "react";
+import {Counters} from "../../pages/MyLocations.tsx";
 
-export default function LocationMarker(props: google.maps.MarkerOptions) {
+type LocationMarkerProps={
+    counters: Counters;
+}
+export default function LocationMarker(googleProps: google.maps.MarkerOptions, props: Readonly<LocationMarkerProps>) {
     const [marker, setMarker] = useState<google.maps.Marker>();
 
     useEffect(() => {
@@ -18,9 +22,9 @@ export default function LocationMarker(props: google.maps.MarkerOptions) {
 
     useEffect(() => {
         if (marker) {
-            marker.setOptions(props);
+            marker.setOptions(googleProps);
         }
-    }, [marker, props]);
+    }, [marker, googleProps]);
 
     return null;
 }

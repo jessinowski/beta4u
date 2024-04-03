@@ -53,7 +53,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
             break;
         }
         case "locations": {
-            activeComponent = <MyLocations />;
+            activeComponent = <MyLocations user={props.user}/>;
             break;
         }
     }
