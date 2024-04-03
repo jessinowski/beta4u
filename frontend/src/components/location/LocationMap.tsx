@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import LocationMarker from "./LocationMarker.tsx";
-import {Counters} from "../../pages/MyLocations.tsx";
-import {Gym} from "../../types/enums.ts";
+import {Counters} from "./MyLocations.tsx";
 
 type LocationMapProps={
     counter: Counters;
@@ -17,12 +16,25 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
         }
     }, [ref, map]);
 
+    function getPosition(gym:string){
+        switch(gym){
+            case "UA_HH_OST":
+                return {lat: 53.4, lng: 10.0};
+            case "UA_HH_WEST":
+                return {lat: 53.8, lng: 10.2};
+            case "UA_NDS":
+                return {lat: 53.2, lng: 10.1};
+            case "UA_ST_PAULI":
+                return {lat: 53.4, lng: 10.5};
+        }
+    }
+
     console.log(props.counter);
 
     return(
         <>
             <div id="map" ref={ref}></div>
-            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"1"}/>
+            {Object.entries(props.counter).map(([k,v]) => {return <LocationMarker key={k} position={getPosition(k)} map={map} label={v.toString()}/>})}
         </>
     )
 }

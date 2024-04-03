@@ -1,7 +1,7 @@
 import {Status, Wrapper} from "@googlemaps/react-wrapper";
-import LocationMap from "../components/location/LocationMap.tsx";
+import LocationMap from "./LocationMap.tsx";
 import {useEffect, useState} from "react";
-import {Boulder} from "../types/Boulder.ts";
+import {Boulder} from "../../types/Boulder.ts";
 import axios from "axios";
 
 export type Counters={
@@ -27,10 +27,8 @@ export default function MyLocations(){
     useEffect(sumUpBouldersPerGym,[flashedBoulders, toppedBoulders]);
     function sumUpBouldersPerGym(){
         const allBoulders = flashedBoulders.concat(toppedBoulders);
-        console.log(allBoulders);
-        const counters: Counters ={"UA_HH_OST": 0, "UA_HH_WEST": 0, "UA_ST_PAULI": 0, "UA_NDS": 0};
-        allBoulders.forEach(boulder => counters[boulder.gym] = +1);
-        console.log(counters);
+        const counters: Counters ={};
+        allBoulders.forEach(boulder => counters[boulder.gym] ? counters[boulder.gym] += 1 : counters[boulder.gym] = 1);
         setCounter(counters);
     }
 
