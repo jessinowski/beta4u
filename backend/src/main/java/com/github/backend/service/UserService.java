@@ -80,6 +80,8 @@ public class UserService {
                 currentUser.getMyTops().remove(boulder);
                 currentUser.getMyProjects().remove(boulder);
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
         userRepo.save(currentUser);
     }

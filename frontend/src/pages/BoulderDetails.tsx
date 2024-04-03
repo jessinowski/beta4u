@@ -1,6 +1,6 @@
 import {Boulder} from "../types/Boulder.ts";
 import {useParams} from "react-router-dom";
-import {Card, CardActionArea, CardContent, CardMedia, Chip} from "@mui/material";
+import {Card, CardContent, CardMedia, Chip} from "@mui/material";
 import RatingSystem from "../components/RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import LikeComponent from "../components/LikeComponent.tsx";
