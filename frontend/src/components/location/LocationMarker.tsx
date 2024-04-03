@@ -1,10 +1,6 @@
 import {useEffect, useState} from "react";
-import {Counters} from "../../pages/MyLocations.tsx";
 
-type LocationMarkerProps={
-    counters: Counters;
-}
-export default function LocationMarker(googleProps: google.maps.MarkerOptions, props: Readonly<LocationMarkerProps>) {
+export default function LocationMarker(googleProps: google.maps.MarkerOptions) {
     const [marker, setMarker] = useState<google.maps.Marker>();
 
     useEffect(() => {

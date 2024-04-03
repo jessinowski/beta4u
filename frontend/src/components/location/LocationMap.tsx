@@ -1,9 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 import LocationMarker from "./LocationMarker.tsx";
 import {Counters} from "../../pages/MyLocations.tsx";
+import {Gym} from "../../types/enums.ts";
 
 type LocationMapProps={
-    counters: Counters;
+    counter: Counters;
 }
 
 export default function LocationMap(props: Readonly<LocationMapProps>){
@@ -17,10 +18,11 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
     }, [ref, map]);
 
 
+
     return(
         <>
             <div id="map" ref={ref}></div>
-            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"678"} counters={props.counters}/>
+            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={props.counter[Gym.UA_NDS.toString()].toString()}/>
         </>
     )
 }
