@@ -17,12 +17,12 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
         }
     }, [ref, map]);
 
-
+    console.log(props.counter);
 
     return(
         <>
             <div id="map" ref={ref}></div>
-            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={props.counter[Gym.UA_NDS.toString()].toString()}/>
+            <LocationMarker position={{lat: 53.4, lng: 10.0}} map={map} label={"1"}/>
         </>
     )
 }
