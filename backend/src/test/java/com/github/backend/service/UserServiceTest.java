@@ -84,7 +84,6 @@ class UserServiceTest {
         User createdUser = service.createUser(oAuth2User, user);
         //THEN
         assertEquals("123456", createdUser.getId());
-
     }
 
 }
