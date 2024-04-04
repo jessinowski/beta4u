@@ -10,7 +10,7 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import {useEffect, useState} from "react";
 import MyBoulderList from "../components/MyBoulderList.tsx";
-import MyLocations from "../components/MyLocations.tsx";
+import MyLocations from "../components/location/MyLocations.tsx";
 
 type ProfilePageProps={
     user: User;
@@ -49,7 +49,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
             break;
         }
         case "locations": {
-            activeComponent = <MyLocations/>;
+            activeComponent = <MyLocations user={props.user}/>;
             break;
         }
     }

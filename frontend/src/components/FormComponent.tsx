@@ -123,7 +123,7 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                            id={"fullName"} label={"Full name"} variant={"outlined"} value={formData.fullName}
                            onChange={handleChangeFullName} size={"small"}/>
                 <br/>
-                <FormControl sx={{m: 1, width: 300}}>
+                <FormControl required sx={{m: 1, width: 300}}>
                     <InputLabel>Home gym</InputLabel>
                     <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
                             size={"small"}>
