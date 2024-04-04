@@ -33,7 +33,13 @@ export default function MyLocations(props: Readonly<MyLocationsProps>){
     function sumUpBouldersPerGym(){
         const allBoulders = flashedBoulders.concat(toppedBoulders);
         const counters: Counters ={};
-        allBoulders.forEach(boulder => counters[boulder.gym] ? counters[boulder.gym] += 1 : counters[boulder.gym] = 1);
+        allBoulders.forEach(boulder => {
+            if(counters[boulder.gym]){
+                counters[boulder.gym] += 1;
+            } else {
+                counters[boulder.gym] = 1;
+            }
+        });
         setCounter(counters);
     }
 
