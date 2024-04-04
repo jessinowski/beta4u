@@ -24,11 +24,14 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
 
     const optLevels = Object.values(Level);
     const optGyms = Object.values(Gym);
-    const optSectors = props.boulders.map(boulder => boulder.sector);
+    const optSectors = props.boulders.map(boulder => boulder.sector)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort();
     const optColors = Object.values(Color);
     const optHolds = Object.values(Hold);
     const optStyles = Object.values(Style);
-    const optRoutesetters = props.boulders.map(boulder => boulder.routesetter);
+    const optRoutesetters = props.boulders.map(boulder => boulder.routesetter)
+        .filter((value, index, self) => self.indexOf(value) === index);
 
     const newestBoulders = props.boulders.sort((a,b)=> {return new Date(b.date).getTime() - new Date(a.date).getTime()});
 
