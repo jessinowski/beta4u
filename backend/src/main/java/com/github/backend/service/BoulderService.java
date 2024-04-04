@@ -1,5 +1,4 @@
 package com.github.backend.service;
-
 import com.github.backend.models.Rating;
 import com.github.backend.repo.BoulderRepo;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,4 @@
 package com.github.backend.controller;
-
 import com.github.backend.models.Comment;
 import com.github.backend.models.CommentDto;
 import com.github.backend.service.CommentService;
@@ -14,19 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/create")
-    public Comment createComment(@AuthenticationPrincipal OAuth2User user, @RequestBody CommentDto commentDto){
-        return commentService.createComment(user, commentDto);
+    @PostMapping("/create/{id}")
+    public Comment createComment(@AuthenticationPrincipal OAuth2User user, @PathVariable String id, @RequestBody CommentDto commentDto){
+        return commentService.createComment(user, id, commentDto);
     }
 
-    @PutMapping("/edit/{id}")
-    public Comment editComment(@PathVariable String id, @RequestBody String newContent){
-        return commentService.editComment(id, newContent);
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable String commentId, @RequestBody String boulderId){
+        commentService.deleteComment(commentId, boulderId);
     }
-
-    @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable String id){
-        commentService.deleteComment(id);
-    }
-
 }
