@@ -45,7 +45,7 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
                 <ExpandMoreIcon/>
             </Button>
             <Collapse in={expanded}>
-                {boulderComments.map(comment =>  <CommentCard comment={comment}/>)}
+                {boulderComments.map(comment =>  <CommentCard comment={comment} boulder={props.boulder} fetchData={props.fetchData}/>)}
             </Collapse>
             <form onSubmit={saveComment}>
                 <label>Create comment:
