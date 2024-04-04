@@ -45,11 +45,11 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
                 <ExpandMoreIcon/>
             </Button>
             <Collapse in={expanded}>
-                {boulderComments && boulderComments.map(comment => <CommentCard comment={comment}/>)}
+                {boulderComments.map(comment =>  <CommentCard comment={comment}/>)}
             </Collapse>
             <form onSubmit={saveComment}>
                 <label>Create comment:
-                    <textarea value={newComment} onChange={handleComment}/>
+                   <textarea value={newComment} onChange={handleComment}/>
                 </label>
                 <button type={"submit"}>Submit</button>
             </form>
