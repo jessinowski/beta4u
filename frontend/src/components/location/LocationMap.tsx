@@ -35,8 +35,6 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
         }
     }
 
-    console.log(props.counter);
-
     return(
         <>
             <div id="map" ref={ref}></div>
