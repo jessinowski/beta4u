@@ -1,4 +1,5 @@
 package com.github.backend.controller;
+import com.github.backend.models.Comment;
 import com.github.backend.service.BoulderService;
 import lombok.RequiredArgsConstructor;
 import com.github.backend.models.Boulder;
@@ -26,5 +27,10 @@ public class BoulderController {
     @PutMapping(value="/change-rating/{id}", consumes= MediaType.APPLICATION_JSON_VALUE)
     public Boulder changeRating(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable String id, @RequestBody double ratingPoints){
         return boulderService.changeRating(oAuth2User, id, ratingPoints);
+    }
+
+    @GetMapping("/comments/{id}")
+    public List<Comment> getCommentsByBoulder(@PathVariable String id){
+        return boulderService.getCommentsByBoulder(id);
     }
 }

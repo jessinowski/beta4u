@@ -25,7 +25,7 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                             alt="boulder-image"
                         />
                         <CardContent>
-                            <LikeComponent boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
+                            <LikeComponent boulder={props.boulder}/>
                             <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
                             <p>{props.boulder.level}</p>
                             <p>{props.boulder.gym}</p>

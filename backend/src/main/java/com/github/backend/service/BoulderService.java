@@ -1,4 +1,5 @@
 package com.github.backend.service;
+import com.github.backend.models.Comment;
 import com.github.backend.models.Rating;
 import com.github.backend.repo.BoulderRepo;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,10 @@ public class BoulderService {
         boulder.setRatings(newRatings);
         boulder.getRatings().add(newRating);
         return boulderRepo.save(boulder);
+    }
+
+    public List<Comment> getCommentsByBoulder(String id) {
+        Boulder boulder = boulderRepo.findById(id).orElseThrow();
+        return boulder.getComments();
     }
 }
