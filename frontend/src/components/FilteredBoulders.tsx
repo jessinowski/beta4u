@@ -26,7 +26,7 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
     const optGyms = Object.values(Gym);
     const optSectors = props.boulders.map(boulder => boulder.sector)
         .filter((value, index, self) => self.indexOf(value) === index)
-        .sort();
+        .sort((a,b) => a.localeCompare(b));
     const optColors = Object.values(Color);
     const optHolds = Object.values(Hold);
     const optStyles = Object.values(Style);
