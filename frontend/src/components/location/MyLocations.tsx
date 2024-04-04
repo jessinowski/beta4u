@@ -3,11 +3,16 @@ import LocationMap from "./LocationMap.tsx";
 import {useEffect, useState} from "react";
 import {Boulder} from "../../types/Boulder.ts";
 import axios from "axios";
+import {User} from "../../types/User.ts";
 
 export type Counters={
     [key: string]: number;
 }
-export default function MyLocations(){
+
+type MyLocationsProps={
+    user: User;
+}
+export default function MyLocations(props: Readonly<MyLocationsProps>){
     const[flashedBoulders, setFlashedBoulders]=useState<Boulder[]>([]);
     const[toppedBoulders, setToppedBoulders]=useState<Boulder[]>([]);
     const [counter, setCounter]=useState<Counters>({});
@@ -39,7 +44,7 @@ export default function MyLocations(){
 
     return(
         <Wrapper apiKey={import.meta.env.VITE_GOOGLE_API_KEY} render={render}>
-            <LocationMap counter={counter}/>
+            <LocationMap counter={counter} user={props.user}/>
         </Wrapper>
     )
 }
