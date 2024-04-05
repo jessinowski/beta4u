@@ -31,7 +31,8 @@ public class UserService {
                 null,
                 null,
                 null,
-                null);
+                null,
+                false);
         return userRepo.save(createdUser);
     }
     public User editUser(OAuth2User user, UserDto userDto) {

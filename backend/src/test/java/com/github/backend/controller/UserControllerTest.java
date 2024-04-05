@@ -52,7 +52,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user")
@@ -68,7 +69,8 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"]
+                            "favoriteStyles": ["MANTLE"],
+                            "isNewUser": false
                         }
                         
                 """));
@@ -105,7 +107,8 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"]
+                            "favoriteStyles": ["MANTLE"],
+                            "isNewUser": false
                         }
                         
                 """));
@@ -125,7 +128,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         String requestBody = """
                         {
@@ -155,7 +159,8 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_WEST",
                             "favoriteHolds": ["JUG"],
-                            "favoriteStyles": ["MANTLE", "ROOF"]
+                            "favoriteStyles": ["MANTLE", "ROOF"],
+                            "isNewUser": false
                         }
                         
                 """));
@@ -190,7 +195,8 @@ class UserControllerTest {
                 List.of(boulder),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/favorites")
@@ -210,7 +216,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -231,7 +238,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -270,7 +278,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -291,7 +300,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -331,7 +341,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -366,7 +377,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of(boulder));
+                List.of(boulder),
+                false);
         userRepo.save(existingUser);
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
@@ -392,7 +404,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -419,7 +432,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -459,7 +473,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -494,7 +509,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(boulder),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         //WHEN
         mvc.perform(get("/api/user/check-lists/1")
@@ -535,7 +551,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(boulder),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/flashes")
@@ -555,7 +572,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -591,7 +609,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(boulder),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/tops")
@@ -611,7 +630,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))
@@ -647,7 +667,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of(boulder));
+                List.of(boulder),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/projects")
@@ -667,7 +688,8 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
+                            "styles": ["MANTLE"],
+                            "isNewUser": false
                         }
                     ]
                 """))

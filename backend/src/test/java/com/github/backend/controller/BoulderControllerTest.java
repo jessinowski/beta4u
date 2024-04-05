@@ -154,7 +154,8 @@ class BoulderControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN
         mvc.perform(put("/api/boulders/changeRating/"+boulder.getId())
@@ -185,7 +186,8 @@ class BoulderControllerTest {
                                 "routesetter": "Alex",
                                 "color": "BLUE",
                                 "holds": ["CRIMP"],
-                                "styles": ["MANTLE"]
+                                "styles": ["MANTLE"],
+                                "isNewUser": false
                             }
                           """))
                         .andReturn();

@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -20,8 +19,11 @@ public class UserController {
     private final UserService userService;
     private final BoulderService boulderService;
     @GetMapping
-    public Optional<User> getUserById(@AuthenticationPrincipal OAuth2User user){
-        return userService.getUserById(user.getAttributes().get("id").toString());
+    public User getMe(@AuthenticationPrincipal OAuth2User user){
+        if (user == null) {
+            return null;
+        }
+        return userService.getUserById(user.getAttributes().get("id").toString()).orElse(new User(user.getAttributes()));
     }
 
     @PostMapping("/edit")
