@@ -20,20 +20,20 @@ import "./FormComponent.css";
 
 type FormComponentProps = {
     fetchUser: () => void;
-    user: User;
+    user?: User;
     path: string;
     formTarget: string;
 }
 export default function FormComponent(props: Readonly<FormComponentProps>) {
     const [avatarUrl, setAvatarUrl] = useState<string>("");
-    const [formData, setFormData] = useState<User>({username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles});
-    const [homeGym, setHomeGym] = useState<string>(props.user.homeGym ?? "");
-    const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds ?? []);
-    const [styles, setStyles] = useState<string[]>(props.user.favoriteStyles ?? []);
+    const [formData, setFormData] = useState<User>(props.user ? {username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles} : {username: '', homeGym: ''});
+    const [homeGym, setHomeGym] = useState<string>(props.user ? props.user.homeGym : "");
+    const [holds, setHolds] = useState<string[]>(props.user?.favoriteHolds ? props.user.favoriteHolds : []);
+    const [styles, setStyles] = useState<string[]>(props.user?.favoriteStyles ? props.user.favoriteStyles : []);
     const navigate = useNavigate();
-    const optionalGyms = Object.values(Gym);
-    const optionalHolds = Object.values(Hold);
-    const optionalStyles = Object.values(Style);
+    const optionalGyms = Object.entries(Gym);
+    const optionalHolds = Object.entries(Hold);
+    const optionalStyles = Object.entries(Style);
 
     useEffect(showAvatar, []);
 
@@ -127,9 +127,9 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                     <InputLabel>Home gym</InputLabel>
                     <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
                             size={"small"}>
-                        {optionalGyms.map(gym =>
-                            <MenuItem key={gym} value={gym}>
-                                {gym}
+                        {optionalGyms.map(([value,label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
@@ -141,12 +141,12 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             input={<OutlinedInput label="Favorite holds"/>} size={"small"}
                             renderValue={(selected) => (
                                 selected.map((value) => (
-                                    <Chip key={value} label={value} size={"small"}/>
+                                    <Chip key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
                                 ))
                             )}>
-                        {optionalHolds.map(hold =>
-                            <MenuItem key={hold} value={hold}>
-                                {hold}
+                        {optionalHolds.map(([value, label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
@@ -158,12 +158,12 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             input={<OutlinedInput label="Favorite styles"/>} size={"small"}
                             renderValue={(selected) => (
                                 selected.map((value) => (
-                                    <Chip key={value} label={value} size={"small"}/>
+                                    <Chip key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
                                 ))
                             )}>
-                        {optionalStyles.map(style =>
-                            <MenuItem key={style} value={style}>
-                                {style}
+                        {optionalStyles.map(([value, label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
