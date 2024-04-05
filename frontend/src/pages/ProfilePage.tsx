@@ -11,6 +11,7 @@ import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import {useEffect, useState} from "react";
 import MyBoulderList from "../components/MyBoulderList.tsx";
 import MyLocations from "../components/location/MyLocations.tsx";
+import {Gym} from "../types/enums.ts";
 
 type ProfilePageProps={
     user: User;
@@ -61,7 +62,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
                     <img className={"profilePicture"} alt={"my_picture"} src={props.user.imagePath}/>
                     <div className={"profileText"}>
                         <p className={"profileName"}>{props.user.username}</p>
-                        <p className={"profileInfo"}>{props.user.homeGym}</p>
+                        <p className={"profileInfo"}>{Gym[props.user.homeGym as keyof typeof Gym]}</p>
                     </div>
                 </div>
 
