@@ -4,10 +4,13 @@ import {Checkbox} from "@mui/material";
 import "./LikeComponent.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {User} from "../types/User.ts";
 
 
 type LikeComponentProps={
     boulder: Boulder;
+    fetchData: ()=>void;
+    user: User;
 }
 export default function LikeComponent(props: Readonly<LikeComponentProps>){
     const [checked, setChecked]=useState<boolean>(false);
