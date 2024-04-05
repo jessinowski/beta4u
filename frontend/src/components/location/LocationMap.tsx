@@ -15,10 +15,8 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
 
 
     useEffect(() => {
-        const position = getPosition(props.user.homeGym);
-        console.log(position);
         if (ref.current && !map) {
-            setMap(new google.maps.Map(ref.current, { zoom: 11, center: position}));
+            setMap(new google.maps.Map(ref.current, { zoom: 11, center: {lat: 53.54565500799583, lng: 9.982908575419012}}));
         }
     }, [ref, map, props.user]);
 
