@@ -214,7 +214,8 @@ class BoulderControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         Comment comment = new Comment("3", "nice", user, null);
         commentRepo.save(comment);
@@ -248,7 +249,8 @@ class BoulderControllerTest {
                                     "imagePath": "image",
                                     "homeGym": "UA_HH_OST",
                                     "favoriteHolds": ["CRIMP"],
-                                    "favoriteStyles": ["MANTLE"]
+                                    "favoriteStyles": ["MANTLE"],
+                                    "newUser": false
                                 },
                                 "date": null
                             }

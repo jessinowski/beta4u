@@ -54,7 +54,8 @@ class CommentControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         Boulder boulder= new Boulder("1",
                 "image",
@@ -99,7 +100,8 @@ class CommentControllerTest {
                                     "imagePath": "image",
                                     "homeGym": "UA_HH_OST",
                                     "favoriteHolds": ["CRIMP"],
-                                    "favoriteStyles": ["MANTLE"]
+                                    "favoriteStyles": ["MANTLE"],
+                                    "newUser": false
                                 },
                                 "date": null
                             }
