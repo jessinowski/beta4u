@@ -8,10 +8,9 @@ import {
     OutlinedInput,
     Select,
     SelectChangeEvent,
-    styled,
     TextField
 } from "@mui/material";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {User} from "../types/User.ts";
 import {Gym, Hold, Style} from "../types/enums.ts";
@@ -19,28 +18,20 @@ import {useNavigate} from "react-router-dom";
 import "./FormComponent.css";
 
 type FormComponentProps = {
-    fetchUser: () => void;
     user: User;
     path: string;
     formTarget: string;
+    fetchUser: ()=>void;
 }
 export default function FormComponent(props: Readonly<FormComponentProps>) {
-    const [avatarUrl, setAvatarUrl] = useState<string>("");
-    const [formData, setFormData] = useState<User>({username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles});
-    const [homeGym, setHomeGym] = useState<string>(props.user.homeGym ?? "");
-    const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds ?? []);
-    const [styles, setStyles] = useState<string[]>(props.user.favoriteStyles ?? []);
+    const [formData, setFormData] = useState<User>(props.user ? {username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles} : {username: '', homeGym: ''});
+    const [homeGym, setHomeGym] = useState<string>(props.user ? props.user.homeGym : "");
+    const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds ? props.user.favoriteHolds : []);
+    const [styles, setStyles] = useState<string[]>(props.user.favoriteStyles ? props.user.favoriteStyles : []);
     const navigate = useNavigate();
-    const optionalGyms = Object.values(Gym);
-    const optionalHolds = Object.values(Hold);
-    const optionalStyles = Object.values(Style);
-
-    useEffect(showAvatar, []);
-
-    function showAvatar() {
-        axios.get("/api/auth/myAvatar")
-            .then(response => setAvatarUrl(response.data));
-    }
+    const optionalGyms = Object.entries(Gym);
+    const optionalHolds = Object.entries(Hold);
+    const optionalStyles = Object.entries(Style);
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -96,26 +87,11 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
         }));
     }
 
-    const ValidationTextField = styled(TextField)({
-        '& input:valid + fieldset': {
-            borderColor: '#E0E3E7',
-            borderWidth: 1,
-        },
-        '& input:invalid + fieldset': {
-            borderColor: 'red',
-            borderWidth: 1,
-        },
-        '& input:valid:focus + fieldset': {
-            borderWidth: 1,
-            padding: '4px !important',
-        },
-    });
-
     return (
         <div className={"formComponent"}>
-            <Avatar alt="Remy Sharp" src={avatarUrl}/>
+            <Avatar alt="Remy Sharp" src={props.user.imagePath}/>
             <form onSubmit={handleOnSubmit}>
-                <ValidationTextField sx={{m: 1, width: 300}}
+                <TextField sx={{m: 1, width: 300}}
                                      id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
                                      onChange={handleChangeUsername} size={"small"} required/>
                 <br/>
@@ -127,9 +103,9 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                     <InputLabel>Home gym</InputLabel>
                     <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
                             size={"small"}>
-                        {optionalGyms.map(gym =>
-                            <MenuItem key={gym} value={gym}>
-                                {gym}
+                        {optionalGyms.map(([value,label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
@@ -141,12 +117,12 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             input={<OutlinedInput label="Favorite holds"/>} size={"small"}
                             renderValue={(selected) => (
                                 selected.map((value) => (
-                                    <Chip key={value} label={value} size={"small"}/>
+                                    <Chip key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
                                 ))
                             )}>
-                        {optionalHolds.map(hold =>
-                            <MenuItem key={hold} value={hold}>
-                                {hold}
+                        {optionalHolds.map(([value, label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
@@ -158,12 +134,12 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             input={<OutlinedInput label="Favorite styles"/>} size={"small"}
                             renderValue={(selected) => (
                                 selected.map((value) => (
-                                    <Chip key={value} label={value} size={"small"}/>
+                                    <Chip key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
                                 ))
                             )}>
-                        {optionalStyles.map(style =>
-                            <MenuItem key={style} value={style}>
-                                {style}
+                        {optionalStyles.map(([value, label]) =>
+                            <MenuItem key={value} value={value}>
+                                {label}
                             </MenuItem>
                         )}
                     </Select>
@@ -173,7 +149,6 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                     Save
                 </Button>
             </form>
-
         </div>
     )
 }

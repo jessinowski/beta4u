@@ -5,7 +5,7 @@ export type User={
     username: string;
     fullName?: string;
     imagePath?: string;
-    homeGym?: string;
+    homeGym: string;
     favoriteHolds?: string[];
     favoriteStyles?: string[];
     myFavorites?: Boulder[];

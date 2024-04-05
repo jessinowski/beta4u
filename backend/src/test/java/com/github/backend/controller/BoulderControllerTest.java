@@ -1,4 +1,5 @@
 package com.github.backend.controller;
+
 import com.github.backend.models.Boulder;
 import com.github.backend.models.Comment;
 import com.github.backend.models.User;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
@@ -53,9 +55,9 @@ class BoulderControllerTest {
     }
 
     @Test
-    void getAllBoulders_returnOnlyElement_whenCalledWithOneBoulder() throws Exception{
+    void getAllBoulders_returnOnlyElement_whenCalledWithOneBoulder() throws Exception {
         //GIVEN
-        Boulder boulder= new Boulder("1",
+        Boulder boulder = new Boulder("1",
                 "image",
                 "video",
                 Level.EIGHT,
@@ -73,29 +75,29 @@ class BoulderControllerTest {
         mvc.perform(get("/api/boulders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                    [
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "5",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "Alex",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                    ]
-                """))
+                            [
+                                {
+                                    "id": "1",
+                                    "imagePath": "image",
+                                    "videoPath": "video",
+                                    "level": "EIGHT",
+                                    "sector": "5",
+                                    "gym": "UA_HH_OST",
+                                    "date": null,
+                                    "routesetter": "Alex",
+                                    "color": "BLUE",
+                                    "holds": ["CRIMP"],
+                                    "styles": ["MANTLE"]
+                                }
+                            ]
+                        """))
                 .andReturn();
     }
 
     @Test
     void getBoulderById_returnBoulderWithId1_whenCalledWithId1() throws Exception {
         //GIVEN
-        Boulder boulder= new Boulder("1",
+        Boulder boulder = new Boulder("1",
                 "image",
                 "video",
                 Level.EIGHT,
@@ -113,27 +115,27 @@ class BoulderControllerTest {
         mvc.perform(get("/api/boulders/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                        {
-                            "id": "1",
-                            "imagePath": "image",
-                            "videoPath": "video",
-                            "level": "EIGHT",
-                            "sector": "5",
-                            "gym": "UA_HH_OST",
-                            "date": null,
-                            "routesetter": "Alex",
-                            "color": "BLUE",
-                            "holds": ["CRIMP"],
-                            "styles": ["MANTLE"]
-                        }
-                """))
+                                {
+                                    "id": "1",
+                                    "imagePath": "image",
+                                    "videoPath": "video",
+                                    "level": "EIGHT",
+                                    "sector": "5",
+                                    "gym": "UA_HH_OST",
+                                    "date": null,
+                                    "routesetter": "Alex",
+                                    "color": "BLUE",
+                                    "holds": ["CRIMP"],
+                                    "styles": ["MANTLE"]
+                                }
+                        """))
                 .andReturn();
     }
 
     @Test
     void changeRating_addRating_whenListEmpty() throws Exception {
         //GIVEN
-        Boulder boulder= new Boulder("1",
+        Boulder boulder = new Boulder("1",
                 "image",
                 "video",
                 Level.EIGHT,
@@ -148,7 +150,7 @@ class BoulderControllerTest {
                 List.of(Style.MANTLE));
         boulderRepo.save(boulder);
 
-        User user= new User(
+        User user = new User(
                 "22",
                 "jurassica",
                 "Jessica",
@@ -159,15 +161,16 @@ class BoulderControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN
         mvc.perform(put("/api/boulders/change-rating/"+boulder.getId())
                         .with(oidcLogin().userInfoToken(token->token.claim("id","22")))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(String.valueOf(3.5)))
-                        .andExpect(status().isOk())
-                        .andExpect(content().json("""
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
                             {
                                 "id": "1",
                                 "imagePath": "image",
@@ -177,14 +180,15 @@ class BoulderControllerTest {
                                 "gym": "UA_HH_OST",
                                 "date": null,
                                 "ratings": [{"ratingPoints": 3.5,
-                                             "user":                         {
+                                             "user": {
                             "id": "22",
                             "username": "jurassica",
                             "fullName": "Jessica",
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"]
+                            "favoriteStyles": ["MANTLE"],
+                            "newUser": false
                         }
                                  }],
                                 "routesetter": "Alex",
@@ -193,7 +197,7 @@ class BoulderControllerTest {
                                 "styles": ["MANTLE"]
                             }
                           """))
-                        .andReturn();
+                .andReturn();
     }
 
     @Test

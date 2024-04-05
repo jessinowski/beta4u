@@ -5,6 +5,7 @@ import RatingSystem from "./RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import {Link} from "react-router-dom";
 import LikeComponent from "./LikeComponent.tsx";
+import {Gym, Level} from "../types/enums.ts";
 
 type BoulderCardProps={
     boulder: Boulder;
@@ -27,8 +28,8 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                         <CardContent>
                             <LikeComponent boulder={props.boulder}/>
                             <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
-                            <p>{props.boulder.level}</p>
-                            <p>{props.boulder.gym}</p>
+                            <p>{Gym[props.boulder.gym as keyof typeof Gym]}</p>
+                            <p>Level: {Level[props.boulder.level as keyof typeof Level]}</p>
                         </CardContent>
                     </CardActionArea>
                 </Link>
