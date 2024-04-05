@@ -21,7 +21,7 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
     return(
         <div>{boulder ?
                 <Card className={"card"}>
-                            <LikeComponent boulder={boulder}/>
+                            <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                             <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                             <CardMedia
                                 component="img"
