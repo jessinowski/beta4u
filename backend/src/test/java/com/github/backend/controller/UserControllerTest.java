@@ -39,7 +39,7 @@ class UserControllerTest {
     private BoulderRepo boulderRepo;
 
     @Test
-    void getUserById() throws Exception {
+    void getMe() throws Exception {
         //GIVEN
         User user= new User(
                 "22",
@@ -52,12 +52,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         
@@ -68,10 +71,17 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"]
+                            "favoriteStyles": ["MANTLE"],
+                            "newUser": false
                         }
                         
                 """));
+    }
+
+    @Test
+    void getMe_ifUserIsNull() throws Exception {
+        mvc.perform(get("/api/user"))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -92,6 +102,7 @@ class UserControllerTest {
         mvc.perform(post("/api/user/create")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22")
+                                .claim("name", "Jessica")
                                 .claim("avatar_url", "image")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
@@ -105,7 +116,8 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
-                            "favoriteStyles": ["MANTLE"]
+                            "favoriteStyles": ["MANTLE"],
+                            "newUser": false
                         }
                         
                 """));
@@ -125,7 +137,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         String requestBody = """
                         {
@@ -142,6 +155,7 @@ class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/api/user/edit")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22")
+                                .claim("name", "Jessica")
                                 .claim("avatar_url", "image")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
@@ -155,7 +169,8 @@ class UserControllerTest {
                             "imagePath": "image",
                             "homeGym": "UA_HH_WEST",
                             "favoriteHolds": ["JUG"],
-                            "favoriteStyles": ["MANTLE", "ROOF"]
+                            "favoriteStyles": ["MANTLE", "ROOF"],
+                            "newUser": false
                         }
                         
                 """));
@@ -190,12 +205,15 @@ class UserControllerTest {
                 List.of(boulder),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/favorites")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                     [
@@ -231,7 +249,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -250,7 +269,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/favorites/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 //THEN
                 .andExpect(status().isOk());
         mvc.perform(get("/api/user/favorites")
@@ -291,7 +312,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -310,7 +332,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("flashes").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
@@ -366,12 +390,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of(boulder));
+                List.of(boulder),
+                false);
         userRepo.save(existingUser);
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("tops").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
@@ -399,7 +426,9 @@ class UserControllerTest {
                 .andReturn();
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"))
                 .andReturn();
@@ -419,7 +448,8 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         Boulder boulder = new Boulder("1",
                 "image",
@@ -438,13 +468,17 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("projects").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                     [
@@ -494,12 +528,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(boulder),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(existingUser);
         //WHEN
         mvc.perform(get("/api/user/check-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 //THEN
                 .andExpect(status().isOk())
                 .andExpect(content().string("tops"))
@@ -535,12 +572,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(boulder),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/flashes")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [
@@ -591,12 +631,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(boulder),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/tops")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [
@@ -647,12 +690,15 @@ class UserControllerTest {
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of(boulder));
+                List.of(boulder),
+                false);
         userRepo.save(user);
         //WHEN & THEN
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [

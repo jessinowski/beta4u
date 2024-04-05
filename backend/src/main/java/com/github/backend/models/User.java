@@ -13,6 +13,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.github.backend.service.AttributeUtils.getStringAttribute;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,4 +43,20 @@ public class User {
     @JsonIgnore
     private List<Boulder> myProjects = new ArrayList<>();
 
+    private boolean newUser;
+
+    public User(Map<String, Object> attributes){
+        this.id = getStringAttribute(attributes, "id");
+        this.username = "";
+        this.fullName = getStringAttribute(attributes, "name");
+        this.imagePath = getStringAttribute(attributes, "avatar_url");
+        this.homeGym = null;
+        this.favoriteHolds = null;
+        this.favoriteStyles = null;
+        this.myFavorites = null;
+        this.myTops = null;
+        this.myFlashes = null;
+        this.myProjects = null;
+        this.newUser = true;
+    }
 }

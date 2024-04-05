@@ -1,15 +1,18 @@
-import FormComponent from "../components/FormComponent.tsx";
+import FormComponent from "../components/FormComponent";
+import {User} from "../types/User.ts";
 
 type SignUpPageProps={
+    user:User;
     fetchUser: ()=>void;
 }
+
 export default function SignUpPage(props: Readonly<SignUpPageProps>){
 
     return(
         <div>
             <p>Hi!</p>
             <p>Create your new profile</p>
-            <FormComponent fetchUser={props.fetchUser} path={"/home"} formTarget={"create"}/>
+            <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/home"} formTarget={"create"}/>
         </div>
     )
 }

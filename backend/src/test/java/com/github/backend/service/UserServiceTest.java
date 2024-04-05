@@ -47,7 +47,8 @@ class UserServiceTest {
                         List.of(Style.MANTLE))),
                 List.of(),
                 List.of(),
-                List.of());
+                List.of(),
+                false);
         when(repo.findById("22")).thenReturn(Optional.of(expected));
         //WHEN
         Optional<User> actual = service.getUserById("22");
@@ -79,7 +80,7 @@ class UserServiceTest {
                         user.getHomeGym(),
                         user.getFavoriteHolds(),
                         user.getFavoriteStyles(),
-                        null, null, null, null));
+                        null, null, null, null, false));
         //WHEN
         User createdUser = service.createUser(oAuth2User, user);
         //THEN
