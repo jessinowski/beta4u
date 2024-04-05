@@ -58,7 +58,9 @@ class UserControllerTest {
         //WHEN & THEN
         mvc.perform(get("/api/user")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         
@@ -70,7 +72,7 @@ class UserControllerTest {
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
                             "favoriteStyles": ["MANTLE"],
-                            "isNewUser": false
+                            "newUser": false
                         }
                         
                 """));
@@ -94,6 +96,7 @@ class UserControllerTest {
         mvc.perform(post("/api/user/create")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22")
+                                .claim("name", "Jessica")
                                 .claim("avatar_url", "image")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
@@ -108,7 +111,7 @@ class UserControllerTest {
                             "homeGym": "UA_HH_OST",
                             "favoriteHolds": ["CRIMP"],
                             "favoriteStyles": ["MANTLE"],
-                            "isNewUser": false
+                            "newUser": false
                         }
                         
                 """));
@@ -146,6 +149,7 @@ class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/api/user/edit")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("id", "22")
+                                .claim("name", "Jessica")
                                 .claim("avatar_url", "image")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
@@ -160,7 +164,7 @@ class UserControllerTest {
                             "homeGym": "UA_HH_WEST",
                             "favoriteHolds": ["JUG"],
                             "favoriteStyles": ["MANTLE", "ROOF"],
-                            "isNewUser": false
+                            "newUser": false
                         }
                         
                 """));
@@ -201,7 +205,9 @@ class UserControllerTest {
         //WHEN & THEN
         mvc.perform(get("/api/user/favorites")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                     [
@@ -216,8 +222,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -258,7 +263,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/favorites/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 //THEN
                 .andExpect(status().isOk());
         mvc.perform(get("/api/user/favorites")
@@ -278,8 +285,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -320,7 +326,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("flashes").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
@@ -341,8 +349,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -383,7 +390,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("tops").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
@@ -404,15 +413,16 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
                 .andReturn();
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"))
                 .andReturn();
@@ -452,13 +462,17 @@ class UserControllerTest {
         //WHEN
         mvc.perform(put("/api/user/change-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22")))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image")))
                         .content("projects").contentType(MediaType.TEXT_PLAIN_VALUE))
                 //THEN
                 .andExpect(status().isOk());
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                     [
@@ -473,8 +487,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -515,7 +528,9 @@ class UserControllerTest {
         //WHEN
         mvc.perform(get("/api/user/check-lists/1")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 //THEN
                 .andExpect(status().isOk())
                 .andExpect(content().string("tops"))
@@ -557,7 +572,9 @@ class UserControllerTest {
         //WHEN & THEN
         mvc.perform(get("/api/user/flashes")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [
@@ -572,8 +589,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -615,7 +631,9 @@ class UserControllerTest {
         //WHEN & THEN
         mvc.perform(get("/api/user/tops")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [
@@ -630,8 +648,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))
@@ -673,7 +690,9 @@ class UserControllerTest {
         //WHEN & THEN
         mvc.perform(get("/api/user/projects")
                         .with(oidcLogin().userInfoToken(token -> token
-                                .claim("id", "22"))))
+                                .claim("id", "22")
+                                .claim("name", "Jessica")
+                                .claim("avatar_url", "image"))))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     [
@@ -688,8 +707,7 @@ class UserControllerTest {
                             "routesetter": "Alex",
                             "color": "BLUE",
                             "holds": ["CRIMP"],
-                            "styles": ["MANTLE"],
-                            "isNewUser": false
+                            "styles": ["MANTLE"]
                         }
                     ]
                 """))

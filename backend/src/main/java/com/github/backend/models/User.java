@@ -43,7 +43,7 @@ public class User {
     @JsonIgnore
     private List<Boulder> myProjects = new ArrayList<>();
 
-    private boolean isNewUser;
+    private boolean newUser;
 
     public User(Map<String, Object> attributes){
         this.id = getStringAttribute(attributes, "id");
@@ -57,6 +57,6 @@ public class User {
         this.myTops = null;
         this.myFlashes = null;
         this.myProjects = null;
-        this.isNewUser = true;
+        this.newUser = true;
     }
 }
