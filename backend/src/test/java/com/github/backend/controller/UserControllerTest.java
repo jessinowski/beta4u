@@ -39,7 +39,7 @@ class UserControllerTest {
     private BoulderRepo boulderRepo;
 
     @Test
-    void getUserById() throws Exception {
+    void getMe() throws Exception {
         //GIVEN
         User user= new User(
                 "22",
@@ -76,6 +76,12 @@ class UserControllerTest {
                         }
                         
                 """));
+    }
+
+    @Test
+    void getMe_ifUserIsNull() throws Exception {
+        mvc.perform(get("/api/user"))
+                .andExpect(status().isOk());
     }
 
     @Test
