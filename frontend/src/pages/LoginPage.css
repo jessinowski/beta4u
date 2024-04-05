@@ -1,17 +1,31 @@
 .login{
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
+    align-items: center;
+    background-image: url("../public/login_background.png");
+    padding: 172px;
+    background-size: cover;
 }
 
 .loginButton{
     width: 250px;
+    color: orange !important;
+    border-color: orange !important;
+    background-color: rgba(164, 163, 163, 0.62) !important;
+    font-size: 16px !important;
 }
+
 
 .loginGreeting{
     display: flex;
     flex-direction: column;
     font-family: Comic Sans MS, serif;
     font-size: 40px;
-    text-align: start;
+    color: orange;
+    padding: 5px 0 15px 5px;
 }
+
+.loginIcon{
+    filter: brightness(100%) saturate(0%) sepia(100%) hue-rotate(30deg) !important;
+}
+
