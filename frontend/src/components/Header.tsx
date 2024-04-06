@@ -35,12 +35,12 @@ export default function Header(props: Readonly<HeaderProps>) {
     }
 
     return (
-        <AppBar position={"static"}>
+        <AppBar className={"header"} position={"static"}>
             <div className={"navigationBar"}>
                     <IconButton onClick={()=>navigate("/home")}>
-                        <HomeIcon />
+                        <HomeIcon className={"homeButton"} />
                     </IconButton>
-                    <div>beta4u</div>
+                    <div className={"appName"}>beta4u</div>
                     <div>
                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                             <Avatar alt={"my_picture"} src={props.user.imagePath}/>

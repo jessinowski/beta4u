@@ -3,4 +3,20 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 25px 10px 25px;
+
+}
+
+.header{
+  background-color: #626161 !important;
+}
+
+.homeButton{
+  font-size: 30px !important;
+}
+
+.appName{
+  font-family: Helvetica, serif;
+  font-size: 20px;
+  color: orange;
+  align-self: center;
 }

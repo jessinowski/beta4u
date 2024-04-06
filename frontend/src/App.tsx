@@ -11,6 +11,7 @@ import EditProfile from "./pages/EditProfile.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import BoulderDetails from "./pages/BoulderDetails.tsx";
 import {Boulder} from "./types/Boulder.ts";
+import "./App.css";
 
 export default function App() {
     const [user, setUser] = useState<User | null | undefined>(undefined);

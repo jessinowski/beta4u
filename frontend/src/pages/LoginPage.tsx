@@ -10,7 +10,7 @@ export default function LoginPage(){
         window.open(host + "/oauth2/authorization/github", "_self")
     }
     return(
-        <div className={"login"}>
+        <div className={"loginPage"}>
             <div>
                 <h1>beta4u</h1>
                 <div className={"loginGreeting"}>

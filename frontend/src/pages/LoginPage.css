@@ -1,10 +1,13 @@
-.login{
+.loginPage{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url("../public/login_background.png");
-    padding: 172px;
+    background-image: url("public/login_background.png");
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    justify-content: center;
 }
 
 .loginButton{
