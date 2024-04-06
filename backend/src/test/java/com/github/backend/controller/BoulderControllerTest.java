@@ -165,8 +165,9 @@ class BoulderControllerTest {
                 false);
         userRepo.save(user);
         //WHEN
-        mvc.perform(put("/api/boulders/change-rating/"+boulder.getId())
-                        .with(oidcLogin().userInfoToken(token->token.claim("id","22")))
+        mvc.perform(put("/api/boulders/change-rating/" + boulder.getId())
+                        .with(oidcLogin().userInfoToken(token -> token
+                                .claim("id", "22")))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(String.valueOf(3.5)))
                 .andExpect(status().isOk())
