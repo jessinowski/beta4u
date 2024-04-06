@@ -28,7 +28,7 @@ export default function RatingSystem(props: Readonly<RatingSystemProps>) {
     function handleSelectStars(_: SyntheticEvent<Element, Event>, value: number | null) {
         if (value !== 0 && value !== null) {
             setMyRating(value);
-            axios.put("/api/boulders/changeRating/" + props.boulder.id, value, {headers:{'Content-Type': 'application/json'}})
+            axios.put("/api/boulders/change-rating/" + props.boulder.id, value, {headers:{'Content-Type': 'application/json'}})
                 .then(props.fetchData);
         }
     }

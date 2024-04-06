@@ -10,14 +10,17 @@ export default function LoginPage(){
         window.open(host + "/oauth2/authorization/github", "_self")
     }
     return(
-        <div className={"login"}>
-            <h1>beta4u</h1>
-            <div className={"loginGreeting"}>
-                Hi!
-                <br/>
-                Welcome
+        <div className={"loginPage"}>
+            <div>
+                <h1>beta4u</h1>
+                <div className={"loginGreeting"}>
+                    Hi!
+                    <br/>
+                    Welcome
+                </div>
+                <Button className={"loginButton"} variant={"outlined"} onClick={login}
+                        startIcon={<Avatar className={"loginIcon"} alt="Remy Sharp" src={github_catLogo}/>}> Login with Github</Button>
             </div>
-                <Button className={"loginButton"} variant={"outlined"} onClick={login} startIcon={<Avatar alt="Remy Sharp" src={github_catLogo} />}> Login with Github</Button>
         </div>
     )
 }

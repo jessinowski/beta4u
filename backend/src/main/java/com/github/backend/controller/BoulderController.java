@@ -23,7 +23,7 @@ public class BoulderController {
         return boulderService.getBoulderById(id);
     }
 
-    @PutMapping(value="/changeRating/{id}", consumes= MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value="/change-rating/{id}", consumes= MediaType.APPLICATION_JSON_VALUE)
     public Boulder changeRating(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable String id, @RequestBody double ratingPoints){
         return boulderService.changeRating(oAuth2User, id, ratingPoints);
     }
