@@ -33,10 +33,10 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                     alt="boulder-image"
                 />
                 <CardContent>
-                    <p>Holds: {boulder.holds.map(hold => <Chip key={hold} label={Hold[hold as keyof typeof Hold]}
-                                                               size={"small"}/>)}</p>
-                    <p>Styles: {boulder.styles.map(style => <Chip key={style} label={Style[style as keyof typeof Style]}
-                                                                  size={"small"}/>)}</p>
+                    <div>Holds: {boulder.holds.map(hold => <Chip key={hold} label={Hold[hold as keyof typeof Hold]}
+                                                               size={"small"}/>)}</div>
+                    <div>Styles: {boulder.styles.map(style => <Chip key={style} label={Style[style as keyof typeof Style]}
+                                                                  size={"small"}/>)}</div>
                     <p>Level: {Level[boulder.level as keyof typeof Level]}</p>
                     <p>Gym: {Gym[boulder.gym as keyof typeof Gym]}</p>
                     <p>Sector: {boulder.sector}</p>
