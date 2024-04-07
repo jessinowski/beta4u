@@ -47,15 +47,14 @@ export default function App() {
         <div>
             {user && <Header user={user}/>}
             <Routes>
-                <Route path={"/"} element={<LoginPage/>}/>
-                {user &&
+                <Route path={"/login"} element={<LoginPage/>}/>
                     <Route element={<ProtectedRoutes user={user}/>}>
-                        <Route path={"/sign_up"} element={<SignUpPage user={user} fetchUser={fetchUser}/>}/>
-                        <Route path={"/home"} element={<Homepage user={user} boulders={boulders} fetchData={fetchData}/>}/>
-                        <Route path={"/boulder/:id"} element={<BoulderDetails boulders={boulders} fetchData={fetchData} user={user} fetchUser={fetchUser}/>}/>
-                        <Route path={"/profile/:tabName?"} element={<ProfilePage user={user}/>}/>
-                        <Route path={"/editProfile"} element={<EditProfile fetchUser={fetchUser} user={user}/>}/>
-                </Route>}
+                        <Route path={"/sign_up"} element={user && <SignUpPage user={user} fetchUser={fetchUser}/>}/>
+                        <Route path={"/"} element={user && <Homepage user={user} boulders={boulders} fetchData={fetchData}/>}/>
+                        <Route path={"/boulder/:id"} element={user && <BoulderDetails boulders={boulders} fetchData={fetchData} user={user} fetchUser={fetchUser}/>}/>
+                        <Route path={"/profile/:tabName?"} element={user && <ProfilePage user={user}/>}/>
+                        <Route path={"/editProfile"} element={user && <EditProfile fetchUser={fetchUser} user={user}/>}/>
+                </Route>
             </Routes>
         </div>
     )

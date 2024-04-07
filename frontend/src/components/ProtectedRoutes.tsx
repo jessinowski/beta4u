@@ -11,6 +11,6 @@ export default function ProtectedRoutes(props: Readonly<ProtectedRoutesProps>) {
     }
 
     return (
-        props.user ? <Outlet /> : <Navigate to = "/" />
+        props.user ? <Outlet /> : <Navigate to = "/login" />
     )
 }

@@ -47,7 +47,7 @@ public class SecurityConfig {
                     String id = principal.getAttributes().get("id").toString();
                     User user= userRepo.findById(id).orElseThrow(()-> new NoSuchElementException("No user found"));
                     if(!user.isNewUser()){
-                        response.sendRedirect(appUrl+"/home");
+                        response.sendRedirect(appUrl);
                     } else {
                         user.setNewUser(false);
                         userRepo.save(user);
