@@ -15,11 +15,6 @@
     font-family: Helvetica, sans-serif;
 }
 
-.MuiPaper-root{
-    background-color: #4f4f4f !important;
-    color: white !important;
-}
-
 .MuiAccordionSummary-expandIconWrapper{
     color: white !important;
 }

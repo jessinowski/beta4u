@@ -34,3 +34,8 @@ body, html{
 .MuiInputBase-input{
     color: white !important;
 }
+
+.MuiPaper-root{
+    background-color: #050505 !important;
+    color: white !important;
+}
