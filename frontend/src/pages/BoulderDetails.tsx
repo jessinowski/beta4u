@@ -7,7 +7,7 @@ import LikeComponent from "../components/LikeComponent.tsx";
 import "./BoulderDetails.css";
 import AddToMyList from "../components/AddToMyLists.tsx";
 import {Color, Gym, Hold, Level, Style} from "../types/enums.ts";
-
+import "../components/BoulderCard.css";
 
 type BoulderDetailsProps={
     boulders: Boulder[];
@@ -20,10 +20,9 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
     const boulder = props.boulders.find(boulder=> boulder.id === params.id);
 
     return(
-        <div>{boulder ?
+        <div className={"cards"}>{boulder ?
             <Card className={"card"}>
                 <p>{boulder.date}</p>
-                <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <CardMedia
                     component="img"
@@ -32,9 +31,10 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                     alt="boulder-image"
                 />
                 <CardContent>
-                    <p>Holds: {boulder.holds.map(hold => <Chip key={hold} label={Hold[hold as keyof typeof Hold]}
+                    <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
+                    <p>Holds: {boulder.holds.map(hold => <Chip className={"chip"} key={hold} label={Hold[hold as keyof typeof Hold]}
                                                                size={"small"}/>)}</p>
-                    <p>Styles: {boulder.styles.map(style => <Chip key={style} label={Style[style as keyof typeof Style]}
+                    <p>Styles: {boulder.styles.map(style => <Chip className={"chip"} key={style} label={Style[style as keyof typeof Style]}
                                                                   size={"small"}/>)}</p>
                     <p>Level: {Level[boulder.level as keyof typeof Level]}</p>
                     <p>Gym: {Gym[boulder.gym as keyof typeof Gym]}</p>

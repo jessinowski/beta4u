@@ -8,6 +8,7 @@ import {
 import {useEffect, useState} from "react"
 import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
+import "./AddToMyLists.css";
 
 type AddToMyListProps={
     boulder: Boulder;
@@ -37,8 +38,8 @@ export default function AddToMyList(props: Readonly<AddToMyListProps>){
 
     return(
         <div>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel>Add to</InputLabel>
+            <FormControl className={"formControl"}>
+                <InputLabel className={"label"}>Add to</InputLabel>
                 <Select
                     open={open}
                     onOpen={handleOpen}

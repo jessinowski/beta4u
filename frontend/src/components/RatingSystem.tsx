@@ -6,6 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import "./RatingSystem.css";
 import {User} from "../types/User.ts";
 
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 type RatingSystemProps = {
     boulder: Boulder;
     fetchData: () => void;
@@ -37,12 +38,12 @@ export default function RatingSystem(props: Readonly<RatingSystemProps>) {
 
     return (
         <div className={"ratingSystem"}>
+            <Rating emptyIcon={<StarBorderIcon className={"emptyIcon"} />} name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
             { averageRating !== 0 &&
                 <div className={"averageRating"}>
                     {averageRating.toFixed(1)} <StarIcon className={"starIcon"}/>
                 </div>
             }
-            <Rating name={"half-rating"} value={myRating} onChange={handleSelectStars} precision={0.5}/>
-        </div>
+            </div>
     )
 }

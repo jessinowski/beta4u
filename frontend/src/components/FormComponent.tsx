@@ -90,64 +90,64 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
     return (
         <div className={"formComponent"}>
             <Avatar alt="Remy Sharp" src={props.user.imagePath}/>
-            <form onSubmit={handleOnSubmit}>
-                <TextField sx={{m: 1, width: 300}}
-                                     id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
-                                     onChange={handleChangeUsername} size={"small"} required/>
-                <br/>
-                <TextField sx={{m: 1, width: 300}}
-                           id={"fullName"} label={"Full name"} variant={"outlined"} value={formData.fullName}
-                           onChange={handleChangeFullName} size={"small"}/>
-                <br/>
-                <FormControl required sx={{m: 1, width: 300}}>
-                    <InputLabel>Home gym</InputLabel>
-                    <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
-                            size={"small"}>
-                        {optionalGyms.map(([value,label]) =>
-                            <MenuItem key={value} value={value}>
-                                {label}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
-                <br/>
-                <FormControl sx={{m: 1, width: 300}}>
-                    <InputLabel>Favorite holds</InputLabel>
-                    <Select multiple value={holds} onChange={changeFavoriteHolds}
-                            input={<OutlinedInput label="Favorite holds"/>} size={"small"}
-                            renderValue={(selected) => (
-                                selected.map((value) => (
-                                    <Chip key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
-                                ))
-                            )}>
-                        {optionalHolds.map(([value, label]) =>
-                            <MenuItem key={value} value={value}>
-                                {label}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
-                <br/>
-                <FormControl sx={{m: 1, width: 300}}>
-                    <InputLabel>Favorite styles</InputLabel>
-                    <Select multiple value={styles} onChange={changeFavoriteStyles}
-                            input={<OutlinedInput label="Favorite styles"/>} size={"small"}
-                            renderValue={(selected) => (
-                                selected.map((value) => (
-                                    <Chip key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
-                                ))
-                            )}>
-                        {optionalStyles.map(([value, label]) =>
-                            <MenuItem key={value} value={value}>
-                                {label}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
-                <br/>
-                <Button type={"submit"} variant={"contained"} size={"small"}>
-                    Save
-                </Button>
+            <form className={"form"} onSubmit={handleOnSubmit}>
+                    <TextField sx={{m: 1, width: 300}}
+                               id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
+                               onChange={handleChangeUsername} size={"small"} required/>
+                    <br/>
+                    <TextField sx={{m: 1, width: 300}}
+                               id={"fullName"} label={"Full name"} variant={"outlined"} value={formData.fullName}
+                               onChange={handleChangeFullName} size={"small"}/>
+                    <br/>
+                    <FormControl required sx={{m: 1, width: 300}}>
+                        <InputLabel className={"label"}>Home gym</InputLabel>
+                        <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
+                                size={"small"}>
+                            {optionalGyms.map(([value,label]) =>
+                                <MenuItem key={value} value={value}>
+                                    {label}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                    <br/>
+                    <FormControl sx={{m: 1, width: 300}}>
+                        <InputLabel className={"label"}>Favorite holds</InputLabel>
+                        <Select multiple value={holds} onChange={changeFavoriteHolds}
+                                input={<OutlinedInput label="Favorite holds"/>} size={"small"}
+                                renderValue={(selected) => (
+                                    selected.map((value) => (
+                                        <Chip key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
+                                    ))
+                                )}>
+                            {optionalHolds.map(([value, label]) =>
+                                <MenuItem key={value} value={value}>
+                                    {label}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                    <br/>
+                    <FormControl sx={{m: 1, width: 300}}>
+                        <InputLabel className={"label"}>Favorite styles</InputLabel>
+                        <Select multiple value={styles} onChange={changeFavoriteStyles}
+                                input={<OutlinedInput label="Favorite styles"/>} size={"small"}
+                                renderValue={(selected) => (
+                                    selected.map((value) => (
+                                        <Chip key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
+                                    ))
+                                )}>
+                            {optionalStyles.map(([value, label]) =>
+                                <MenuItem key={value} value={value}>
+                                    {label}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                    <br/>
+                    <Button className={"saveButton"} type={"submit"} variant={"contained"} size={"small"}>
+                        Save
+                    </Button>
             </form>
         </div>
     )

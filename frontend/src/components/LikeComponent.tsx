@@ -30,6 +30,6 @@ export default function LikeComponent(props: Readonly<LikeComponentProps>){
     }
 
     return(
-        <Checkbox checked={checked}  onClick={handleChange} icon={<FavoriteBorder className={"heartIcon"} />} checkedIcon={<Favorite className={"heartIconChecked"} />}/>
+        <Checkbox checked={checked}  onClick={handleChange} icon={<FavoriteBorder className={"emptyIcon"} />} checkedIcon={<Favorite className={"heartIconChecked"} />}/>
     )
 }
