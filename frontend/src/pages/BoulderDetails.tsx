@@ -26,8 +26,7 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                 <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <CardMedia
                     component="img"
-                    height="140"
-                    image={boulder.imagePath}
+                    image={"/" + boulder.imagePath}
                     alt="boulder-image"
                 />
                 <CardContent>

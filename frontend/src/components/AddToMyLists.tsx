@@ -38,7 +38,7 @@ export default function AddToMyList(props: Readonly<AddToMyListProps>){
 
     return(
         <div>
-            <FormControl className={"formControl"}>
+            <FormControl className={"addButton"}>
                 <InputLabel className={"label"}>Add to</InputLabel>
                 <Select
                     open={open}
