@@ -22,7 +22,7 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                         <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
                         <CardMedia
                             component="img"
-                            image={props.boulder.imagePath}
+                            image={"/"+ props.boulder.imagePath}
                             alt="boulder-image"
                         />
                         <CardContent>

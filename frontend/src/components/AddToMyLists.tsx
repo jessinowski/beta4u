@@ -40,7 +40,7 @@ export default function AddToMyList(props: Readonly<AddToMyListProps>){
         <div>
             <FormControl className={"addButton"}>
                 <InputLabel className={"label"}>Add to</InputLabel>
-                <Select
+                <Select className={"addItems"}
                     open={open}
                     onOpen={handleOpen}
                     onClose={handleClose}
@@ -48,12 +48,12 @@ export default function AddToMyList(props: Readonly<AddToMyListProps>){
                     label="Add to"
                     onChange={handleChange}
                 >
-                    <MenuItem value="">
+                    <MenuItem className={"menuItem"} value="">
                         <em>None</em>
                     </MenuItem>
-                    <MenuItem value={"flashes"}>Flash</MenuItem>
-                    <MenuItem value={"tops"}>Top</MenuItem>
-                    <MenuItem value={"projects"}>Project</MenuItem>
+                    <MenuItem className={"menuItem"} value={"flashes"}>Flash</MenuItem>
+                    <MenuItem className={"menuItem"} value={"tops"}>Top</MenuItem>
+                    <MenuItem className={"menuItem"} value={"projects"}>Project</MenuItem>
                 </Select>
             </FormControl>
         </div>

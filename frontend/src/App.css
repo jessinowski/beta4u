@@ -9,3 +9,28 @@ body, html{
 .emptyIcon{
     color: #d2d0d0;
 }
+
+.MuiSelect-icon{
+    color: white !important;
+}
+
+.MuiOutlinedInput-notchedOutline{
+    border-color: white !important;
+}
+
+.MuiList-root{
+    background-color: #5e5d5d;
+    color: #d2d0d0;
+}
+
+.MuiList-padding {
+    padding: 0 !important;
+}
+
+.MuiInputLabel-root {
+    color: white !important;
+}
+
+.MuiInputBase-input{
+    color: white !important;
+}

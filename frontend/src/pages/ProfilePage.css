@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    background-color: #000000;
+    color: white;
 }
 
 .profilePicture{
@@ -43,4 +44,11 @@
 .selectListBar{
     display: flex;
     justify-content: space-around;
+}
+
+.MuiButtonBase-root {
+    color: white !important;
+}
+.MuiTabs-indicator{
+    background-color: orange !important;
 }

@@ -1,5 +1,6 @@
 import FormComponent from "../components/FormComponent.tsx";
 import {User} from "../types/User.ts";
+import "./EditProfile.css";
 
 type EditProfileProps={
     fetchUser: ()=>void;
@@ -7,7 +8,7 @@ type EditProfileProps={
 }
 export default function EditProfile(props: Readonly<EditProfileProps>){
     return(
-        <div>
+        <div className={"editProfile"}>
             <p>Edit your profile here</p>
             <FormComponent fetchUser={props.fetchUser} user={props.user} path={"/profile"} formTarget={"edit"}/>
         </div>

@@ -31,10 +31,10 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                 />
                 <CardContent>
                     <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
-                    <p>Holds: {boulder.holds.map(hold => <Chip className={"chip"} key={hold} label={Hold[hold as keyof typeof Hold]}
-                                                               size={"small"}/>)}</p>
-                    <p>Styles: {boulder.styles.map(style => <Chip className={"chip"} key={style} label={Style[style as keyof typeof Style]}
-                                                                  size={"small"}/>)}</p>
+                    <div className={"chipDivs"}>Holds: {boulder.holds.map(hold => <Chip className={"chip"} key={hold} label={Hold[hold as keyof typeof Hold]}
+                                                               size={"small"}/>)}</div>
+                    <div className={"chipDivs"}>Styles: {boulder.styles.map(style => <Chip className={"chip"} key={style} label={Style[style as keyof typeof Style]}
+                                                                  size={"small"}/>)}</div>
                     <p>Level: {Level[boulder.level as keyof typeof Level]}</p>
                     <p>Gym: {Gym[boulder.gym as keyof typeof Gym]}</p>
                     <p>Sector: {boulder.sector}</p>
