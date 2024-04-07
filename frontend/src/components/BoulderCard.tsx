@@ -19,16 +19,15 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
             <Card className={"card"}>
                 <Link to={`/boulder/${props.boulder.id}`}>
                     <CardActionArea>
+                        <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
                         <CardMedia
                             component="img"
-                            height="140"
-                            image={props.boulder.imagePath}
+                            image={"/"+ props.boulder.imagePath}
                             alt="boulder-image"
                         />
                         <CardContent>
-                            <LikeComponent boulder={props.boulder}/>
-                            <RatingSystem boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
-                            <p>{Gym[props.boulder.gym as keyof typeof Gym]}</p>
+                                <LikeComponent boulder={props.boulder} fetchData={props.fetchData} user={props.user}/>
+                               <p>{Gym[props.boulder.gym as keyof typeof Gym]}</p>
                             <p>Level: {Level[props.boulder.level as keyof typeof Level]}</p>
                         </CardContent>
                     </CardActionArea>

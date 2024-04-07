@@ -10,3 +10,12 @@
     min-width: 150px;
     flex-grow:1;
 }
+
+.filterComp{
+    font-family: Helvetica, sans-serif;
+}
+
+.MuiAccordionSummary-expandIconWrapper{
+    color: white !important;
+}
+

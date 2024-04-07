@@ -8,7 +8,7 @@ import "./BoulderDetails.css";
 import AddToMyList from "../components/AddToMyLists.tsx";
 import CommentComponent from "../components/CommentComponent.tsx";
 import {Color, Gym, Hold, Level, Style} from "../types/enums.ts";
-
+import "../components/BoulderCard.css";
 
 type BoulderDetailsProps={
     boulders: Boulder[];
@@ -21,21 +21,21 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
     const boulder = props.boulders.find(boulder=> boulder.id === params.id);
 
     return(
-        <div>{boulder ?
+        <div className={"cards"}>
+            {boulder ?
             <Card className={"card"}>
                 <p>{boulder.date}</p>
-                <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <CardMedia
                     component="img"
-                    height="140"
-                    image={boulder.imagePath}
+                    image={"/" + boulder.imagePath}
                     alt="boulder-image"
                 />
                 <CardContent>
-                    <div>Holds: {boulder.holds.map(hold => <Chip key={hold} label={Hold[hold as keyof typeof Hold]}
+                    <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
+                    <div className={"chipDivs"}>Holds: {boulder.holds.map(hold => <Chip className={"chip"} key={hold} label={Hold[hold as keyof typeof Hold]}
                                                                size={"small"}/>)}</div>
-                    <div>Styles: {boulder.styles.map(style => <Chip key={style} label={Style[style as keyof typeof Style]}
+                    <div className={"chipDivs"}>Styles: {boulder.styles.map(style => <Chip className={"chip"} key={style} label={Style[style as keyof typeof Style]}
                                                                   size={"small"}/>)}</div>
                     <p>Level: {Level[boulder.level as keyof typeof Level]}</p>
                     <p>Gym: {Gym[boulder.gym as keyof typeof Gym]}</p>

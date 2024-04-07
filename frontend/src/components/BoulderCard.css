@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    font-family: Helvetica, serif;
 }
 .card{
     width: 370px;
-    background-color: rgba(162, 161, 161, 0.71) !important;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card a{
@@ -16,4 +18,11 @@
 
 .card p{
     font-size: 17px;
+    color: white;
 }
+
+
+.chip{
+    color: white !important;
+    background-color: rgba(248, 193, 76, 0.71) !important;
+ }
