@@ -35,6 +35,5 @@ export default function BoulderCard(props: Readonly<BoulderCardProps>){
                 </Link>
             </Card>
         </div>
-
     )
 }
