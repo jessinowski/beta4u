@@ -7,11 +7,12 @@
 }
 
 .header{
-  background-color: #626161 !important;
+  background-color: #030303 !important;
 }
 
 .homeButton{
   font-size: 30px !important;
+  color: #e0e0e0;
 }
 
 .appName{

@@ -46,7 +46,7 @@ export default function App() {
     return (
         <div>
             {user && <Header user={user}/>}
-            <Routes>
+            <Routes >
                 <Route path={"/login"} element={<LoginPage/>}/>
                     <Route element={<ProtectedRoutes user={user}/>}>
                         <Route path={"/sign_up"} element={user && <SignUpPage user={user} fetchUser={fetchUser}/>}/>

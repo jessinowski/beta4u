@@ -47,8 +47,8 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
     );
 
     return (
-        <div>
-            <Accordion className={"searchAccordion"}>
+        <div className={"filterComp"}>
+            <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1-content"
