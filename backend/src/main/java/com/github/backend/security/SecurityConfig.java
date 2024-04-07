@@ -36,7 +36,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/auth/me").authenticated()
-                        .requestMatchers("/api/boulders/changeRating/").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
@@ -51,7 +50,7 @@ public class SecurityConfig {
                     } else {
                         user.setNewUser(false);
                         userRepo.save(user);
-                        response.sendRedirect(appUrl+"/sign_up");
+                        response.sendRedirect(appUrl+"/#/sign_up");
                     }
                 })))
                 .logout(l -> l.logoutSuccessUrl(appUrl));
