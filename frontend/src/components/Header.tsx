@@ -37,7 +37,7 @@ export default function Header(props: Readonly<HeaderProps>) {
     return (
         <AppBar className={"header"} position={"static"}>
             <div className={"navigationBar"}>
-                    <IconButton onClick={()=>navigate("/home")}>
+                    <IconButton onClick={()=>navigate("/")}>
                         <HomeIcon className={"homeButton"} />
                     </IconButton>
                     <div className={"appName"}>beta4u</div>

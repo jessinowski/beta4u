@@ -12,7 +12,7 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
         <div>
             <p>Hi!</p>
             <p>Create your new profile</p>
-            <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/home"} formTarget={"create"}/>
+            <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/"} formTarget={"create"}/>
         </div>
     )
 }
