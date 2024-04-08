@@ -1,32 +1,25 @@
-import {Button, Collapse} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CommentCard from "./CommentCard.tsx";
 import {User} from "../types/User.ts";
 import {Boulder} from "../types/Boulder.ts";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {UserComment} from "../types/UserComment.ts";
 import axios from "axios";
+import "./CommentComponent.css";
+import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import {IconButton} from "@mui/material";
 
 type CommentComponentProps={
     boulder: Boulder;
     fetchData: ()=>void;
     user: User;
+    boulderComments: UserComment[];
 }
 
 export default function CommentComponent(props: Readonly <CommentComponentProps>){
-    const [expanded, setExpanded] = useState<boolean>(false);
+
     const [newComment, setNewComment]=useState<string>("");
-    const [boulderComments, setBoulderComments]=useState<UserComment[]>([]);
 
-    function openComments() {
-        setExpanded(!expanded);
-    }
-
-    useEffect(fetchComments, [props.boulder]);
-    function fetchComments(){
-        axios.get("/api/boulders/comments/" + props.boulder.id)
-            .then(response => setBoulderComments(response.data));
-    }
 
     function handleComment(event: ChangeEvent<HTMLTextAreaElement>) {
         const value = event.target.value;
@@ -39,20 +32,13 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
     }
 
     return(
-        <div>
-            <Button onClick={openComments}>
-                {boulderComments ? boulderComments.length : 0} Comments
-                <ExpandMoreIcon/>
-            </Button>
-            <Collapse in={expanded}>
-                {boulderComments.map(comment =>  <CommentCard comment={comment} boulder={props.boulder} fetchData={props.fetchData}/>)}
-            </Collapse>
-            <form onSubmit={saveComment}>
-                <label>Create comment:
-                   <textarea value={newComment} onChange={handleComment}/>
-                </label>
-                <button type={"submit"}>Submit</button>
-            </form>
+        <div >
+                <form  onSubmit={saveComment}>
+                    <TextField className={"newComment"} label={"Add a comment"} multiline value={newComment} onChange={handleComment}/>
+                    <IconButton type={"submit"}><SendIcon/></IconButton>
+                </form>
+                {props.boulderComments.map(comment => <CommentCard comment={comment} boulder={props.boulder}
+                                                             fetchData={props.fetchData}/>)}
         </div>
     )
 }

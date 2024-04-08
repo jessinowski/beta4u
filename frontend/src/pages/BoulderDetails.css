@@ -2,3 +2,13 @@
     color: white;
     margin-top: 10px;
 }
+
+.cardButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.openComments{
+    margin-left: 5px;
+}

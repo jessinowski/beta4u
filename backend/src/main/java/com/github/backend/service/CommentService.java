@@ -10,7 +10,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -29,9 +32,11 @@ public class CommentService {
     }
 
     public void deleteComment(String commentId, String boulderId){
-        Comment comment = commentRepo.findById(commentId).orElseThrow();
         Boulder boulder = boulderRepo.findById(boulderId).orElseThrow();
-        boulder.getComments().remove(comment);
+        List<Comment> newComments = boulder.getComments().stream()
+                        .filter(comment -> !comment.getId().equals(commentId))
+                                .collect(toList());
+        boulder.setComments(newComments);
         commentRepo.deleteById(commentId);
     }
 }
