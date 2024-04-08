@@ -2,8 +2,16 @@ body, html{
     height: 100%;
 }
 
-.label{
-    color: white !important;
+body{
+    background-image: url("./assets/backgrounds.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.pages{
+
 }
 
 .emptyIcon{
@@ -19,7 +27,7 @@ body, html{
 }
 
 .MuiList-root{
-    background-color: #5e5d5d;
+    background-color: #232323;
     color: #d2d0d0;
 }
 
@@ -36,6 +44,6 @@ body, html{
 }
 
 .MuiPaper-root{
-    background-color: #484646 !important;
+    background-color: rgba(0, 0, 0, 0.63) !important;
     color: white !important;
 }

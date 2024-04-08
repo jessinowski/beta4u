@@ -1,6 +1,6 @@
 import {Boulder} from "../types/Boulder.ts";
 import {useParams} from "react-router-dom";
-import {Card, CardContent, CardMedia, Chip, Collapse} from "@mui/material";
+import {Card, CardContent, CardMedia, Chip, Collapse, Divider} from "@mui/material";
 import RatingSystem from "../components/RatingSystem.tsx";
 import {User} from "../types/User.ts";
 import LikeComponent from "../components/LikeComponent.tsx";
@@ -14,6 +14,7 @@ import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
 import {useEffect, useState} from "react";
 import {UserComment} from "../types/UserComment.ts";
 import axios from "axios";
+import {format} from "date-fns";
 
 
 type BoulderDetailsProps={
@@ -42,10 +43,10 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
 
 
     return(
+        <div className={"pages"}>
         <div className={"cards"}>
             {boulder ?
             <Card className={"card"}>
-                <p>{boulder.date}</p>
                 <RatingSystem boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                 <CardMedia
                     component="img"
@@ -57,15 +58,38 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                         <LikeComponent boulder={boulder} fetchData={props.fetchData} user={props.user}/>
                         <AddToMyList boulder={boulder}/>
                     </div>
-                    <div className={"chipDivs"}>Holds: {boulder.holds.map(hold => <Chip className={"chip"} key={hold} label={Hold[hold as keyof typeof Hold]}
-                                                               size={"small"}/>)}</div>
-                    <div className={"chipDivs"}>Styles: {boulder.styles.map(style => <Chip className={"chip"} key={style} label={Style[style as keyof typeof Style]}
-                                                                  size={"small"}/>)}</div>
-                    <p>Level: {Level[boulder.level as keyof typeof Level]}</p>
-                    <p>Gym: {Gym[boulder.gym as keyof typeof Gym]}</p>
-                    <p>Sector: {boulder.sector}</p>
-                    <p>Routesetter: {boulder.routesetter}</p>
-                    <p>Color: {Color[boulder.color as keyof typeof Color]}</p>
+
+
+                    <div className={"detailsHeader"}>
+                        <div>{Gym[boulder.gym as keyof typeof Gym]}</div>
+                        <div>Sector: {boulder.sector}</div>
+                    </div>
+                    <Divider className={"divider"}/>
+                    <div className={"chipDivs"}>
+                        {boulder.holds.map(hold => <Chip className={"chip"} key={hold}
+                                                         label={Hold[hold as keyof typeof Hold]}
+                                                         size={"small"}/>)}
+                        {boulder.styles.map(style => <Chip className={"chip"} key={style}
+                                                           label={Style[style as keyof typeof Style]}
+                                                           size={"small"}/>)}
+                    </div>
+                    <div className={"details"}>
+                        <div>Level:</div>
+                        {Level[boulder.level as keyof typeof Level]}
+                    </div>
+                    <div className={"details"}>
+                        <div>Color:</div>
+                        {Color[boulder.color as keyof typeof Color]}
+                    </div>
+                    <div className={"details"}>
+                        <div>Routesetter:</div>
+                        {boulder.routesetter}
+                    </div>
+                    <div className={"details"}>
+                        <div>Date:</div>
+                        {format(boulder.date, "dd.MM.yyyy")}
+                    </div>
+
                 </CardContent>
                 <CardActions className={"openComments"}>
                     <ChatRoundedIcon onClick={openComments}>
@@ -73,11 +97,13 @@ export default function BoulderDetails(props: Readonly<BoulderDetailsProps>){
                     </ChatRoundedIcon>
                 </CardActions>
                 <Collapse in={expanded} timeout={"auto"} unmountOnExit>
-                    <CommentComponent boulder={boulder} fetchData={props.fetchData} user={props.user} boulderComments={boulderComments}/>
+                    <CommentComponent boulder={boulder} fetchData={props.fetchData} user={props.user}
+                                      boulderComments={boulderComments}/>
                 </Collapse>
             </Card> :
             <>No boulder found</>
             }
+        </div>
         </div>
     )
 }

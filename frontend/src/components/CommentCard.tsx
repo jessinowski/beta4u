@@ -2,6 +2,9 @@ import {UserComment} from "../types/UserComment.ts";
 import axios from "axios";
 import {Boulder} from "../types/Boulder.ts";
 import "./CommentCard.css";
+import {Divider, IconButton} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {format} from "date-fns";
 
 type CommentCardProps={
     comment: UserComment;
@@ -18,12 +21,15 @@ export default function CommentCard(props: Readonly<CommentCardProps>){
 
     return(
         <div className={"comment"}>
+            <Divider className={"divider"}/>
             <div className={"commentHeader"}>
                 <p>{props.comment.user.username}</p>
-                <p>{props.comment.date}</p>
+                <p>{format(props.comment.date, "dd.mm.yyyy HH:mm")}</p>
             </div>
-            <p>{props.comment.content}</p>
-            <button onClick={handleDelete}>Delete</button>
+            <p className={"contentOfComment"}>{props.comment.content}</p>
+            <IconButton onClick={handleDelete}>
+                <DeleteForeverIcon className={"deleteButton"}/>
+            </IconButton>
         </div>
     )
 }

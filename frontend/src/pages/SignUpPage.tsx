@@ -9,7 +9,7 @@ type SignUpPageProps={
 export default function SignUpPage(props: Readonly<SignUpPageProps>){
 
     return(
-        <div>
+        <div className={"pages"}>
             <p>Hi!</p>
             <p>Create your new profile</p>
             <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/"} formTarget={"create"}/>

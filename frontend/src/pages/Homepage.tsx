@@ -10,7 +10,7 @@ type HomepageProps={
 export default function Homepage(props: Readonly<HomepageProps>){
 
     return(
-        <div>
+        <div className={"pages"}>
             <FilteredBoulders boulders={props.boulders} fetchData={props.fetchData} user={props.user}/>
         </div>
     )

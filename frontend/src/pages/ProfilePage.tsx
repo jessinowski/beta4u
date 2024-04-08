@@ -56,7 +56,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
     }
 
     return (
-        <div>
+        <div className={"pages"}>
             <div className={"profileHeader"}>
                 <div className={"profilePicInfo"}>
                     <img className={"profilePicture"} alt={"my_picture"} src={props.user.imagePath}/>
