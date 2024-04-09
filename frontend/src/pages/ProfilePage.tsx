@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {AppBar, IconButton, Tab, Tabs} from "@mui/material";
+import {AppBar, Chip, Collapse, IconButton, Tab, Tabs} from "@mui/material";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import MapIcon from '@mui/icons-material/Map';
 import {User} from "../types/User.ts";
@@ -11,7 +11,8 @@ import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import {useEffect, useState} from "react";
 import MyBoulderList from "../components/MyBoulderList.tsx";
 import MyLocations from "../components/location/MyLocations.tsx";
-import {Gym} from "../types/enums.ts";
+import {Gym, Hold, Style} from "../types/enums.ts";
+import {ExpandMore} from "@mui/icons-material";
 
 type ProfilePageProps={
     user: User;
@@ -21,6 +22,11 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
     const navigate = useNavigate();
     const {tabName} =useParams();
     const [value, setValue] = useState<string>(tabName || "projects");
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     useEffect(() => {
         if (tabName) setValue(tabName);
@@ -63,14 +69,25 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
                     <div className={"profileText"}>
                         <p className={"profileName"}>{props.user.username}</p>
                         <p className={"profileInfo"}>{Gym[props.user.homeGym as keyof typeof Gym]}</p>
+                        <ExpandMore onClick={handleExpandClick}>
+                            show more details
+                        </ExpandMore>
                     </div>
                 </div>
-
                 <div className={"profileButtons"}>
                     <IconButton onClick={() => navigate("/editProfile")}><ManageAccountsIcon/></IconButton>
                     <IconButton onClick={() => navigate("/profile/locations")}><MapIcon/></IconButton>
                 </div>
             </div>
+            <Collapse className={"profileDetails"} in={expanded}>
+                <p>{props.user.fullName}</p>
+                <div className={"chipDivs"}>{props.user.favoriteHolds?.map(hold => <Chip className={"chip"} key={hold}
+                                                                                    label={Hold[hold as keyof typeof Hold]}
+                                                                                    size={"small"}/>)}</div>
+                <div className={"chipDivs"}>{props.user.favoriteStyles?.map(style => <Chip className={"chip"} key={style}
+                                                                                       label={Style[style as keyof typeof Style]}
+                                                                                       size={"small"}/>)}</div>
+            </Collapse>
             <div className={"selectListBar"}>
                 <AppBar position="static" color="default">
                     <Tabs
