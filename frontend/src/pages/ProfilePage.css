@@ -52,3 +52,11 @@
 .MuiTabs-indicator{
     background-color: orange !important;
 }
+
+.profileDetails{
+    display: flex;
+    font-family: Comic Sans MS, serif;
+    background-color: black;
+    color: white;
+    padding-left:20px;
+}

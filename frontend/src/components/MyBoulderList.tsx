@@ -3,6 +3,7 @@ import {Boulder} from "../types/Boulder.ts";
 import axios from "axios";
 import {User} from "../types/User.ts";
 import FilteredBoulders from "./FilteredBoulders.tsx";
+import "./MyBoulderList.css";
 
 type MyBoulderListProps ={
     listType: "favorites" | "flashes" | "tops" | "projects"
@@ -24,7 +25,7 @@ export default function MyBoulderList(props: Readonly<MyBoulderListProps>){
             {boulders.length !== 0 ?
                 <FilteredBoulders boulders={boulders} fetchData={fetchBoulders} user={props.user}/>
                 :
-                <p>No {props.listType} found</p>}
+                <p className={"alertBoulderlists"}>No {props.listType} found</p>}
         </div>
     )
 }

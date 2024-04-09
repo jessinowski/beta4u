@@ -26,4 +26,5 @@
 .chip{
     color: white !important;
     background-color: rgba(248, 193, 76, 0.71) !important;
+    margin-right: 4px;
  }
