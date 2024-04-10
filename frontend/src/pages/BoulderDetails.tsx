@@ -6,7 +6,7 @@ import {User} from "../types/User.ts";
 import LikeComponent from "../components/LikeComponent.tsx";
 import "./BoulderDetails.css";
 import AddToMyList from "../components/AddToMyLists.tsx";
-import CommentComponent from "../components/CommentComponent.tsx";
+import CommentComponent from "../components/comment/CommentComponent.tsx";
 import {Color, Gym, Hold, Level, Style} from "../types/enums.ts";
 import "../components/BoulderCard.css";
 import CardActions from '@mui/material/CardActions';
