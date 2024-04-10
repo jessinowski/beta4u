@@ -1,54 +1,54 @@
 export enum Level{
-    ONE="1",
-    TWO="2",
-    THREE="3",
-    FOUR="4",
-    FIVE="5",
-    SIX="6",
-    SEVEN="7",
-    EIGHT="8",
-    UNKNOWN="unknown"
+    ONE=<never>"1",
+    TWO=<never>"2",
+    THREE=<never>"3",
+    FOUR=<never>"4",
+    FIVE=<never>"5",
+    SIX=<never>"6",
+    SEVEN=<never>"7",
+    EIGHT=<never>"8",
+    UNKNOWN=<never>"unknown"
 }
 
 export enum Gym{
-    UA_HH_WEST="urban apes Hamburg West",
-    UA_HH_OST="urban apes Hamburg Ost",
-    UA_NDS="urban apes Norderstedt",
-    UA_ST_PAULI="urban apes St. Pauli"
+    UA_HH_WEST=<never>"urban apes Hamburg West",
+    UA_HH_OST=<never>"urban apes Hamburg Ost",
+    UA_NDS=<never>"urban apes Norderstedt",
+    UA_ST_PAULI=<never>"urban apes St. Pauli"
 }
 
 export enum Color{
-    BLACK="black",
-    WHITE="white",
-    YELLOW="yellow",
-    ORANGE="orange",
-    RED="red",
-    PINK="pink",
-    PURPLE="purple",
-    BLUE="blue",
-    GREEN="green",
-    MINT="mint"
+    BLACK=<never>"black",
+    WHITE=<never>"white",
+    YELLOW=<never>"yellow",
+    ORANGE=<never>"orange",
+    RED=<never>"red",
+    PINK=<never>"pink",
+    PURPLE=<never>"purple",
+    BLUE=<never>"blue",
+    GREEN=<never>"green",
+    MINT=<never>"mint"
 }
 export enum Hold{
-    CRIMP="crimp",
-    JUG="jug",
-    PINCH="pinch",
-    POCKET="pocket",
-    SLOPER="sloper",
-    VOLUME="volume",
-    MACRO="macro",
-    DUAL_TEX="dual tex"
+    CRIMP=<never>"crimp",
+    JUG=<never>"jug",
+    PINCH=<never>"pinch",
+    POCKET=<never>"pocket",
+    SLOPER=<never>"sloper",
+    VOLUME=<never>"volume",
+    MACRO=<never>"macro",
+    DUAL_TEX=<never>"dual tex"
 }
 
 
 export enum Style{
-    DYNO="dyno",
-    SLAB="slab",
-    ROOF="roof",
-    NEGATIVE="negative",
-    MANTLE="mantle",
-    RUN_UP="run up",
-    STATIC="static",
-    BAT_HANG="bat hang",
-    CORNER="corner"
+    DYNO=<never>"dyno",
+    SLAB=<never>"slab",
+    ROOF=<never>"roof",
+    NEGATIVE=<never>"negative",
+    MANTLE=<never>"mantle",
+    RUN_UP=<never>"run up",
+    STATIC=<never>"static",
+    BAT_HANG=<never>"bat hang",
+    CORNER=<never>"corner"
 }
