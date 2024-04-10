@@ -37,6 +37,7 @@ public class CommentService {
                         .filter(comment -> !comment.getId().equals(commentId))
                                 .collect(toList());
         boulder.setComments(newComments);
+        boulderRepo.save(boulder);
         commentRepo.deleteById(commentId);
     }
 }
