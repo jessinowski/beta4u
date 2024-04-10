@@ -1,4 +1,11 @@
-.newComment{
-    width: 310px;
-    margin: 10px !important;
+.commentComp{
+    padding: 10px;
+}
+.createComment{
+    display: flex;
+    margin-bottom: 10px !important;
+}
+
+.commentTextField{
+    width: 360px;
 }

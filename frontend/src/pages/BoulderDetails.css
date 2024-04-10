@@ -1,3 +1,7 @@
+.MuiCardContent-root{
+    padding: 10px !important;
+}
+
 .chipDivs{
     color: white;
     margin-bottom: 5px;
@@ -14,13 +18,14 @@
 }
 
 .openComments{
-    margin-left: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .detailsHeader{
     display: flex;
     justify-content: space-between;
-    padding:8px 2px 8px 2px;
+    padding:10px 2px 8px 2px;
 }
 
 .details{

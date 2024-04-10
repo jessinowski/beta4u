@@ -33,10 +33,10 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
     }
 
     return(
-        <div >
-                <form  onSubmit={saveComment}>
-                    <TextField className={"newComment"} label={"Add a comment"} multiline value={newComment} onChange={handleComment}/>
-                    <IconButton type={"submit"}><SendIcon/></IconButton>
+        <div className={"commentComp"}>
+                <form className={"createComment"} onSubmit={saveComment}>
+                    <TextField className={"commentTextField"} label={"Add a comment"} multiline value={newComment} onChange={handleComment}/>
+                    <IconButton type={"submit"}><SendIcon /></IconButton>
                 </form>
                 {props.boulderComments.map(comment => <CommentCard  key={comment.id} comment={comment} boulder={props.boulder}
                                                              fetchData={props.fetchData} user={props.user}/>)}
