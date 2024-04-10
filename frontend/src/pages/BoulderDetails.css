@@ -1,4 +1,30 @@
 .chipDivs{
     color: white;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.chip{
+    margin: 5px;
+}
+
+.cardButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.openComments{
+    margin-left: 5px;
+}
+
+.detailsHeader{
+    display: flex;
+    justify-content: space-between;
+    padding:8px 2px 8px 2px;
+}
+
+.details{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
 }
