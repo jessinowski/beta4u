@@ -1,8 +1,8 @@
 import CommentCard from "./CommentCard.tsx";
-import {User} from "../types/User.ts";
-import {Boulder} from "../types/Boulder.ts";
+import {User} from "../../types/User.ts";
+import {Boulder} from "../../types/Boulder.ts";
 import {ChangeEvent, useState} from "react";
-import {UserComment} from "../types/UserComment.ts";
+import {UserComment} from "../../types/UserComment.ts";
 import axios from "axios";
 import "./CommentComponent.css";
 import TextField from '@mui/material/TextField';
@@ -29,6 +29,7 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
     function saveComment() {
         axios.post("/api/comments/create/" + props.boulder.id, newComment, {headers:{'Content-Type': 'text/plain'}})
             .then(props.fetchData);
+        setNewComment("")
     }
 
     return(
@@ -38,7 +39,7 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
                     <IconButton type={"submit"}><SendIcon/></IconButton>
                 </form>
                 {props.boulderComments.map(comment => <CommentCard  key={comment.id} comment={comment} boulder={props.boulder}
-                                                             fetchData={props.fetchData}/>)}
+                                                             fetchData={props.fetchData} user={props.user}/>)}
         </div>
     )
 }
