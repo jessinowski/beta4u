@@ -117,7 +117,7 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                                 input={<OutlinedInput label="Favorite holds"/>} size={"small"}
                                 renderValue={(selected) => (
                                     selected.map((value) => (
-                                        <Chip key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
+                                        <Chip className={"chip"} key={value} label={Hold[value as keyof typeof Hold]} size={"small"}/>
                                     ))
                                 )}>
                             {optionalHolds.map(([value, label]) =>
@@ -134,7 +134,7 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                                 input={<OutlinedInput label="Favorite styles"/>} size={"small"}
                                 renderValue={(selected) => (
                                     selected.map((value) => (
-                                        <Chip key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
+                                        <Chip className={"chip"} key={value} label={Style[value as keyof typeof Style]} size={"small"}/>
                                     ))
                                 )}>
                             {optionalStyles.map(([value, label]) =>

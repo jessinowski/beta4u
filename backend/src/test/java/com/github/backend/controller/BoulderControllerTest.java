@@ -1,9 +1,11 @@
 package com.github.backend.controller;
 
 import com.github.backend.models.Boulder;
+import com.github.backend.models.Comment;
 import com.github.backend.models.User;
 import com.github.backend.models.enums.*;
 import com.github.backend.repo.BoulderRepo;
+import com.github.backend.repo.CommentRepo;
 import com.github.backend.repo.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,11 +41,14 @@ class BoulderControllerTest {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private CommentRepo commentRepo;
+
     @Test
     void getAllBoulders_returnEmptyList_whenCalledInitially() throws Exception {
         //GIVEN
         //WHEN & THEN
-        mvc.perform(MockMvcRequestBuilders.get("/api/boulders"))
+        mvc.perform(get("/api/boulders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"))
                 .andReturn();
@@ -67,7 +72,7 @@ class BoulderControllerTest {
                 List.of(Style.MANTLE));
         boulderRepo.save(boulder);
         //WHEN & THEN
-        mvc.perform(MockMvcRequestBuilders.get("/api/boulders"))
+        mvc.perform(get("/api/boulders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                             [
@@ -107,7 +112,7 @@ class BoulderControllerTest {
                 List.of(Style.MANTLE));
         boulderRepo.save(boulder);
         //WHEN & THEN
-        mvc.perform(MockMvcRequestBuilders.get("/api/boulders/1"))
+        mvc.perform(get("/api/boulders/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                                 {
@@ -196,5 +201,62 @@ class BoulderControllerTest {
                 .andReturn();
     }
 
-
+    @Test
+    void getCommentsByBoulder() throws Exception {
+        //GIVEN
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                false);
+        userRepo.save(user);
+        Comment comment = new Comment("3", "nice", user, null);
+        commentRepo.save(comment);
+        Boulder boulder= new Boulder("1",
+                "image",
+                "video",
+                Level.EIGHT,
+                "5",
+                Gym.UA_HH_OST,
+                null,
+                List.of(comment),
+                List.of(),
+                "Alex",
+                Color.BLUE,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE));
+        boulderRepo.save(boulder);
+        //WHEN
+        mvc.perform(get("/api/boulders/comments/"+boulder.getId())
+                        .with(oidcLogin().userInfoToken(token->token.claim("id","22"))))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                            [
+                            {
+                                "id": "3",
+                                "content": "nice",
+                                "user":{
+                                    "id": "22",
+                                    "username": "jurassica",
+                                    "fullName": "Jessica",
+                                    "imagePath": "image",
+                                    "homeGym": "UA_HH_OST",
+                                    "favoriteHolds": ["CRIMP"],
+                                    "favoriteStyles": ["MANTLE"],
+                                    "newUser": false
+                                },
+                                "date": null
+                            }
+                            ]
+                          """))
+                .andReturn();
+    }
 }

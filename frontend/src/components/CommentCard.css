@@ -1,0 +1,25 @@
+.comment{
+    padding: 5px;
+    margin: 10px;
+}
+
+.commentHeader{
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentHeader p{
+    font-size: 12px;
+}
+
+.contentOfComment{
+    word-wrap: break-word;
+}
+
+.divider{
+    background-color: orange !important;
+}
+
+.deleteButton{
+    color: #fc2803;
+}
