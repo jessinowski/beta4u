@@ -37,7 +37,7 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
                     <TextField className={"newComment"} label={"Add a comment"} multiline value={newComment} onChange={handleComment}/>
                     <IconButton type={"submit"}><SendIcon/></IconButton>
                 </form>
-                {props.boulderComments.map(comment => <CommentCard comment={comment} boulder={props.boulder}
+                {props.boulderComments.map(comment => <CommentCard  key={comment.id} comment={comment} boulder={props.boulder}
                                                              fetchData={props.fetchData}/>)}
         </div>
     )
