@@ -7,6 +7,7 @@ import {Color, Gym, Hold, Level, Style} from "../types/enums.ts";
 import "./FilteredBoulders.css";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+
 type FilteredBouldersProps = {
     boulders: Boulder[];
     fetchData: () => void;
@@ -62,17 +63,17 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
                     <Autocomplete className={"searchField"}
                                   disablePortal
                                   size="small"
-                                  options={optLevels}
-                                  value={searchLevel}
-                                  onChange={(_e, value) => setSearchLevel(value)}
-                                  renderInput={(params) => <TextField {...params} label="Level"/>}/>
-                    <Autocomplete className={"searchField"}
-                                  disablePortal
-                                  size="small"
                                   options={optGyms}
                                   value={searchGym}
                                   onChange={(_e, value) => setSearchGym(value)}
                                   renderInput={(params) => <TextField {...params} label="Gym"/>}/>
+                    <Autocomplete className={"searchField"}
+                                  disablePortal
+                                  size="small"
+                                  options={optLevels}
+                                  value={searchLevel}
+                                  onChange={(_e, value) => setSearchLevel(value)}
+                                  renderInput={(params) => <TextField {...params} label="Level"/>}/>
                     <Autocomplete className={"searchField"}
                                   disablePortal
                                   size="small"
