@@ -1,11 +1,25 @@
+.commentCard{
+    display: flex;
+}
+.commentPicInfo{
+    display: flex;
+    align-items: center;
+}
 .comment{
     padding: 5px;
-    margin: 10px;
+    width: 260px;
 }
 
 .commentHeader{
     display: flex;
     justify-content: space-between;
+}
+
+.usersAvatar{
+    width: 32px !important;
+    height: 32px !important;
+    align-self: flex-start;
+    margin: 18px 10px 0 5px;
 }
 
 .commentHeader p{
@@ -14,6 +28,7 @@
 
 .contentOfComment{
     word-wrap: break-word;
+    margin-top: 5px;
 }
 
 .divider{
