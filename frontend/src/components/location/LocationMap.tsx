@@ -11,6 +11,7 @@ type LocationMapProps={
 export default function LocationMap(props: Readonly<LocationMapProps>){
     const ref = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map>();
+    const infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow();
 
 
 
@@ -31,6 +32,50 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
             case "UA_ST_PAULI":
                 return {lat: 53.55679796532782, lng: 9.970252332632851};
         }
+    }
+
+    const locationButton = document.createElement("button");
+
+    locationButton.textContent = "Show Current Location";
+    locationButton.classList.add("custom-map-control-button");
+
+    map && map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position: GeolocationPosition) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    infoWindow.open(map);
+                    map && map.setCenter(pos);
+                },
+                () => {
+                    handleLocationError(true, infoWindow, map.getCenter()!);
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter()!);
+        }
+    });
+
+    function handleLocationError(
+        browserHasGeolocation: boolean,
+        infoWindow: google.maps.InfoWindow,
+        pos: google.maps.LatLng
+    ) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(
+            browserHasGeolocation
+                ? "Error: The Geolocation service failed."
+                : "Error: Your browser doesn't support geolocation."
+        );
+        infoWindow.open(map);
     }
 
     return(
