@@ -48,7 +48,7 @@ public class User {
     public User(Map<String, Object> attributes){
         this.id = getStringAttribute(attributes, "id");
         this.username = "";
-        this.fullName = getStringAttribute(attributes, "name");
+        this.fullName = "";
         this.imagePath = getStringAttribute(attributes, "avatar_url");
         this.homeGym = null;
         this.favoriteHolds = null;
