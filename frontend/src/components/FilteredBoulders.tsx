@@ -41,8 +41,8 @@ export default function FilteredBoulders(props: Readonly<FilteredBouldersProps>)
             Gym[boulder.gym as keyof typeof Gym].toString().includes(searchGym) &&
             boulder.sector.toString().includes(searchSector) &&
             Color[boulder.color as keyof typeof Color].toString().includes(searchColor) &&
-            boulder.holds.map(hold => Hold[hold as keyof typeof Hold].toString().includes(searchHold)) &&
-            boulder.styles.map(style => Style[style as keyof typeof Style].toString().includes(searchStyle)) &&
+            boulder.holds.map(hold => Hold[hold as keyof typeof Hold]).toString().includes(searchHold) &&
+            boulder.styles.map(style => Style[style as keyof typeof Style]).toString().includes(searchStyle) &&
             boulder.routesetter.toString().includes(searchRoutesetter)
     );
 
