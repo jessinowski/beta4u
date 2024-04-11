@@ -13,14 +13,6 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
     const [map, setMap] = useState<google.maps.Map>();
     const infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow();
 
-
-
-    useEffect(() => {
-        if (ref.current && !map) {
-            setMap(new google.maps.Map(ref.current, { zoom: 11, center: {lat: 53.54565500799583, lng: 9.982908575419012}}));
-        }
-    }, [ref, map, props.user]);
-
     function getPosition(gym:string){
         switch(gym){
             case "UA_HH_OST":
@@ -34,6 +26,12 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
         }
     }
 
+    useEffect(() => {
+        if (ref.current && !map) {
+            setMap(new google.maps.Map(ref.current, { zoom: 12, center: getPosition(props.user.homeGym)}));
+        }
+    }, [ref, map, props.user]);
+
     const locationButton = document.createElement("button");
 
     locationButton.textContent = "Show Current Location";
@@ -42,7 +40,6 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
     map && map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
 
     locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position: GeolocationPosition) => {
@@ -51,6 +48,8 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
                         lng: position.coords.longitude,
                     };
 
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("You are here :)");
                     infoWindow.open(map);
                     map && map.setCenter(pos);
                 },
@@ -59,7 +58,6 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
                 }
             );
         } else {
-            // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter()!);
         }
     });
