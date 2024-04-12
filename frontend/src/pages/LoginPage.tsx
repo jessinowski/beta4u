@@ -13,11 +13,6 @@ export default function LoginPage(){
         <div className={"loginPage"}>
             <div className={"loginBox"}>
                 <img className={"beta4u_logo"} alt={"beta4u_logo"} src={beta4u_logo}/>
-{/*                <div className={"loginGreeting"}>
-                    Hi!
-                    <br/>
-                    Welcome
-                </div>*/}
                 <Button className={"loginButton"} variant={"outlined"} onClick={login}
                         startIcon={<Avatar className={"loginIcon"} alt="Remy Sharp" src={github_catLogo}/>}> Login with
                     Github</Button>

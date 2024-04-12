@@ -33,14 +33,7 @@
 }
 
 
-/*.loginGreeting{
-    display: flex;
-    flex-direction: column;
-    font-family: Comic Sans MS, serif;
-    font-size: 40px;
-    color: orange;
-    padding: 10px 0 15px 5px;
-}*/
+
 
 .loginIcon{
     filter: brightness(100%) saturate(0%) sepia(100%) hue-rotate(30deg) !important;

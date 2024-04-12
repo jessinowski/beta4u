@@ -1,5 +1,6 @@
 import FormComponent from "../components/FormComponent";
 import {User} from "../types/User.ts";
+import "./SignUpPage.css";
 
 type SignUpPageProps={
     user:User;
@@ -10,8 +11,10 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
 
     return(
         <div className={"pages"}>
-            <p>Hi!</p>
-            <p>Create your new profile</p>
+            <div className={"signUpGreeting"}>
+                <div>Hi, welcome!</div>
+                <div>Create your new profile</div>
+            </div>
             <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/"} formTarget={"create"}/>
         </div>
     )
