@@ -12,4 +12,5 @@ export type User={
     myTops?: Boulder[];
     myFlashes?: Boulder[];
     myProjects?: Boulder[];
+    newUser: boolean;
 }
