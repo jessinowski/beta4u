@@ -11,11 +11,13 @@ export default function SignUpPage(props: Readonly<SignUpPageProps>){
 
     return(
         <div className={"pages"}>
-            <div className={"signUpGreeting"}>
-                <div>Hi, welcome!</div>
-                <div>Create your new profile</div>
+            <div className={"signUpPage"}>
+                <div className={"signUpGreeting"}>
+                    <div>Hi, welcome!</div>
+                    <div>Create your new profile</div>
+                </div>
+                <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/"} formTarget={"create"}/>
             </div>
-            <FormComponent user={props.user} fetchUser={props.fetchUser} path={"/"} formTarget={"create"}/>
         </div>
     )
 }
