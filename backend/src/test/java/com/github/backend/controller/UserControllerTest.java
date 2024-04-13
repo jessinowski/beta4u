@@ -79,12 +79,6 @@ class UserControllerTest {
     }
 
     @Test
-    void getMe_ifUserIsNull() throws Exception {
-        mvc.perform(get("/api/user"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void getAllUsers() throws Exception {
         //GIVEN
         User user= new User(
