@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class KeyController {
 
-    @Value("${VITE_GOOGLE_API_KEY}")
+    @Value("${google.api.key}")
     private String googleApiKey;
     @GetMapping()
     public String getApiKey(){
