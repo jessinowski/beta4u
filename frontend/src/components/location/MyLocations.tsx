@@ -16,6 +16,7 @@ export default function MyLocations(props: Readonly<MyLocationsProps>){
     const[flashedBoulders, setFlashedBoulders]=useState<Boulder[]>([]);
     const[toppedBoulders, setToppedBoulders]=useState<Boulder[]>([]);
     const [counter, setCounter]=useState<Counters>({});
+    const[apiKey, setApiKey]=useState<string>("");
 
     useEffect(getFlashes, []);
     function getFlashes(){
@@ -43,14 +44,25 @@ export default function MyLocations(props: Readonly<MyLocationsProps>){
         setCounter(counters);
     }
 
+    useEffect(getApiKey, []);
+
+    function getApiKey(){
+        axios.get("/api/keys")
+            .then(response=>setApiKey(response.data))
+    }
+
     const render = (status: Status) => {
         return <h1>{status}</h1>;
     };
 
 
     return(
-        <Wrapper apiKey={import.meta.env.VITE_GOOGLE_API_KEY} render={render}>
-            <LocationMap counter={counter} user={props.user}/>
-        </Wrapper>
+        <>
+            {apiKey &&
+                <Wrapper apiKey={apiKey} render={render}>
+                    <LocationMap counter={counter} user={props.user}/>
+                </Wrapper>
+            }
+        </>
     )
 }
