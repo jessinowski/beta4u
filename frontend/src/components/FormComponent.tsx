@@ -89,7 +89,7 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
 
     return (
         <div className={"formComponent"}>
-            <Avatar alt="Remy Sharp" src={props.user.imagePath}/>
+            <Avatar className={"formPicture"} alt="profile_picture" src={props.user.imagePath}/>
             <form className={"form"} onSubmit={handleOnSubmit}>
                     <TextField sx={{m: 1, width: 300}}
                                id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
