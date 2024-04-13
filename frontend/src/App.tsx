@@ -18,10 +18,13 @@ export default function App() {
     const [boulders, setBoulders] = useState<Boulder[]>([]);
 
 
-    function fetchUser() {
+    function fetchUser(actionToCall? : () => void) {
         axios.get("/api/user")
             .then(response => {
-                setUser(response.data)
+                setUser(response.data);
+                if (actionToCall) {
+                   actionToCall();
+                }
             })
             .catch(()=>setUser(null))
     }
