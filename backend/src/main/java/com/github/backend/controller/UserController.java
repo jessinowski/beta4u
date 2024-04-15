@@ -26,6 +26,11 @@ public class UserController {
         return userService.getUserById(user.getAttributes().get("id").toString()).orElse(new User(user.getAttributes()));
     }
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
     @PostMapping("/edit")
     public User editUser(@AuthenticationPrincipal OAuth2User user, @RequestBody UserDto userDto){
         return userService.editUser(user, userDto);

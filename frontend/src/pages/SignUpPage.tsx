@@ -4,7 +4,7 @@ import "./SignUpPage.css";
 
 type SignUpPageProps={
     user:User;
-    fetchUser: ()=>void;
+    fetchUser: (actionToCall? : () => void)=>void;
 }
 
 export default function SignUpPage(props: Readonly<SignUpPageProps>){

@@ -35,7 +35,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/auth/me").authenticated()
+                        .requestMatchers("/api/user").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
@@ -48,8 +48,7 @@ public class SecurityConfig {
                     if(!user.isNewUser()){
                         response.sendRedirect(appUrl);
                     } else {
-                        user.setNewUser(false);
-                        userRepo.save(user);
+
                         response.sendRedirect(appUrl+"/#/sign_up");
                     }
                 })))
