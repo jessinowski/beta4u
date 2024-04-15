@@ -1,4 +1,5 @@
 import {
+    Alert,
     Avatar,
     Button,
     Chip,
@@ -10,7 +11,7 @@ import {
     SelectChangeEvent,
     TextField
 } from "@mui/material";
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../types/User.ts";
 import {Gym, Hold, Style} from "../types/enums.ts";
@@ -21,9 +22,11 @@ type FormComponentProps = {
     user: User;
     path: string;
     formTarget: string;
-    fetchUser: ()=>void;
+    fetchUser: (actionToCall? : () => void)=>void;
 }
 export default function FormComponent(props: Readonly<FormComponentProps>) {
+    const [allUsers, setAllUsers]=useState<User[]>([]);
+    const [alert, setAlert] = useState<boolean | null>(null);
     const [formData, setFormData] = useState<User>(props.user ? {username: props.user.username, fullName: props.user.fullName, homeGym: props.user.homeGym, favoriteHolds: props.user.favoriteHolds, favoriteStyles: props.user.favoriteStyles} : {username: '', homeGym: ''});
     const [homeGym, setHomeGym] = useState<string>(props.user ? props.user.homeGym : "");
     const [holds, setHolds] = useState<string[]>(props.user.favoriteHolds ? props.user.favoriteHolds : []);
@@ -35,15 +38,27 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        axios.post("/api/user/" + props.formTarget, formData)
-            .then(() => {
-                props.fetchUser();
-                navigate(props.path);
-            });
+        if(alert) {
+            axios.post("/api/user/" + props.formTarget, formData)
+                .then(() => {
+                    props.fetchUser(() => {navigate(props.path)});
+                });
+            }
+        }
+
+    useEffect(getAllUsers, []);
+    function getAllUsers(){
+        axios.get("/api/user/all")
+            .then(response => setAllUsers(response.data))
     }
 
     const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        if (allUsers.filter(user => user.username === value).length !== 0){
+            setAlert(false);
+        } else {
+            setAlert(true);
+        }
         setFormData((prevData) => ({
             ...prevData,
             username: value,
@@ -91,9 +106,12 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
         <div className={"formComponent"}>
             <Avatar alt="Remy Sharp" src={props.user.imagePath}/>
             <form className={"form"} onSubmit={handleOnSubmit}>
-                    <TextField sx={{m: 1, width: 300}}
+                    <TextField title={"TEST"} sx={{m: 1, width: 300}}
                                id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
                                onChange={handleChangeUsername} size={"small"} required/>
+                {alert === false &&  <Alert severity="error">Username already exists.</Alert>}
+                {alert === true &&  <Alert severity="success">Username is available.</Alert>}
+
                     <br/>
                     <TextField sx={{m: 1, width: 300}}
                                id={"fullName"} label={"Full name"} variant={"outlined"} value={formData.fullName}

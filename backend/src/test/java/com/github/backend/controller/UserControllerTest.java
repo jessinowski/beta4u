@@ -79,9 +79,39 @@ class UserControllerTest {
     }
 
     @Test
-    void getMe_ifUserIsNull() throws Exception {
-        mvc.perform(get("/api/user"))
-                .andExpect(status().isOk());
+    void getAllUsers() throws Exception {
+        //GIVEN
+        User user= new User(
+                "22",
+                "jurassica",
+                "Jessica",
+                "image",
+                Gym.UA_HH_OST,
+                List.of(Hold.CRIMP),
+                List.of(Style.MANTLE),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                false);
+        userRepo.save(user);
+        //WHEN & THEN
+        mvc.perform(get("/api/user/all"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                      [
+                        {
+                            "id": "22",
+                            "username": "jurassica",
+                            "fullName": "Jessica",
+                            "imagePath": "image",
+                            "homeGym": "UA_HH_OST",
+                            "favoriteHolds": ["CRIMP"],
+                            "favoriteStyles": ["MANTLE"],
+                            "newUser": false
+                        }
+                      ]
+                """));
     }
 
     @Test
