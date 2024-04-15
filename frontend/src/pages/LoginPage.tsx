@@ -1,7 +1,7 @@
 import "./LoginPage.css";
 import {Avatar, Button} from "@mui/material";
 import github_catLogo from "../assets/github-mark.png";
-
+import beta4u_logo from "../assets/beta4u_logo2.png";
 
 export default function LoginPage(){
 
@@ -11,15 +11,11 @@ export default function LoginPage(){
     }
     return(
         <div className={"loginPage"}>
-            <div>
-                <h1>beta4u</h1>
-                <div className={"loginGreeting"}>
-                    Hi!
-                    <br/>
-                    Welcome
-                </div>
+            <div className={"loginBox"}>
+                <img className={"beta4u_logo"} alt={"beta4u_logo"} src={beta4u_logo}/>
                 <Button className={"loginButton"} variant={"outlined"} onClick={login}
-                        startIcon={<Avatar className={"loginIcon"} alt="Remy Sharp" src={github_catLogo}/>}> Login with Github</Button>
+                        startIcon={<Avatar className={"loginIcon"} alt="Remy Sharp" src={github_catLogo}/>}> Login with
+                    Github</Button>
             </div>
         </div>
     )
