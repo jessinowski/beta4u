@@ -62,19 +62,19 @@ export default function Header(props: Readonly<HeaderProps>) {
                             onClose={handleCloseUserMenu}
                         >
 
-                            <MenuItem onClick={()=>handleCloseUserMenu("/profile")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu(`/profile/${props.user.id}`)}>
                                 Profile
                             </MenuItem>
-                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/favorites")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu(`/profile/${props.user.id}/favorites`)}>
                                 Favorites
                             </MenuItem>
-                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/tops")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu(`/profile/${props.user.id}/tops`)}>
                                 Tops
                             </MenuItem>
-                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/flashes")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu(`/profile/${props.user.id}/flashes`)}>
                                 Flashes
                             </MenuItem>
-                            <MenuItem onClick={()=>handleCloseUserMenu("/profile/projects")}>
+                            <MenuItem onClick={()=>handleCloseUserMenu(`/profile/${props.user.id}/projects`)}>
                                 Projects
                             </MenuItem>
                             <Divider/>
