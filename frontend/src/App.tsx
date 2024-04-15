@@ -55,7 +55,7 @@ export default function App() {
                         <Route path={"/sign_up"} element={user && <SignUpPage user={user} fetchUser={fetchUser}/>}/>
                         <Route path={"/"} element={user && <Homepage user={user} boulders={boulders} fetchData={fetchData}/>}/>
                         <Route path={"/boulder/:id"} element={user && <BoulderDetails boulders={boulders} fetchData={fetchData} user={user} fetchUser={fetchUser}/>}/>
-                        <Route path={"/profile/:tabName?"} element={user && <ProfilePage user={user}/>}/>
+                        <Route path={"/profile/:id/:tabName?"} element={user && <ProfilePage user={user}/>}/>
                         <Route path={"/editProfile"} element={user && <EditProfile fetchUser={fetchUser} user={user}/>}/>
                 </Route>
             </Routes>

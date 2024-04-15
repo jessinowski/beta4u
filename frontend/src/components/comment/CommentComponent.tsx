@@ -1,7 +1,7 @@
 import CommentCard from "./CommentCard.tsx";
 import {User} from "../../types/User.ts";
 import {Boulder} from "../../types/Boulder.ts";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {UserComment} from "../../types/UserComment.ts";
 import axios from "axios";
 import "./CommentComponent.css";
@@ -17,7 +17,6 @@ type CommentComponentProps={
 }
 
 export default function CommentComponent(props: Readonly <CommentComponentProps>){
-
     const [newComment, setNewComment]=useState<string>("");
 
 
@@ -26,7 +25,8 @@ export default function CommentComponent(props: Readonly <CommentComponentProps>
         setNewComment(value);
     }
 
-    function saveComment() {
+    function saveComment(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
         axios.post("/api/comments/create/" + props.boulder.id, newComment, {headers:{'Content-Type': 'text/plain'}})
             .then(props.fetchData);
         setNewComment("")

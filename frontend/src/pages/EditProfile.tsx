@@ -10,7 +10,7 @@ export default function EditProfile(props: Readonly<EditProfileProps>){
     return(
         <div className={"pages"}>
             <div className={"editProfile"}>
-                <p>Edit your profile here</p>
+                <p className={"editProfile_text"}>Edit your profile here</p>
                 <FormComponent fetchUser={props.fetchUser} user={props.user} path={"/profile"} formTarget={"edit"}/>
             </div>
         </div>

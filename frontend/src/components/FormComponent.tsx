@@ -104,7 +104,7 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
 
     return (
         <div className={"formComponent"}>
-            <Avatar alt="Remy Sharp" src={props.user.imagePath}/>
+            <Avatar className={"formPicture"} alt="profile_picture" src={props.user.imagePath}/>
             <form className={"form"} onSubmit={handleOnSubmit}>
                     <TextField title={"TEST"} sx={{m: 1, width: 300}}
                                id={"username"} label={"Username"} variant={"outlined"} value={formData.username}
@@ -116,9 +116,8 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                     <TextField sx={{m: 1, width: 300}}
                                id={"fullName"} label={"Full name"} variant={"outlined"} value={formData.fullName}
                                onChange={handleChangeFullName} size={"small"}/>
-                    <br/>
                     <FormControl required sx={{m: 1, width: 300}}>
-                        <InputLabel className={"label"}>Home gym</InputLabel>
+                        <InputLabel className={"label"} size={"small"}>Home gym</InputLabel>
                         <Select value={homeGym} onChange={changeHomeGym} input={<OutlinedInput label="Home gym"/>}
                                 size={"small"}>
                             {optionalGyms.map(([value,label]) =>
@@ -128,9 +127,8 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             )}
                         </Select>
                     </FormControl>
-                    <br/>
                     <FormControl sx={{m: 1, width: 300}}>
-                        <InputLabel className={"label"}>Favorite holds</InputLabel>
+                        <InputLabel className={"label"} size={"small"}>Favorite holds</InputLabel>
                         <Select multiple value={holds} onChange={changeFavoriteHolds}
                                 input={<OutlinedInput label="Favorite holds"/>} size={"small"}
                                 renderValue={(selected) => (
@@ -145,9 +143,8 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             )}
                         </Select>
                     </FormControl>
-                    <br/>
                     <FormControl sx={{m: 1, width: 300}}>
-                        <InputLabel className={"label"}>Favorite styles</InputLabel>
+                        <InputLabel className={"label"} size={"small"}>Favorite styles</InputLabel>
                         <Select multiple value={styles} onChange={changeFavoriteStyles}
                                 input={<OutlinedInput label="Favorite styles"/>} size={"small"}
                                 renderValue={(selected) => (
@@ -162,7 +159,6 @@ export default function FormComponent(props: Readonly<FormComponentProps>) {
                             )}
                         </Select>
                     </FormControl>
-                    <br/>
                     <Button className={"saveButton"} type={"submit"} variant={"contained"} size={"small"}>
                         Save
                     </Button>
