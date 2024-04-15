@@ -20,6 +20,10 @@ public class UserService {
         return userRepo.findById(id);
     }
 
+    public List<User> getAllUsers(){
+        return userRepo.findAll();
+    }
+
     public User createUser(OAuth2User user, UserDto newUserDto){
         User createdUser = new User(user.getAttributes().get("id").toString(),
                 newUserDto.getUsername(),
