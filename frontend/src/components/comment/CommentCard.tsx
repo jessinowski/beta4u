@@ -30,7 +30,7 @@ export default function CommentCard(props: Readonly<CommentCardProps>){
                     <div className={"comment"}>
                         <div className={"commentHeader"}>
                             <p>{props.comment.user.username}</p>
-                            <p>{format(props.comment.date, "dd.mm.yyyy HH:mm")}</p>
+                            <p>{format(props.comment.date, "dd.MM.yyyy HH:mm")}</p>
                         </div>
                         <p className={"contentOfComment"}>{props.comment.content}</p>
                     </div>
