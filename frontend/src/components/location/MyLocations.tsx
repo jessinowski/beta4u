@@ -44,11 +44,12 @@ export default function MyLocations(props: Readonly<MyLocationsProps>){
         setCounter(counters);
     }
 
-    useEffect(getApiKey, []);
+    useEffect(getApiKey, [apiKey]);
 
     function getApiKey(){
         axios.get("/api/keys")
             .then(response=>setApiKey(response.data))
+        console.log(apiKey)
     }
 
     const render = (status: Status) => {
