@@ -76,7 +76,7 @@ export default function ProfilePage(props: Readonly <ProfilePageProps>){
                 </div>
                 <div className={"profileButtons"}>
                     <IconButton onClick={() => navigate("/editProfile")}><ManageAccountsIcon/></IconButton>
-                    <IconButton onClick={() => navigate("/profile/locations")}><MapIcon/></IconButton>
+                    <IconButton onClick={() => navigate("/profile/:id/locations")}><MapIcon/></IconButton>
                 </div>
             </div>
             <Collapse className={"profileDetails"} in={expanded}>
