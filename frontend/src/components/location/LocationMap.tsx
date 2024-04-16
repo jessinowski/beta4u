@@ -3,25 +3,31 @@ import LocationMarker from "./LocationMarker.tsx";
 import {Counters} from "./MyLocations.tsx";
 import {User} from "../../types/User.ts";
 
-type LocationMapProps={
+type LocationMapProps = {
     counter: Counters;
     user: User;
 }
-
-export default function LocationMap(props: Readonly<LocationMapProps>){
+function handleLocationError(
+    browserHasGeolocation: boolean,
+    infoWindow: google.maps.InfoWindow,
+    pos: google.maps.LatLng,
+    map: google.maps.Map,
+) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+}
+export default function LocationMap(props: Readonly<LocationMapProps>) {
     const ref = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map>();
 
 
-
-    useEffect(() => {
-        if (ref.current && !map) {
-            setMap(new google.maps.Map(ref.current, { zoom: 11, center: {lat: 53.54565500799583, lng: 9.982908575419012}}));
-        }
-    }, [ref, map, props.user]);
-
-    function getPosition(gym:string){
-        switch(gym){
+    function getPosition(gym: string) {
+        switch (gym) {
             case "UA_HH_OST":
                 return {lat: 53.57739139409632, lng: 10.080135284580372}
             case "UA_HH_WEST":
@@ -33,10 +39,49 @@ export default function LocationMap(props: Readonly<LocationMapProps>){
         }
     }
 
-    return(
+    useEffect(() => {
+        if (ref.current && !map) {
+            const map = new google.maps.Map(ref.current, {zoom: 12, center: getPosition(props.user.homeGym)})
+            const locationButton = document.createElement("button");
+            const infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow();
+            locationButton.textContent = "Show Current Location";
+            locationButton.classList.add("custom-map-control-button");
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+            locationButton.addEventListener("click", () => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position: GeolocationPosition) => {
+                                const pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+
+                                infoWindow.setPosition(pos);
+                                infoWindow.setContent("You are here :)");
+                                infoWindow.open(map);
+                                if(map){
+                                    map.setCenter(pos);
+                                }
+                            },
+                            () => {
+                                handleLocationError(true, infoWindow, map.getCenter()!, map);
+                            }
+                        );
+                    } else {
+                        handleLocationError(false, infoWindow, map.getCenter()!, map);
+                    }
+                }
+            );
+            setMap(map);
+        }
+    }, [ref, map, props.user]);
+
+    return (
         <>
             <div id="map" ref={ref}></div>
-            {Object.entries(props.counter).map(([k,v]) => {return <LocationMarker key={k} position={getPosition(k)} map={map} label={v.toString()}/>})}
+            {Object.entries(props.counter).map(([k, v]) => {
+                return <LocationMarker key={k} position={getPosition(k)} map={map} label={v.toString()}/>
+            })}
         </>
     )
 }
