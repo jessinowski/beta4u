@@ -59,7 +59,9 @@ export default function LocationMap(props: Readonly<LocationMapProps>) {
                                 infoWindow.setPosition(pos);
                                 infoWindow.setContent("You are here :)");
                                 infoWindow.open(map);
-                                map && map.setCenter(pos);
+                                if(map){
+                                    map.setCenter(pos);
+                                }
                             },
                             () => {
                                 handleLocationError(true, infoWindow, map.getCenter()!, map);
